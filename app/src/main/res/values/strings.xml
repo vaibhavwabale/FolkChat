@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">FolkChat</string>
+    <string name="phone_desc">FolkChat will need to verify your phone number. <b>What\'s my number?</b></string>
+    <string name="next">Next</string>
+    <string name="Description">Enter one time password send on +918698066529</string>
+    <string name="privacy_desc">Read our <b>Privacy Policy.</b> Tap Agree and continue to accept the <b>Term of Service.</b></string>
+    <string name="agree">AGREE AND CONTINUE</string>
+    <string name="welcome">Welcome To FolkChat</string>
+    <string name="enter_phone">Enter Your Phone Number</string>
+    <string name="phone">Phone Number</string>
+    <string name="code">CODE</string>
+    <string name="verification">Verification</string>
+    <string name="verify_code">verify code</string>
+    <string name="profileDesc">Please provide your name and an optional profile photo</string>
+    <string name="type_your_name">Type your name here</string>
+    <string name="profileInfo">Profile Info</string>
+    <string name="submit">Submit</string>
+    <string name="resend">Didn\'t receive code? <b>Resend again</b></string>
+    <string name="no_internet_desc">Make Sure Wifi or Mobile Data is\n turned on, then try again</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="try_again">Try Again</string>
+    <string name="chats">Chats</string>
+    <string name="calls">Calls</string>
+    <string name="status">Status</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="online">Online</string>
+    <string name="name">Vaibhav Wable</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="type_a_message">Type a message...</string>
+    <string name="title_activity_tabbed">Tabbed</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="posts">Posts</string>
+    <string name="add">Add Story</string>
+    <string name="delete_for_me">Delete for Me</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_for_everyone">Delete for Everyone</string>
+    <string name="username">Username</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
