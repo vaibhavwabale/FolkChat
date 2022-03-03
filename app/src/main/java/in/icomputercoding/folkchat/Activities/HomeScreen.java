@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import in.icomputercoding.folkchat.Fragments.AddPostFragment;
 import in.icomputercoding.folkchat.Fragments.ChatFragment;
 import in.icomputercoding.folkchat.Fragments.HomeFragment;
 import in.icomputercoding.folkchat.Fragments.NotificationFragment;
@@ -43,6 +44,9 @@ public class HomeScreen extends AppCompatActivity {
                     break;
                 case R.id.profile:
                     fragment = new ProfileFragment();
+                    break;
+                case R.id.addPost:
+                    fragment = new AddPostFragment();
                     break;
                 case R.id.notification:
                     fragment = new NotificationFragment();
