@@ -4,7 +4,7 @@ public class User {
 
     private String uid, name, phoneNumber, profileImage, token;
 
-    public User() {
+    public User(String userID, int i, String email, String profileImage) {
 
     }
 

@@ -31,7 +31,8 @@
         android:textColor="@color/black"
         android:textSize="@dimen/_14font_mdp"
         tools:layout_editor_absoluteX="127dp"
-        tools:layout_editor_absoluteY="78dp" />
+        tools:layout_editor_absoluteY="78dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/profession"
@@ -51,7 +52,8 @@
         android:layout_height="90dp"
         android:src="@drawable/profile_user"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="64dp" />
+        tools:layout_editor_absoluteY="64dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/post"
