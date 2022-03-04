@@ -27,7 +27,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import in.icomputercoding.folkchat.Activities.HomeScreen;
-import in.icomputercoding.folkchat.HomeActivity;
 import in.icomputercoding.folkchat.Model.Photo;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.Model.UserAccountSettings;
@@ -41,15 +40,15 @@ public class FirebaseMethods {
     private static final String TAG = "FirebaseMethods";
 
     //firebase
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference myRef;
-    private StorageReference mStorageReference;
+    private final FirebaseDatabase mFirebaseDatabase;
+    private final DatabaseReference myRef;
+    private final StorageReference mStorageReference;
     private String userID;
 
     //vars
-    private Context mContext;
+    private final Context mContext;
     private double mPhotoUploadProgress = 0;
 
     public FirebaseMethods(Context context) {
@@ -88,6 +87,7 @@ public class FirebaseMethods {
             uploadTask = storageReference.putBytes(bytes);
 
             uploadTask.addOnSuccessListener(taskSnapshot -> {
+                Uri firebaseUrl = taskSnapshot.getUploadSessionUri();
                 Uri firebaseUrl = taskSnapshot.getDownloadUrl();
 
                 Toast.makeText(mContext, "photo upload success", Toast.LENGTH_SHORT).show();
@@ -137,22 +137,19 @@ public class FirebaseMethods {
             UploadTask uploadTask = null;
             uploadTask = storageReference.putBytes(bytes);
 
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri firebaseUrl = taskSnapshot.getDownloadUrl();
+            uploadTask.addOnSuccessListener(taskSnapshot -> {
+                Uri firebaseUrl = taskSnapshot.getDownloadUrl();
 
-                    Toast.makeText(mContext, "photo upload success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "photo upload success", Toast.LENGTH_SHORT).show();
 
-                    //insert into 'user_account_settings' node
-                    setProfilePhoto(firebaseUrl.toString());
+                //insert into 'user_account_settings' node
+                setProfilePhoto(firebaseUrl.toString());
 
-                    ((AccountSettingsActivity)mContext).setViewPager(
-                            ((AccountSettingsActivity)mContext).pagerAdapter
-                                    .getFragmentNumber(mContext.getString(R.string.edit_profile_fragment))
-                    );
+                ((AccountSettingsActivity)mContext).setViewPager(
+                        ((AccountSettingsActivity)mContext).pagerAdapter
+                                .getFragmentNumber(mContext.getString(R.string.edit_profile_fragment))
+                );
 
-                }
             }).addOnFailureListener(e -> {
                 Log.d(TAG, "onFailure: Photo upload failed.");
                 Toast.makeText(mContext, "Photo upload failed ", Toast.LENGTH_SHORT).show();
@@ -435,7 +432,7 @@ public class FirebaseMethods {
                                     .getFollowers()
                     );
 
-                    Log.d(TAG, "getUserAccountSettings: retrieved user_account_settings information: " + settings.toString());
+                    Log.d(TAG, "getUserAccountSettings: retrieved user_account_settings information: " + settings);
                 } catch (NullPointerException e) {
                     Log.e(TAG, "getUserAccountSettings: NullPointerException: " + e.getMessage());
                 }
@@ -463,7 +460,7 @@ public class FirebaseMethods {
                         .getUid()
                 );
 
-                Log.d(TAG, "getUserAccountSettings: retrieved users information: " + user.toString());
+                Log.d(TAG, "getUserAccountSettings: retrieved users information: " + user);
             }
         }
         return new UserSettings(user, settings);
