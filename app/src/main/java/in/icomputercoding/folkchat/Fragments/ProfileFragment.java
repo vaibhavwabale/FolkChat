@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.ankit.instagram_clone.Utils.FirebaseMethods;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.icomputercoding.folkchat.Model.Comment;
@@ -38,7 +38,10 @@ import in.icomputercoding.folkchat.Model.Like;
 import in.icomputercoding.folkchat.Model.Photo;
 import in.icomputercoding.folkchat.Model.UserAccountSettings;
 import in.icomputercoding.folkchat.Model.UserSettings;
+import in.icomputercoding.folkchat.Profile.AccountSettingsActivity;
+import in.icomputercoding.folkchat.Profile.ProfileActivity;
 import in.icomputercoding.folkchat.R;
+import in.icomputercoding.folkchat.Utils.FirebaseMethods;
 import in.icomputercoding.folkchat.Utils.GridImageAdapter;
 import in.icomputercoding.folkchat.Utils.UniversalImageLoader;
 
@@ -101,7 +104,6 @@ public class ProfileFragment extends Fragment {
         Log.d(TAG, "onCreateView: stared.");
 
 
-        setupBottomNavigationView();
         setupToolbar();
 
         setupFirebaseAuth();
@@ -112,22 +114,19 @@ public class ProfileFragment extends Fragment {
         getPostsCount();
 
         TextView editProfile = (TextView) view.findViewById(R.id.textEditProfile);
-        editProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: navigating to " + mContext.getString(R.string.edit_profile_fragment));
-                Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
-                intent.putExtra(getString(R.string.calling_activity), getString(R.string.profile_activity));
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
+        editProfile.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: navigating to " + mContext.getString(R.string.edit_profile_fragment));
+            Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
+            intent.putExtra(getString(R.string.calling_activity), getString(R.string.profile_activity));
+            startActivity(intent);
+            requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
 
         return view;
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         try{
             mOnGridImageSelectedListener = (OnGridImageSelectedListener) getActivity();
         }catch (ClassCastException e){
@@ -143,40 +142,40 @@ public class ProfileFragment extends Fragment {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference
                 .child(getString(R.string.dbname_user_photos))
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for ( DataSnapshot singleSnapshot :  dataSnapshot.getChildren()){
 
                     Photo photo = new Photo();
                     Map<String, Object> objectMap = (HashMap<String, Object>) singleSnapshot.getValue();
 
                     try {
-                        photo.setCaption(objectMap.get(getString(R.string.field_caption)).toString());
-                        photo.setTags(objectMap.get(getString(R.string.field_tags)).toString());
-                        photo.setPhoto_id(objectMap.get(getString(R.string.field_photo_id)).toString());
-                        photo.setUser_id(objectMap.get(getString(R.string.field_user_id)).toString());
-                        photo.setDate_created(objectMap.get(getString(R.string.field_date_created)).toString());
-                        photo.setImage_path(objectMap.get(getString(R.string.field_image_path)).toString());
+                        photo.setCaption(Objects.requireNonNull(Objects.requireNonNull(objectMap).get(getString(R.string.field_caption))).toString());
+                        photo.setTags(Objects.requireNonNull(objectMap.get(getString(R.string.field_tags))).toString());
+                        photo.setPhoto_id(Objects.requireNonNull(objectMap.get(getString(R.string.field_photo_id))).toString());
+                        photo.setUser_id(Objects.requireNonNull(objectMap.get(getString(R.string.field_user_id))).toString());
+                        photo.setDate_created(Objects.requireNonNull(objectMap.get(getString(R.string.field_date_created))).toString());
+                        photo.setImage_path(Objects.requireNonNull(objectMap.get(getString(R.string.field_image_path))).toString());
 
-                        ArrayList<Comment> comments = new ArrayList<Comment>();
+                        ArrayList<Comment> comments = new ArrayList<>();
                         for (DataSnapshot dSnapshot : singleSnapshot
                                 .child(getString(R.string.field_comments)).getChildren()) {
                             Comment comment = new Comment();
-                            comment.setUser_id(dSnapshot.getValue(Comment.class).getUser_id());
-                            comment.setComment(dSnapshot.getValue(Comment.class).getComment());
-                            comment.setDate_created(dSnapshot.getValue(Comment.class).getDate_created());
+                            comment.setUser_id(Objects.requireNonNull(dSnapshot.getValue(Comment.class)).getUser_id());
+                            comment.setComment(Objects.requireNonNull(dSnapshot.getValue(Comment.class)).getComment());
+                            comment.setDate_created(Objects.requireNonNull(dSnapshot.getValue(Comment.class)).getDate_created());
                             comments.add(comment);
                         }
 
                         photo.setComments(comments);
 
-                        List<Like> likesList = new ArrayList<Like>();
+                        List<Like> likesList = new ArrayList<>();
                         for (DataSnapshot dSnapshot : singleSnapshot
                                 .child(getString(R.string.field_likes)).getChildren()) {
                             Like like = new Like();
-                            like.setUser_id(dSnapshot.getValue(Like.class).getUser_id());
+                            like.setUser_id(Objects.requireNonNull(dSnapshot.getValue(Like.class)).getUser_id());
                             likesList.add(like);
                         }
                         photo.setLikes(likesList);
@@ -191,7 +190,7 @@ public class ProfileFragment extends Fragment {
                 int imageWidth = gridWidth/NUM_GRID_COLUMNS;
                 gridView.setColumnWidth(imageWidth);
 
-                ArrayList<String> imgUrls = new ArrayList<String>();
+                ArrayList<String> imgUrls = new ArrayList<>();
                 for(int i = 0; i < photos.size(); i++){
                     imgUrls.add(photos.get(i).getImage_path());
                 }
@@ -203,7 +202,7 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d(TAG, "onCancelled: query cancelled.");
             }
         });
@@ -214,10 +213,10 @@ public class ProfileFragment extends Fragment {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child(getString(R.string.dbname_followers))
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot :  dataSnapshot.getChildren()){
                     Log.d(TAG, "onDataChange: found follower:" + singleSnapshot.getValue());
                     mFollowersCount++;
@@ -226,7 +225,7 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -237,10 +236,10 @@ public class ProfileFragment extends Fragment {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child(getString(R.string.dbname_following))
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot :  dataSnapshot.getChildren()){
                     Log.d(TAG, "onDataChange: found following user:" + singleSnapshot.getValue());
                     mFollowingCount++;
@@ -249,7 +248,7 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -260,10 +259,10 @@ public class ProfileFragment extends Fragment {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child(getString(R.string.dbname_user_photos))
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot :  dataSnapshot.getChildren()){
                     Log.d(TAG, "onDataChange: found post:" + singleSnapshot.getValue());
                     mPostsCount++;
@@ -272,18 +271,13 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
 
     private void setProfileWidgets(UserSettings userSettings) {
-        //Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firebase database: " + userSettings.toString());
-        //Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firebase database: " + userSettings.getSettings().getUsername());
-
-
-        //User user = userSettings.getUser();
         UserAccountSettings settings = userSettings.getSettings();
 
         UniversalImageLoader.setImage(settings.getProfile_photo(), mProfilePhoto, null, "");
@@ -301,16 +295,13 @@ public class ProfileFragment extends Fragment {
      */
     private void setupToolbar(){
 
-        ((ProfileActivity)getActivity()).setSupportActionBar(toolbar);
+        ((ProfileActivity) requireActivity()).setSupportActionBar(toolbar);
 
-        profileMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: navigating to account settings.");
-                Intent intent = new Intent(mContext, AccountSettingsActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
+        profileMenu.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: navigating to account settings.");
+            Intent intent = new Intent(mContext, AccountSettingsActivity.class);
+            startActivity(intent);
+            requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
     }
 
@@ -329,27 +320,24 @@ public class ProfileFragment extends Fragment {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+        mAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
             }
+            // ...
         };
 
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 //retrieve user information from the database
                 setProfileWidgets(mFirebaseMethods.getUserSettings(dataSnapshot));
@@ -359,7 +347,7 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });

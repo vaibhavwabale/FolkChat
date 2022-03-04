@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -11,27 +12,28 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/backArrow"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
                     android:src="@drawable/ic_backarrow" />
 
+
                 <TextView
-                    android:id="@+id/profileName"
+                    android:id="@+id/tvBackLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_toRightOf="@id/backArrow"
-                    android:text="Options"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/backArrow"
+                    android:text="Photo"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
+
 
             </RelativeLayout>
 
@@ -40,5 +42,3 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 </merge>
-
-

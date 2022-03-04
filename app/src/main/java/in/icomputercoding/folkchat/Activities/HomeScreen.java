@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import java.util.Objects;
+
 import in.icomputercoding.folkchat.Fragments.AddPostFragment;
 import in.icomputercoding.folkchat.Fragments.ChatFragment;
 import in.icomputercoding.folkchat.Fragments.HomeFragment;
@@ -35,25 +37,20 @@ public class HomeScreen extends AppCompatActivity {
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
-            switch (item.getItemId()) {
-                case R.id.home:
-                    fragment = new HomeFragment();
-                    break;
-                case R.id.chats:
-                    fragment = new ChatFragment();
-                    break;
-                case R.id.profile:
-                    fragment = new ProfileFragment();
-                    break;
-                case R.id.addPost:
-                    fragment = new AddPostFragment();
-                    break;
-                case R.id.notification:
-                    fragment = new NotificationFragment();
-                    break;
+            int itemId = item.getItemId();
+            if (itemId == R.id.home) {
+                fragment = new HomeFragment();
+            } else if (itemId == R.id.chats) {
+                fragment = new ChatFragment();
+            } else if (itemId == R.id.profile) {
+                fragment = new ProfileFragment();
+            } else if (itemId == R.id.addPost) {
+                fragment = new AddPostFragment();
+            } else if (itemId == R.id.notification) {
+                fragment = new NotificationFragment();
             }
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, Objects.requireNonNull(fragment)).commit();
 
             return true;
         });

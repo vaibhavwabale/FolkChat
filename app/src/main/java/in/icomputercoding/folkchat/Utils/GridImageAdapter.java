@@ -92,7 +92,7 @@ public class GridImageAdapter extends ArrayAdapter<String>{
                     holder.mProgressBar.setVisibility(View.GONE);
                 }
             }
-        }
+        });
         return convertView;
     }
 }
