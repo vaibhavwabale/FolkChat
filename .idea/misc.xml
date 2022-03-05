@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FolkChat/app/src/main/res/layout/activity_accountsettings.xml" value="0.25" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/drawable/black_border.xml" value="0.13518518518518519" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/drawable/black_shade.xml" value="0.202" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/drawable/bottom_nav.xml" value="0.1287037037037037" />
@@ -50,6 +51,7 @@
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/demo_layout.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/demo_status.xml" value="0.25" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/dialog_stories.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_add_post.xml" value="0.1260135135135135" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_chat.xml" value="0.22" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_chats.xml" value="0.25" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_dash_board.xml" value="0.22" />
@@ -77,11 +79,6 @@
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/menu/chat_menu.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/menu/menu.xml" value="0.22" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/menu/topmenu.xml" value="0.33" />
-        <entry key="..\:/Users/lenovo/StudioProjects/FolkChat/app/src/main/res/layout/activity_search.xml" value="0.2234375" />
-        <entry key="..\:/Users/lenovo/StudioProjects/FolkChat/app/src/main/res/layout/activity_share.xml" value="0.2235539343408025" />
-        <entry key="..\:/Users/lenovo/StudioProjects/FolkChat/app/src/main/res/layout/fragment_add_post.xml" value="0.2" />
-        <entry key="..\:/Users/lenovo/StudioProjects/FolkChat/app/src/main/res/layout/layout_bottom_tabs.xml" value="0.2234375" />
-        <entry key="..\:/Users/lenovo/StudioProjects/FolkChat/app/src/main/res/layout/snippet_searchbar.xml" value="0.2234375" />
       </map>
     </option>
   </component>

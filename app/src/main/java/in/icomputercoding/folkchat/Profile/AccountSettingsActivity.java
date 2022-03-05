@@ -2,7 +2,6 @@ package in.icomputercoding.folkchat.Profile;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,16 +13,21 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 
+import in.icomputercoding.folkchat.Fragments.EditProfileFragment;
+import in.icomputercoding.folkchat.Fragments.SignOutFragment;
+import in.icomputercoding.folkchat.R;
+import in.icomputercoding.folkchat.Utils.FirebaseMethods;
+import in.icomputercoding.folkchat.Utils.SectionsStatePagerAdapter;
 
-/**
- * Created by User on 6/4/2017.
- */
+
 public class AccountSettingsActivity extends AppCompatActivity {
 
     private static final String TAG = "AccountSettingsActivity";
@@ -43,8 +47,8 @@ public class AccountSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_accountsettings);
         mContext = AccountSettingsActivity.this;
         Log.d(TAG, "onCreate: started.");
-        mViewPager = (ViewPager) findViewById(R.id.viewpager_container);
-        mRelativeLayout = (RelativeLayout) findViewById(R.id.relLayout1);
+        mViewPager = findViewById(R.id.viewpager_container);
+        mRelativeLayout = findViewById(R.id.relLayout1);
 
         setupSettingsList();
         setupBottomNavigationView();
@@ -52,7 +56,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         getIncomingIntent();
 
         //setup the backarrow for navigating back to "ProfileActivity"
-        ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
+        ImageView backArrow = findViewById(R.id.backArrow);
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +88,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                     //set the new profile picture
                     FirebaseMethods firebaseMethods = new FirebaseMethods(AccountSettingsActivity.this);
                     firebaseMethods.uploadNewPhoto(getString(R.string.profile_photo), null, 0,
-                            null,(Bitmap) intent.getParcelableExtra(getString(R.string.selected_bitmap)));
+                            null, intent.getParcelableExtra(getString(R.string.selected_bitmap)));
                 }
 
             }
@@ -112,7 +116,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
     private void setupSettingsList(){
         Log.d(TAG, "setupSettingsList: initializing 'Account Settings' list.");
-        ListView listView = (ListView) findViewById(R.id.lvAccountSettings);
+        ListView listView = findViewById(R.id.lvAccountSettings);
 
         ArrayList<String> options = new ArrayList<>();
         options.add(getString(R.string.edit_profile_fragment)); //fragment 0
@@ -137,9 +141,8 @@ public class AccountSettingsActivity extends AppCompatActivity {
      */
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, this,bottomNavigationViewEx);
+        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
+
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
@@ -147,19 +150,3 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
