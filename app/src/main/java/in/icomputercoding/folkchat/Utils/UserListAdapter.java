@@ -77,13 +77,13 @@ public class UserListAdapter extends ArrayAdapter<User> {
         }
 
 
-        holder.username.setText(getItem(position).getUsername());
-        holder.email.setText(getItem(position).getEmail());
+        holder.username.setText(getItem(position).getName());
+        holder.email.setText(getItem(position).getName());
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child(mContext.getString(R.string.dbname_user_account_settings))
                 .orderByChild(mContext.getString(R.string.field_user_id))
-                .equalTo(getItem(position).getUser_id());
+                .equalTo(getItem(position).getUid());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

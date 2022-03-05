@@ -53,7 +53,7 @@
 
             </RelativeLayout>
 
-            <in.icomputercoding.folkchat.Utils.SqaureImageView
+            <in.icomputercoding.folkchat.Utils.SquareImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/post_image"

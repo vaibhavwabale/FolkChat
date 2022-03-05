@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TimeZone;
 
 import in.icomputercoding.folkchat.Model.Comment;
@@ -112,12 +113,7 @@ public class ViewCommentsFragment extends Fragment {
 
         mBackArrow.setOnClickListener(v -> {
             Log.d(TAG, "onClick: navigating back");
-            if(getCallingActivityFromBundle().equals(getString(R.string.home_activity))){
-                requireActivity().getSupportFragmentManager().popBackStack();
-                //((HomeActivity)getActivity()).showLayout();
-            }else{
-                requireActivity().getSupportFragmentManager().popBackStack();
-            }
+            requireActivity().getSupportFragmentManager().popBackStack();
 
         });
     }
@@ -164,10 +160,7 @@ public class ViewCommentsFragment extends Fragment {
         return sdf.format(new Date());
     }
 
-    /**
-     * retrieve the photo from the incoming bundle from profileActivity interface
-     * @return
-     */
+
     private String getCallingActivityFromBundle(){
         Log.d(TAG, "getPhotoFromBundle: arguments: " + getArguments());
 
@@ -179,10 +172,7 @@ public class ViewCommentsFragment extends Fragment {
         }
     }
 
-    /**
-     * retrieve the photo from the incoming bundle from profileActivity interface
-     * @return
-     */
+
     private Photo getPhotoFromBundle(){
         Log.d(TAG, "getPhotoFromBundle: arguments: " + getArguments());
 
@@ -194,13 +184,9 @@ public class ViewCommentsFragment extends Fragment {
         }
     }
 
-           /*
-    ------------------------------------ Firebase ---------------------------------------------
-     */
 
-    /**
-     * Setup the firebase auth object
-     */
+
+
     private void setupFirebaseAuth(){
         Log.d(TAG, "setupFirebaseAuth: setting up firebase auth.");
 
@@ -272,9 +258,9 @@ public class ViewCommentsFragment extends Fragment {
                                     for (DataSnapshot dSnapshot : singleSnapshot
                                             .child(mContext.getString(R.string.field_comments)).getChildren()){
                                         Comment comment = new Comment();
-                                        comment.setUser_id(dSnapshot.getValue(Comment.class).getUser_id());
+                                        comment.setUser_id(Objects.requireNonNull(dSnapshot.getValue(Comment.class)).getUser_id());
                                         comment.setComment(dSnapshot.getValue(Comment.class).getComment());
-                                        comment.setDate_created(dSnapshot.getValue(Comment.class).getDate_created());
+                                        comment.setDate_created(Objects.requireNonNull(dSnapshot.getValue(Comment.class)).getDate_created());
                                         mComments.add(comment);
                                     }
 
@@ -283,13 +269,6 @@ public class ViewCommentsFragment extends Fragment {
                                     mPhoto = photo;
 
                                     setupWidgets();
-//                    List<Like> likesList = new ArrayList<Like>();
-//                    for (DataSnapshot dSnapshot : singleSnapshot
-//                            .child(getString(R.string.field_likes)).getChildren()){
-//                        Like like = new Like();
-//                        like.setUser_id(dSnapshot.getValue(Like.class).getUser_id());
-//                        likesList.add(like);
-//                    }
 
                                 }
 

@@ -13,9 +13,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.security.Permissions;
-
 import in.icomputercoding.folkchat.R;
+import in.icomputercoding.folkchat.Utils.Permissions;
 import in.icomputercoding.folkchat.Utils.SectionsPagerAdapter;
 
 

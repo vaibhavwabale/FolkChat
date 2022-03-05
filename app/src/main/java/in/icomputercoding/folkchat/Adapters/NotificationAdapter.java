@@ -1,27 +1,25 @@
 package in.icomputercoding.folkchat.Adapters;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import in.icomputercoding.folkchat.Model.NotificationModel;
+import in.icomputercoding.folkchat.Model.Notification;
 import in.icomputercoding.folkchat.R;
+import in.icomputercoding.folkchat.databinding.NotificationRvDesignBinding;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.viewHolder> {
 
-    ArrayList<NotificationModel> list;
+    ArrayList<Notification> list;
     Context context;
 
-    public NotificationAdapter(ArrayList<NotificationModel> list, Context context) {
+    public NotificationAdapter(ArrayList<Notification> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -35,10 +33,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        NotificationModel model = list.get(position);
-        holder.profile.setImageResource(model.getProfile());
-        holder.notification.setText(Html.fromHtml(model.getNotification()));
-        holder.time.setText(model.getTime());
+        Notification model = list.get(position);
     }
 
     @Override
@@ -47,14 +42,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     public static class viewHolder extends RecyclerView.ViewHolder {
-        ImageView profile;
-        TextView notification, time;
+
+        NotificationRvDesignBinding binding;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            profile = itemView.findViewById(R.id.notificationProfile);
-            notification = itemView.findViewById(R.id.notification);
-            time = itemView.findViewById(R.id.time);
+            binding = NotificationRvDesignBinding.bind(itemView);
 
         }
     }

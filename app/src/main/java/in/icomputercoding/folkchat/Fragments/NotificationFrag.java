@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import in.icomputercoding.folkchat.Adapters.NotificationAdapter;
-import in.icomputercoding.folkchat.Model.NotificationModel;
+import in.icomputercoding.folkchat.Model.Notification;
 import in.icomputercoding.folkchat.R;
 
 
 public class NotificationFrag extends Fragment {
 
     RecyclerView notificationRV;
-    ArrayList<NotificationModel> list;
+    ArrayList<Notification> list;
 
     public NotificationFrag() {
         // Required empty public constructor
@@ -39,15 +39,15 @@ public class NotificationFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notification2, container, false);
         notificationRV = view.findViewById(R.id.notificationRV);
         list = new ArrayList<>();
-        list.add(new NotificationModel(R.drawable.cover,"<b>Vaibhav Wable</b> mention you in a comment: Nice Try","just now"));
-        list.add(new NotificationModel(R.drawable.profile_user,"<b>Siddesh Bhosale</b> Liked your picture.","40 minutes ago"));
-        list.add(new NotificationModel(R.drawable.cover,"<b>Shubham Landge</b> Commented on your post.","2 hours"));
-        list.add(new NotificationModel(R.drawable.profile_user,"<b>Vaibhav Wable</b> mention you in a comment: Nice Try","3 hours"));
-        list.add(new NotificationModel(R.drawable.cover,"<b>Siddesh Bhosale</b> Liked your picture.","3 hours"));
-        list.add(new NotificationModel(R.drawable.profile_user,"<b>Shubham Landge</b> Commented on your post.","4 hours"));
-        list.add(new NotificationModel(R.drawable.cover,"<b>Vaibhav Wable</b> mention you in a comment: Nice Try","4 hours"));
-        list.add(new NotificationModel(R.drawable.profile_user,"<b>Siddesh Bhosale</b> Liked your picture.","4 hours"));
-        list.add(new NotificationModel(R.drawable.cover,"<b>Shubham Landge</b> Commented on your post.","4 hours"));
+      /*  list.add(new Notification(R.drawable.cover,"<b>Vaibhav Wable</b> mention you in a comment: Nice Try","just now"));
+        list.add(new Notification(R.drawable.profile_user,"<b>Siddesh Bhosale</b> Liked your picture.","40 minutes ago"));
+        list.add(new Notification(R.drawable.cover,"<b>Shubham Landge</b> Commented on your post.","2 hours"));
+        list.add(new Notification(R.drawable.profile_user,"<b>Vaibhav Wable</b> mention you in a comment: Nice Try","3 hours"));
+        list.add(new Notification(R.drawable.cover,"<b>Siddesh Bhosale</b> Liked your picture.","3 hours"));
+        list.add(new Notification(R.drawable.profile_user,"<b>Shubham Landge</b> Commented on your post.","4 hours"));
+        list.add(new Notification(R.drawable.cover,"<b>Vaibhav Wable</b> mention you in a comment: Nice Try","4 hours"));
+        list.add(new Notification(R.drawable.profile_user,"<b>Siddesh Bhosale</b> Liked your picture.","4 hours"));
+        list.add(new Notification(R.drawable.cover,"<b>Shubham Landge</b> Commented on your post.","4 hours")); */
 
 
 

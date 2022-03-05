@@ -4,6 +4,12 @@
         android:id="@+id/home"
         android:title="Home"
         android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/Search"
+        android:title="Search"
+        android:icon="@drawable/ic_search"/>
+
     <item
         android:id="@+id/chats"
         android:title="Chats"
@@ -12,11 +18,6 @@
         android:id="@+id/addPost"
         android:title="Add Post"
         android:icon="@drawable/ic_add"/>
-
-    <item
-          android:id="@+id/notification"
-          android:title="Notification"
-          android:icon="@drawable/ic_notifications"/>
 
     <item android:id="@+id/profile"
           android:title="Profile"

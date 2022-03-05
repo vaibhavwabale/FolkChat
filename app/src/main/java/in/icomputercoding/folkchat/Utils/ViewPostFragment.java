@@ -43,9 +43,6 @@ import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.Model.UserAccountSettings;
 import in.icomputercoding.folkchat.R;
 
-/**
- * Created by User on 8/12/2017.
- */
 
 public class ViewPostFragment extends Fragment {
 
@@ -71,17 +68,21 @@ public class ViewPostFragment extends Fragment {
 
 
     //widgets
-    private SqaureImageView mPostImage;
+    private SquareImageView mPostImage;
     private BottomNavigationViewEx bottomNavigationView;
-    private TextView mBackLabel, mCaption, mUsername, mTimestamp, mLikes, mComments;
+    private TextView mCaption;
+    private TextView mUsername;
+    private TextView mTimestamp;
+    private TextView mLikes;
+    private TextView mComments;
     private ImageView mBackArrow, mEllipses, mHeartRed, mHeartWhite, mProfileImage, mComment;
 
 
     //vars
     private Photo mPhoto;
     private int mActivityNumber = 0;
-    private String photoUsername = "";
-    private String profilePhotoUrl = "";
+    private final String photoUsername = "";
+    private final String profilePhotoUrl = "";
     private UserAccountSettings mUserAccountSettings;
     private GestureDetector mGestureDetector;
     private Heart mHeart;
@@ -94,10 +95,10 @@ public class ViewPostFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_post, container, false);
-        mPostImage = (SqaureImageView) view.findViewById(R.id.post_image);
+        mPostImage = (SquareImageView) view.findViewById(R.id.post_image);
         bottomNavigationView = (BottomNavigationViewEx) view.findViewById(R.id.bottomNavViewBar);
         mBackArrow = (ImageView) view.findViewById(R.id.backArrow);
-        mBackLabel = (TextView) view.findViewById(R.id.tvBackLabel);
+        TextView mBackLabel = (TextView) view.findViewById(R.id.tvBackLabel);
         mCaption = (TextView) view.findViewById(R.id.image_caption);
         mUsername = (TextView) view.findViewById(R.id.username);
         mTimestamp = (TextView) view.findViewById(R.id.image_time_posted);

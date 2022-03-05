@@ -1,18 +1,15 @@
 package in.icomputercoding.folkchat.Share;
 
-
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,10 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.Utils.FirebaseMethods;
+import in.icomputercoding.folkchat.Utils.UniversalImageLoader;
 
-/**
- * Created by User on 7/24/2017.
- */
 
 public class NextActivity extends AppCompatActivity {
 
@@ -38,15 +33,11 @@ public class NextActivity extends AppCompatActivity {
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference myRef;
     private FirebaseMethods mFirebaseMethods;
 
     //widgets
     private EditText mCaption;
 
-    //vars
-    private String mAppend = "file:/";
     private int imageCount = 0;
     private String imgUrl;
     private Bitmap bitmap;
@@ -62,36 +53,30 @@ public class NextActivity extends AppCompatActivity {
         setupFirebaseAuth();
 
         ImageView backArrow = (ImageView) findViewById(R.id.ivBackArrow);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: closing the activity");
-                finish();
-            }
+        backArrow.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: closing the activity");
+            finish();
         });
 
 
         TextView share = (TextView) findViewById(R.id.tvShare);
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: navigating to the final share screen.");
-                //upload the image to firebase
-                Toast.makeText(NextActivity.this, "Attempting to upload new photo", Toast.LENGTH_SHORT).show();
-                String caption = mCaption.getText().toString();
+        share.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: navigating to the final share screen.");
+            //upload the image to firebase
+            Toast.makeText(NextActivity.this, "Attempting to upload new photo", Toast.LENGTH_SHORT).show();
+            String caption = mCaption.getText().toString();
 
-                if(intent.hasExtra(getString(R.string.selected_image))){
-                    imgUrl = intent.getStringExtra(getString(R.string.selected_image));
-                    mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, imgUrl,null);
-                }
-                else if(intent.hasExtra(getString(R.string.selected_bitmap))){
-                    bitmap = (Bitmap) intent.getParcelableExtra(getString(R.string.selected_bitmap));
-                    mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, null,bitmap);
-                }
-
-
-
+            if(intent.hasExtra(getString(R.string.selected_image))){
+                imgUrl = intent.getStringExtra(getString(R.string.selected_image));
+                mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, imgUrl,null);
             }
+            else if(intent.hasExtra(getString(R.string.selected_bitmap))){
+                bitmap = (Bitmap) intent.getParcelableExtra(getString(R.string.selected_bitmap));
+                mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, null,bitmap);
+            }
+
+
+
         });
 
         setImage();
@@ -128,6 +113,8 @@ public class NextActivity extends AppCompatActivity {
         if(intent.hasExtra(getString(R.string.selected_image))){
             imgUrl = intent.getStringExtra(getString(R.string.selected_image));
             Log.d(TAG, "setImage: got new image url: " + imgUrl);
+            //vars
+            String mAppend = "file:/";
             UniversalImageLoader.setImage(imgUrl, image, null, mAppend);
         }
         else if(intent.hasExtra(getString(R.string.selected_bitmap))){
@@ -147,31 +134,28 @@ public class NextActivity extends AppCompatActivity {
     private void setupFirebaseAuth(){
         Log.d(TAG, "setupFirebaseAuth: setting up firebase auth.");
         mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference();
+        FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = mFirebaseDatabase.getReference();
         Log.d(TAG, "onDataChange: image count: " + imageCount);
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+        mAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
             }
+            // ...
         };
 
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 imageCount = mFirebaseMethods.getImageCount(dataSnapshot);
                 Log.d(TAG, "onDataChange: image count: " + imageCount);
@@ -179,7 +163,7 @@ public class NextActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });

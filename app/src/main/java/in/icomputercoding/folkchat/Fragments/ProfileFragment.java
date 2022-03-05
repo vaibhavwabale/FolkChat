@@ -11,10 +11,10 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +39,6 @@ import in.icomputercoding.folkchat.Model.Photo;
 import in.icomputercoding.folkchat.Model.UserAccountSettings;
 import in.icomputercoding.folkchat.Model.UserSettings;
 import in.icomputercoding.folkchat.Profile.AccountSettingsActivity;
-import in.icomputercoding.folkchat.Profile.ProfileActivity;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.Utils.FirebaseMethods;
 import in.icomputercoding.folkchat.Utils.GridImageAdapter;
@@ -104,7 +103,7 @@ public class ProfileFragment extends Fragment {
         Log.d(TAG, "onCreateView: stared.");
 
 
-        setupToolbar();
+       // setupToolbar();
 
         setupFirebaseAuth();
         setupGridView();
@@ -280,7 +279,7 @@ public class ProfileFragment extends Fragment {
     private void setProfileWidgets(UserSettings userSettings) {
         UserAccountSettings settings = userSettings.getSettings();
 
-        UniversalImageLoader.setImage(settings.getProfile_photo(), mProfilePhoto, null, "");
+     UniversalImageLoader.setImage(settings.getProfile_photo(), mProfilePhoto, null, "");
 
         mDisplayName.setText(settings.getDisplay_name());
         mUsername.setText(settings.getUsername());
@@ -295,7 +294,7 @@ public class ProfileFragment extends Fragment {
      */
     private void setupToolbar(){
 
-        ((ProfileActivity) requireActivity()).setSupportActionBar(toolbar);
+      //  ((ProfileActivity) requireActivity()).setSupportActionBar(toolbar);
 
         profileMenu.setOnClickListener(v -> {
             Log.d(TAG, "onClick: navigating to account settings.");
@@ -306,13 +305,6 @@ public class ProfileFragment extends Fragment {
     }
 
 
-      /*
-    ------------------------------------ Firebase ---------------------------------------------
-     */
-
-    /**
-     * Setup the firebase auth object
-     */
     private void setupFirebaseAuth(){
         Log.d(TAG, "setupFirebaseAuth: setting up firebase auth.");
 
