@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FolkChat">
         <activity
-            android:name=".Share.NextActivity"
+            android:name=".Search.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".Profile.ProfileActivity"
