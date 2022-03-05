@@ -14,11 +14,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
+
+import in.icomputercoding.folkchat.Fragments.EditProfileFragment;
+import in.icomputercoding.folkchat.Fragments.SignOutFragment;
+import in.icomputercoding.folkchat.R;
+import in.icomputercoding.folkchat.Utils.FirebaseMethods;
 
 
 /**
@@ -33,7 +40,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
 
     private Context mContext;
-    public SectionsStatePagerAdapter pagerAdapter;
+    public com.ankit.instagram_clone.Utils.SectionsStatePagerAdapter pagerAdapter;
     private ViewPager mViewPager;
     private RelativeLayout mRelativeLayout;
 
@@ -98,7 +105,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
     }
 
     private void setupFragments(){
-        pagerAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new com.ankit.instagram_clone.Utils.SectionsStatePagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new EditProfileFragment(), getString(R.string.edit_profile_fragment)); //fragment 0
         pagerAdapter.addFragment(new SignOutFragment(), getString(R.string.sign_out_fragment)); //fragment 1
     }
@@ -138,8 +145,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, this,bottomNavigationViewEx);
+
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
