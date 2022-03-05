@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.FragmentAddPostBinding;
 
 public class AddPostFragment extends Fragment {
@@ -46,7 +44,6 @@ public class AddPostFragment extends Fragment {
                 String description = binding.postDescription.getText().toString();
                 if (!description.isEmpty())
                 {
-                    binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.fol));
                 }
             }
 

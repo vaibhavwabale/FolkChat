@@ -1,29 +1,25 @@
-package com.ankit.instagram_clone.Share;
+package in.icomputercoding.folkchat.Share;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.ankit.instagram_clone.Utils.Permissions;
-import com.ankit.instagram_clone.Utils.SectionsPagerAdapter;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
 
-import com.ankit.instagram_clone.R;
-import com.ankit.instagram_clone.Utils.BottomNavigationViewHelper;
+import com.google.android.material.tabs.TabLayout;
 
-/**
- * Created by User on 5/28/2017.
- */
+import java.security.Permissions;
 
-public class ShareActivity extends AppCompatActivity{
+import in.icomputercoding.folkchat.R;
+import in.icomputercoding.folkchat.Utils.SectionsPagerAdapter;
+
+
+public class ShareActivity extends AppCompatActivity {
     private static final String TAG = "ShareActivity";
 
     //constants
@@ -49,19 +45,12 @@ public class ShareActivity extends AppCompatActivity{
 
     }
 
-    /**
-     * return the current tab number
-     * 0 = GalleryFragment
-     * 1 = PhotoFragment
-     * @return
-     */
+
     public int getCurrentTabNumber(){
         return mViewPager.getCurrentItem();
     }
 
-    /**
-     * setup viewpager for manager the tabs
-     */
+
     private void setupViewPager(){
         SectionsPagerAdapter adapter =  new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new GalleryFragment());
@@ -70,7 +59,7 @@ public class ShareActivity extends AppCompatActivity{
         mViewPager = (ViewPager) findViewById(R.id.viewpager_container);
         mViewPager.setAdapter(adapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabsBottom);
+        @SuppressLint("WrongViewCast") TabLayout tabLayout =  findViewById(R.id.tabsBottom);
         tabLayout.setupWithViewPager(mViewPager);
 
         tabLayout.getTabAt(0).setText(getString(R.string.gallery));
@@ -83,10 +72,7 @@ public class ShareActivity extends AppCompatActivity{
         return getIntent().getFlags();
     }
 
-    /**
-     * verifiy all the permissions passed to the array
-     * @param permissions
-     */
+
     public void verifyPermissions(String[] permissions){
         Log.d(TAG, "verifyPermissions: verifying permissions.");
 
@@ -97,11 +83,6 @@ public class ShareActivity extends AppCompatActivity{
         );
     }
 
-    /**
-     * Check an array of permissions
-     * @param permissions
-     * @return
-     */
     public boolean checkPermissionsArray(String[] permissions){
         Log.d(TAG, "checkPermissionsArray: checking permissions array.");
 
@@ -114,11 +95,6 @@ public class ShareActivity extends AppCompatActivity{
         return true;
     }
 
-    /**
-     * Check a single permission is it has been verified
-     * @param permission
-     * @return
-     */
     public boolean checkPermissions(String permission){
         Log.d(TAG, "checkPermissions: checking permission: " + permission);
 
@@ -134,16 +110,5 @@ public class ShareActivity extends AppCompatActivity{
         }
     }
 
-    /**
-     * BottomNavigationView setup
-     */
-    private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, this,bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
-    }
+
 }
