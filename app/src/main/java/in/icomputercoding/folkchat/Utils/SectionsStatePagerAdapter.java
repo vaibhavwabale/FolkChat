@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by User on 6/4/2017.
- */
 
-class SectionsStatePagerAdapter extends FragmentStatePagerAdapter {
+
+public class SectionsStatePagerAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final HashMap<Fragment, Integer> mFragments = new HashMap<>();
@@ -40,11 +38,7 @@ class SectionsStatePagerAdapter extends FragmentStatePagerAdapter {
         mFragmentNames.put(mFragmentList.size()-1, fragmentName);
     }
 
-    /**
-     * returns the fragment with the name @param
-     * @param fragmentName
-     * @return
-     */
+
     public Integer getFragmentNumber(String fragmentName){
         if(mFragmentNumbers.containsKey(fragmentName)){
             return mFragmentNumbers.get(fragmentName);
@@ -54,11 +48,7 @@ class SectionsStatePagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
-    /**
-     * returns the fragment with the name @param
-     * @param fragment
-     * @return
-     */
+
     public Integer getFragmentNumber(Fragment fragment){
         if(mFragmentNumbers.containsKey(fragment)){
             return mFragmentNumbers.get(fragment);
@@ -67,11 +57,7 @@ class SectionsStatePagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    /**
-     * returns the fragment with the name @param
-     * @param fragmentNumber
-     * @return
-     */
+
     public String getFragmentName(Integer fragmentNumber){
         if(mFragmentNames.containsKey(fragmentNumber)){
             return mFragmentNames.get(fragmentNumber);
@@ -80,22 +66,3 @@ class SectionsStatePagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
