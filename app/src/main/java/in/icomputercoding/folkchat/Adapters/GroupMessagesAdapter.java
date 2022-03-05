@@ -1,9 +1,9 @@
 package in.icomputercoding.folkchat.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,14 +19,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
 import in.icomputercoding.folkchat.Model.Message;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.R;
+import in.icomputercoding.folkchat.databinding.DeleteDialogBinding;
 import in.icomputercoding.folkchat.databinding.ItemReceiveGroupBinding;
 import in.icomputercoding.folkchat.databinding.ItemSentGroupBinding;
-import in.icomputercoding.folkchat.databinding.DeleteDialogBinding;
-
-import java.util.ArrayList;
 
 public class GroupMessagesAdapter extends RecyclerView.Adapter {
 
@@ -56,18 +58,19 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         Message message = messages.get(position);
-        if(FirebaseAuth.getInstance().getUid().equals(message.getSenderId())) {
+        if(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()).equals(message.getSenderId())) {
             return ITEM_SENT;
         } else {
             return ITEM_RECEIVE;
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Message message = messages.get(position);
 
-        int reactions[] = new int[]{
+        int[] reactions = new int[]{
                 R.drawable.ic_fb_like,
                 R.drawable.ic_fb_love,
                 R.drawable.ic_fb_laugh,
@@ -121,11 +124,12 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
                     .getReference().child("users")
                     .child(message.getSenderId())
                     .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists()) {
                                 User user = snapshot.getValue(User.class);
-                                viewHolder.binding.name.setText("@" + user.getName());
+                                viewHolder.binding.name.setText("@" + Objects.requireNonNull(user).getName());
                             }
                         }
 
@@ -144,55 +148,46 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
                 viewHolder.binding.feeling.setVisibility(View.GONE);
             }
 
-            viewHolder.binding.message.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    popup.onTouch(v, event);
-                    return false;
-                }
+            viewHolder.binding.message.setOnTouchListener((v, event) -> {
+                popup.onTouch(v, event);
+                return false;
             });
 
-            viewHolder.binding.image.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    popup.onTouch(v, event);
-                    return false;
-                }
+            viewHolder.binding.image.setOnTouchListener((v, event) -> {
+                popup.onTouch(v, event);
+                return false;
             });
 
-            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    View view = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null);
-                    DeleteDialogBinding binding = DeleteDialogBinding.bind(view);
-                    AlertDialog dialog = new AlertDialog.Builder(context)
-                            .setTitle("Delete Message")
-                            .setView(binding.getRoot())
-                            .create();
+            viewHolder.itemView.setOnLongClickListener(v -> {
+                @SuppressLint("InflateParams") View view = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null);
+                DeleteDialogBinding binding = DeleteDialogBinding.bind(view);
+                AlertDialog dialog = new AlertDialog.Builder(context)
+                        .setTitle("Delete Message")
+                        .setView(binding.getRoot())
+                        .create();
 
-                    binding.everyone.setOnClickListener((View.OnClickListener) v1 -> {
-                        message.setMessage("This message is removed.");
-                        message.setFeeling(-1);
-                        FirebaseDatabase.getInstance().getReference()
-                                .child("public")
-                                .child(message.getMessageId()).setValue(message);
+                binding.everyone.setOnClickListener((View.OnClickListener) v1 -> {
+                    message.setMessage("This message is removed.");
+                    message.setFeeling(-1);
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("public")
+                            .child(message.getMessageId()).setValue(message);
 
-                        dialog.dismiss();
-                    });
+                    dialog.dismiss();
+                });
 
-                    binding.delete.setOnClickListener((View.OnClickListener) v12 -> {
-                        FirebaseDatabase.getInstance().getReference()
-                                .child("public")
-                                .child(message.getMessageId()).setValue(null);
-                        dialog.dismiss();
-                    });
+                binding.delete.setOnClickListener((View.OnClickListener) v12 -> {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("public")
+                            .child(message.getMessageId()).setValue(null);
+                    dialog.dismiss();
+                });
 
-                    binding.cancel.setOnClickListener((View.OnClickListener) v15 -> dialog.dismiss());
+                binding.cancel.setOnClickListener((View.OnClickListener) v15 -> dialog.dismiss());
 
-                    dialog.show();
+                dialog.show();
 
-                    return false;
-                }
+                return false;
             });
         } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder)holder;
@@ -208,11 +203,12 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
                     .getReference().child("users")
                     .child(message.getSenderId())
                     .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists()) {
                                 User user = snapshot.getValue(User.class);
-                                viewHolder.binding.name.setText("@" + user.getName());
+                                viewHolder.binding.name.setText("@" + Objects.requireNonNull(user).getName());
                             }
                         }
 
@@ -231,58 +227,46 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
                 viewHolder.binding.feeling.setVisibility(View.GONE);
             }
 
-            viewHolder.binding.message.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    popup.onTouch(v, event);
-                    return false;
-                }
+            viewHolder.binding.message.setOnTouchListener((v, event) -> {
+                popup.onTouch(v, event);
+                return false;
             });
 
-            viewHolder.binding.image.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    popup.onTouch(v, event);
-                    return false;
-                }
+            viewHolder.binding.image.setOnTouchListener((v, event) -> {
+                popup.onTouch(v, event);
+                return false;
             });
 
-            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    View view = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null);
-                    DeleteDialogBinding binding = DeleteDialogBinding.bind(view);
-                    AlertDialog dialog = new AlertDialog.Builder(context)
-                            .setTitle("Delete Message")
-                            .setView(binding.getRoot())
-                            .create();
+            viewHolder.itemView.setOnLongClickListener(v -> {
+                @SuppressLint("InflateParams") View view = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null);
+                DeleteDialogBinding binding = DeleteDialogBinding.bind(view);
+                AlertDialog dialog = new AlertDialog.Builder(context)
+                        .setTitle("Delete Message")
+                        .setView(binding.getRoot())
+                        .create();
 
-                    binding.everyone.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            message.setMessage("This message is removed.");
-                            message.setFeeling(-1);
-                            FirebaseDatabase.getInstance().getReference()
-                                    .child("public")
-                                    .child(message.getMessageId()).setValue(message);
+                binding.everyone.setOnClickListener(v16 -> {
+                    message.setMessage("This message is removed.");
+                    message.setFeeling(-1);
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("public")
+                            .child(message.getMessageId()).setValue(message);
 
-                            dialog.dismiss();
-                        }
-                    });
+                    dialog.dismiss();
+                });
 
-                    binding.delete.setOnClickListener((View.OnClickListener) v13 -> {
-                        FirebaseDatabase.getInstance().getReference()
-                                .child("public")
-                                .child(message.getMessageId()).setValue(null);
-                        dialog.dismiss();
-                    });
+                binding.delete.setOnClickListener((View.OnClickListener) v13 -> {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("public")
+                            .child(message.getMessageId()).setValue(null);
+                    dialog.dismiss();
+                });
 
-                    binding.cancel.setOnClickListener((View.OnClickListener) v14 -> dialog.dismiss());
+                binding.cancel.setOnClickListener((View.OnClickListener) v14 -> dialog.dismiss());
 
-                    dialog.show();
+                dialog.show();
 
-                    return false;
-                }
+                return false;
             });
         }
     }
@@ -292,7 +276,7 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
         return messages.size();
     }
 
-    public class SentViewHolder extends RecyclerView.ViewHolder {
+    public static class SentViewHolder extends RecyclerView.ViewHolder {
 
         ItemSentGroupBinding binding;
         public SentViewHolder(@NonNull View itemView) {
@@ -301,7 +285,7 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public class ReceiverViewHolder extends RecyclerView.ViewHolder {
+    public static class ReceiverViewHolder extends RecyclerView.ViewHolder {
 
         ItemReceiveGroupBinding binding;
 

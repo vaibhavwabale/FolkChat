@@ -21,6 +21,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FolkChat">
         <activity
+            android:name=".Profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Share.ShareActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Profile.AccountSettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.GroupChat"
             android:exported="false"
             android:theme="@style/Theme.FolkChat.NoActionBar" />

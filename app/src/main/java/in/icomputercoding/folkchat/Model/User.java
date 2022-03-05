@@ -4,7 +4,7 @@ public class User {
 
     private String uid, name, phoneNumber, profileImage, token;
 
-    public User() {
+    public User(String userID, int i, String email, String profileImage) {
 
     }
 
@@ -13,6 +13,10 @@ public class User {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
+    }
+
+    public User() {
+
     }
 
     public String getUid() {
