@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import in.icomputercoding.folkchat.Fragments.ChatFragment;
-import in.icomputercoding.folkchat.Fragments.PostsFragment;
 
 public class PagerAdapters extends FragmentPagerAdapter {
 
@@ -31,10 +30,6 @@ public class PagerAdapters extends FragmentPagerAdapter {
         {
             case 0:
                 return new ChatFragment();
-
-
-            case 1:
-                return new PostsFragment();
 
 
             default:

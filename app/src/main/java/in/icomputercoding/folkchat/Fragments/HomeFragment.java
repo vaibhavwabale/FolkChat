@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory;
@@ -37,6 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
+import in.icomputercoding.folkchat.Activities.ChatActivity;
 import in.icomputercoding.folkchat.Adapters.PostsAdapter;
 import in.icomputercoding.folkchat.Adapters.TopStatusAdapter;
 import in.icomputercoding.folkchat.Adapters.UsersAdapter;
@@ -69,6 +69,11 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater,container,false);
 
 
+
+        binding.chats.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), ChatActivity.class);
+            startActivity(i);
+        });
 
          app = FirebaseApp.initializeApp(requireContext());
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
@@ -121,10 +126,6 @@ public class HomeFragment extends Fragment {
         usersAdapter = new UsersAdapter(getContext(), users);
         statusAdapter = new TopStatusAdapter(getContext(), userStatuses);
         UserStatus users = new UserStatus();
-        Glide.with(requireContext())
-                .load(users.getProfileImage())
-                .placeholder(R.drawable.profile_user)
-                .into(binding.profileImage);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         binding.statusList.setLayoutManager(layoutManager);

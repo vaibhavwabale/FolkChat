@@ -32,6 +32,7 @@
                         android:id="@+id/profile_photo"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:src="@drawable/profile_user"
                         android:layout_centerVertical="true"
                         app:civ_border_color="@color/colorBlack"
                         app:civ_border_width="0.5dp" />

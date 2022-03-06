@@ -38,8 +38,8 @@ import in.icomputercoding.folkchat.Model.Like;
 import in.icomputercoding.folkchat.Model.Photo;
 import in.icomputercoding.folkchat.Model.UserAccountSettings;
 import in.icomputercoding.folkchat.Model.UserSettings;
-import in.icomputercoding.folkchat.Profile.AccountSettingsActivity;
 import in.icomputercoding.folkchat.R;
+import in.icomputercoding.folkchat.SettingActivity;
 
 
 public class ProfileFragment extends Fragment {
@@ -82,18 +82,18 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        mDisplayName = (TextView) view.findViewById(R.id.display_name);
-        mUsername = (TextView) view.findViewById(R.id.username);
-        mWebsite = (TextView) view.findViewById(R.id.website);
-        mDescription = (TextView) view.findViewById(R.id.description);
-        mProfilePhoto = (CircleImageView) view.findViewById(R.id.profile_photo);
-        mPosts = (TextView) view.findViewById(R.id.tvPosts);
-        mFollowers = (TextView) view.findViewById(R.id.tvFollowers);
-        mFollowing = (TextView) view.findViewById(R.id.tvFollowing);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.profileProgressBar);
-        gridView = (GridView) view.findViewById(R.id.gridView);
-        toolbar = (Toolbar) view.findViewById(R.id.profileToolBar);
-        profileMenu = (ImageView) view.findViewById(R.id.profileMenu);
+        mDisplayName = view.findViewById(R.id.display_name);
+        mUsername = view.findViewById(R.id.username);
+        mWebsite = view.findViewById(R.id.website);
+        mDescription = view.findViewById(R.id.description);
+        mProfilePhoto = view.findViewById(R.id.profile_photo);
+        mPosts = view.findViewById(R.id.tvPosts);
+        mFollowers = view.findViewById(R.id.tvFollowers);
+        mFollowing = view.findViewById(R.id.tvFollowing);
+        mProgressBar = view.findViewById(R.id.profileProgressBar);
+        gridView = view.findViewById(R.id.gridView);
+        toolbar = view.findViewById(R.id.profileToolBar);
+        profileMenu = view.findViewById(R.id.profileMenu);
         mContext = getActivity();
         Log.d(TAG, "onCreateView: stared.");
 
@@ -107,10 +107,10 @@ public class ProfileFragment extends Fragment {
         getFollowingCount();
         getPostsCount();
 
-        TextView editProfile = (TextView) view.findViewById(R.id.textEditProfile);
+        TextView editProfile = view.findViewById(R.id.textEditProfile);
         editProfile.setOnClickListener(v -> {
             Log.d(TAG, "onClick: navigating to " + mContext.getString(R.string.edit_profile_fragment));
-            Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
+            Intent intent = new Intent(getActivity(), SettingActivity.class);
             intent.putExtra(getString(R.string.calling_activity), getString(R.string.profile_activity));
             startActivity(intent);
             requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -179,10 +179,6 @@ public class ProfileFragment extends Fragment {
                     }
                 }
 
-                //setup our image grid
-                int gridWidth = getResources().getDisplayMetrics().widthPixels;
-                int imageWidth = gridWidth/NUM_GRID_COLUMNS;
-                gridView.setColumnWidth(imageWidth);
 
                 ArrayList<String> imgUrls = new ArrayList<>();
                 for(int i = 0; i < photos.size(); i++){
@@ -284,11 +280,9 @@ public class ProfileFragment extends Fragment {
      */
     private void setupToolbar(){
 
-      //  ((ProfileActivity) requireActivity()).setSupportActionBar(toolbar);
-
         profileMenu.setOnClickListener(v -> {
             Log.d(TAG, "onClick: navigating to account settings.");
-            Intent intent = new Intent(mContext, AccountSettingsActivity.class);
+            Intent intent = new Intent(mContext, SettingActivity.class);
             startActivity(intent);
             requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
