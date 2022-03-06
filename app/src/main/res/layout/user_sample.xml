@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/follow_btn"
+        android:background="@drawable/follow_btn_bg"
         android:fontFamily="@font/poppins"
         android:text="Follow"
         android:textColor="@color/colorTextWhite"

@@ -21,15 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FolkChat">
         <activity
-            android:name=".SettingActivity"
+            android:name=".Chats.GroupChat"
             android:exported="false"
             android:theme="@style/Theme.FolkChat.NoActionBar" />
         <activity
-            android:name=".Activities.GroupChat"
-            android:exported="false"
-            android:theme="@style/Theme.FolkChat.NoActionBar" />
-        <activity
-            android:name=".Activities.ChatActivity"
+            android:name=".Chats.ChatActivity"
             android:exported="false"
             android:theme="@style/Theme.FolkChat.NoActionBar" />
         <activity

@@ -65,7 +65,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.viewHolder
                             .child("followers")
                             .child(FirebaseAuth.getInstance().getUid())
                             .child("followerCount")
-                            .setValue(user.getFollowerCount() + 1).addOnSuccessListener(unused1 -> Toast.makeText(context,"You Followed " + user.getName(),Toast.LENGTH_SHORT).show()));
+                            .setValue(user.getFollowerCount() + 1).addOnSuccessListener(unused1 ->
+                            Toast.makeText(context,"You Followed " + user.getName(),Toast.LENGTH_SHORT).show()));
         });
     }
 

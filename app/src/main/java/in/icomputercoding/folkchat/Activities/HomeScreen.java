@@ -2,8 +2,6 @@ package in.icomputercoding.folkchat.Activities;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +11,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
+import in.icomputercoding.folkchat.Chats.ChatFragment;
 import in.icomputercoding.folkchat.Fragments.AddPostFragment;
-import in.icomputercoding.folkchat.Fragments.ChatFragment;
 import in.icomputercoding.folkchat.Fragments.HomeFragment;
 import in.icomputercoding.folkchat.Fragments.ProfileFragment;
 import in.icomputercoding.folkchat.Fragments.SearchFragment;
@@ -60,19 +58,9 @@ public class HomeScreen extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.search) {
-            Toast.makeText(HomeScreen.this, "Search clicked.", Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        getMenuInflater().inflate(R.menu.topmenu, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_item, menu);
+        return true;
     }
 
     @Override

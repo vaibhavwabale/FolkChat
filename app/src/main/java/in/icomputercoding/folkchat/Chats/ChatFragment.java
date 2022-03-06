@@ -1,4 +1,4 @@
-package in.icomputercoding.folkchat.Fragments;
+package in.icomputercoding.folkchat.Chats;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

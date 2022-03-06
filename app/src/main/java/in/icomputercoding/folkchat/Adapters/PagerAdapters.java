@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import in.icomputercoding.folkchat.Fragments.ChatFragment;
+import in.icomputercoding.folkchat.Chats.ChatFragment;
 
 public class PagerAdapters extends FragmentPagerAdapter {
 

@@ -36,15 +36,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
-import in.icomputercoding.folkchat.Activities.ChatActivity;
-import in.icomputercoding.folkchat.Adapters.PostsAdapter;
 import in.icomputercoding.folkchat.Adapters.TopStatusAdapter;
 import in.icomputercoding.folkchat.Adapters.UsersAdapter;
-import in.icomputercoding.folkchat.Model.Posts;
+import in.icomputercoding.folkchat.Chats.ChatFragment;
 import in.icomputercoding.folkchat.Model.Status;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.Model.UserStatus;
-import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.FragmentHomeBinding;
 
 
@@ -57,7 +54,6 @@ public class HomeFragment extends Fragment {
     TopStatusAdapter statusAdapter;
     ArrayList<UserStatus> userStatuses;
     ProgressDialog dialog;
-    ArrayList<Posts> posts;
     User user;
     FirebaseApp app;
     ActivityResultLauncher<Intent> story;
@@ -71,7 +67,7 @@ public class HomeFragment extends Fragment {
 
 
         binding.chats.setOnClickListener(v -> {
-            Intent i = new Intent(getActivity(), ChatActivity.class);
+            Intent i = new Intent(getContext(), ChatFragment.class);
             startActivity(i);
         });
 
@@ -216,17 +212,17 @@ public class HomeFragment extends Fragment {
 
 
         //Dashboard Recycler View
-        posts = new ArrayList<>();
+      /*  posts = new ArrayList<>();
         posts.add(new Posts(R.drawable.hipster,R.drawable.new_hope,"Shubham Wable","Bank Manager","150","10","33"));
         posts.add(new Posts(R.drawable.dennis,R.drawable.dennis_kane,"Vaibhav Wable","Android Developer","250","50","50"));
         posts.add(new Posts(R.drawable.nature1,R.drawable.nature,"Sanket Nachankar","Owner Of Nachankar","444","200","20"));
-        posts.add(new Posts(R.drawable.art,R.drawable.nature_dordogne,"Siddesh Bhosale","Bike Rider","1K","150","10"));
-        PostsAdapter postsAdapter = new PostsAdapter(posts,getContext());
+        posts.add(new Posts(R.drawable.art,R.drawable.nature_dordogne,"Siddesh Bhosale","Bike Rider","1K","150","10")); */
+      //  PostsAdapter postsAdapter = new PostsAdapter(posts,getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.dashboardRV.setLayoutManager(linearLayoutManager);
         binding.dashboardRV.addItemDecoration(new DividerItemDecoration(binding.dashboardRV.getContext(), DividerItemDecoration.VERTICAL));
         binding.dashboardRV.setNestedScrollingEnabled(false);
-        binding.dashboardRV.setAdapter(postsAdapter);
+       // binding.dashboardRV.setAdapter(postsAdapter);
 
         binding.addStoryImg.setOnClickListener(v -> {
             Intent intent = new Intent();

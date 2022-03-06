@@ -10,18 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import in.icomputercoding.folkchat.Model.Posts;
+import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.PostsRvDesignBinding;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> {
 
-    ArrayList<Posts> list;
+    ArrayList<Post> list;
     Context context;
     boolean clicked = false;
     int likeCount;
 
-    public PostsAdapter(ArrayList<Posts> list, Context context) {
+    public PostsAdapter(ArrayList<Post> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -35,14 +35,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        Posts posts = list.get(position);
-        holder.binding.profileImage.setImageResource(posts.getProfile());
-        holder.binding.postImg.setImageResource(posts.getPostImg());
-        holder.binding.userName.setText(posts.getUser_name());
-        holder.binding.bio.setText(posts.getBio());
-        holder.binding.like.setText(posts.getLike());
-        holder.binding.comment.setText(posts.getComment());
-        holder.binding.share.setText(posts.getShare());
 
         holder.binding.postImg.setOnClickListener(v -> {
             if (!clicked){

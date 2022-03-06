@@ -83,10 +83,10 @@ dependencies {
     implementation 'com.github.MrNouri:DynamicSizes:1.0'
 
 
-    //BottomNavigationViewEx Library
-    implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     //Universal Image Loader
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+    //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
 

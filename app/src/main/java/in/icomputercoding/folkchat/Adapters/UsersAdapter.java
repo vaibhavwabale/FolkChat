@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import in.icomputercoding.folkchat.Activities.ChatActivity;
+import in.icomputercoding.folkchat.Chats.ChatActivity;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.RowConversationBinding;
