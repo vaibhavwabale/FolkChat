@@ -21,9 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FolkChat">
         <activity
-            android:name=".Profile.ProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".Share.ShareActivity"
             android:exported="false" />
         <activity

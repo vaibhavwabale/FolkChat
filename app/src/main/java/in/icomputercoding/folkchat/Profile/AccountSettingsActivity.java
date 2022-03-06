@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import in.icomputercoding.folkchat.Fragments.EditProfileFragment;
 import in.icomputercoding.folkchat.Fragments.SignOutFragment;
 import in.icomputercoding.folkchat.R;
-import in.icomputercoding.folkchat.Utils.FirebaseMethods;
 import in.icomputercoding.folkchat.Utils.SectionsStatePagerAdapter;
 
 
@@ -49,12 +48,9 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
         //setup the backarrow for navigating back to "ProfileActivity"
         ImageView backArrow = findViewById(R.id.backArrow);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: navigating back to 'ProfileActivity'");
-                finish();
-            }
+        backArrow.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: navigating back to 'ProfileActivity'");
+            finish();
         });
     }
 

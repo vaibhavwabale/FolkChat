@@ -28,8 +28,6 @@ import in.icomputercoding.folkchat.Profile.AccountSettingsActivity;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.Utils.FilePaths;
 import in.icomputercoding.folkchat.Utils.FileSearch;
-import in.icomputercoding.folkchat.Utils.GridImageAdapter;
-
 
 
 public class GalleryFragment extends Fragment {

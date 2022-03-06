@@ -22,8 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import in.icomputercoding.folkchat.R;
-import in.icomputercoding.folkchat.Utils.FirebaseMethods;
-import in.icomputercoding.folkchat.Utils.UniversalImageLoader;
 
 
 public class NextActivity extends AppCompatActivity {
@@ -33,7 +31,6 @@ public class NextActivity extends AppCompatActivity {
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseMethods mFirebaseMethods;
 
     //widgets
     private EditText mCaption;
@@ -47,7 +44,6 @@ public class NextActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
-        mFirebaseMethods = new FirebaseMethods(NextActivity.this);
         mCaption = (EditText) findViewById(R.id.caption) ;
 
         setupFirebaseAuth();
@@ -68,11 +64,10 @@ public class NextActivity extends AppCompatActivity {
 
             if(intent.hasExtra(getString(R.string.selected_image))){
                 imgUrl = intent.getStringExtra(getString(R.string.selected_image));
-                mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, imgUrl,null);
+
             }
             else if(intent.hasExtra(getString(R.string.selected_bitmap))){
                 bitmap = (Bitmap) intent.getParcelableExtra(getString(R.string.selected_bitmap));
-                mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, null,bitmap);
             }
 
 
@@ -115,7 +110,6 @@ public class NextActivity extends AppCompatActivity {
             Log.d(TAG, "setImage: got new image url: " + imgUrl);
             //vars
             String mAppend = "file:/";
-            UniversalImageLoader.setImage(imgUrl, image, null, mAppend);
         }
         else if(intent.hasExtra(getString(R.string.selected_bitmap))){
             bitmap = (Bitmap) intent.getParcelableExtra(getString(R.string.selected_bitmap));
@@ -157,7 +151,6 @@ public class NextActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                imageCount = mFirebaseMethods.getImageCount(dataSnapshot);
                 Log.d(TAG, "onDataChange: image count: " + imageCount);
 
             }

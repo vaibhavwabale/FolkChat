@@ -40,9 +40,6 @@ import in.icomputercoding.folkchat.Model.UserAccountSettings;
 import in.icomputercoding.folkchat.Model.UserSettings;
 import in.icomputercoding.folkchat.Profile.AccountSettingsActivity;
 import in.icomputercoding.folkchat.R;
-import in.icomputercoding.folkchat.Utils.FirebaseMethods;
-import in.icomputercoding.folkchat.Utils.GridImageAdapter;
-import in.icomputercoding.folkchat.Utils.UniversalImageLoader;
 
 
 public class ProfileFragment extends Fragment {
@@ -63,7 +60,6 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
-    private FirebaseMethods mFirebaseMethods;
 
 
     //widgets
@@ -99,7 +95,6 @@ public class ProfileFragment extends Fragment {
         toolbar = (Toolbar) view.findViewById(R.id.profileToolBar);
         profileMenu = (ImageView) view.findViewById(R.id.profileMenu);
         mContext = getActivity();
-        mFirebaseMethods = new FirebaseMethods(getActivity());
         Log.d(TAG, "onCreateView: stared.");
 
 
@@ -193,9 +188,6 @@ public class ProfileFragment extends Fragment {
                 for(int i = 0; i < photos.size(); i++){
                     imgUrls.add(photos.get(i).getImage_path());
                 }
-                GridImageAdapter adapter = new GridImageAdapter(getActivity(),R.layout.layout_grid_imageview,
-                        "", imgUrls);
-                gridView.setAdapter(adapter);
 
                 gridView.setOnItemClickListener((parent, view, position, id) -> mOnGridImageSelectedListener.onGridImageSelected(photos.get(position), ACTIVITY_NUM));
             }
@@ -279,8 +271,6 @@ public class ProfileFragment extends Fragment {
     private void setProfileWidgets(UserSettings userSettings) {
         UserAccountSettings settings = userSettings.getSettings();
 
-     UniversalImageLoader.setImage(settings.getProfile_photo(), mProfilePhoto, null, "");
-
         mDisplayName.setText(settings.getDisplay_name());
         mUsername.setText(settings.getUsername());
         mWebsite.setText(settings.getWebsite());
@@ -332,7 +322,6 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 //retrieve user information from the database
-                setProfileWidgets(mFirebaseMethods.getUserSettings(dataSnapshot));
 
                 //retrieve images for the user in question
 
