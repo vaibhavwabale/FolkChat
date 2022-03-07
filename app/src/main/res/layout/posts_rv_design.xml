@@ -67,11 +67,24 @@
         android:layout_margin="10dp"
         android:alpha="0.9"
         android:scaleType="centerCrop"
-        android:src="@drawable/cover"
+        android:src="@drawable/dennis_kane"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/profile_image"
         app:layout_constraintTop_toBottomOf="@+id/profile_image"
         app:riv_corner_radius="5dip" />
+
+    <TextView
+        android:id="@+id/postDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postImg" />
 
     <View
         android:id="@+id/view5"
@@ -98,7 +111,7 @@
         android:textSize="14sp"
         app:drawableStartCompat="@drawable/ic_like"
         app:layout_constraintStart_toStartOf="@+id/postImg"
-        app:layout_constraintTop_toBottomOf="@+id/postImg" />
+        app:layout_constraintTop_toBottomOf="@+id/postDescription" />
 
     <TextView
         android:id="@+id/comment"

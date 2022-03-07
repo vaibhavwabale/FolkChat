@@ -11,13 +11,15 @@
         android:icon="@drawable/ic_search"/>
 
     <item
-        android:id="@+id/chats"
-        android:title="Chats"
-        android:icon="@drawable/ic_chats"/>
-    <item
         android:id="@+id/addPost"
         android:title="Add Post"
         android:icon="@drawable/ic_add"/>
+
+    <item
+        android:id="@+id/chats"
+        android:title="Chats"
+        android:icon="@drawable/ic_chats"/>
+
 
     <item android:id="@+id/profile"
           android:title="Profile"

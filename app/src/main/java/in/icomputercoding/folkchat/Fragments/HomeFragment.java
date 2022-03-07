@@ -8,13 +8,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,19 +29,21 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
+import in.icomputercoding.folkchat.Adapters.PostsAdapter;
 import in.icomputercoding.folkchat.Adapters.TopStatusAdapter;
 import in.icomputercoding.folkchat.Adapters.UsersAdapter;
-import in.icomputercoding.folkchat.Chats.ChatFragment;
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.Status;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.Model.UserStatus;
+import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.FragmentHomeBinding;
 
 
@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
 
     FragmentHomeBinding binding;
     FirebaseDatabase database;
+    FirebaseAuth auth;
     ArrayList<User> users;
     UsersAdapter usersAdapter;
     TopStatusAdapter statusAdapter;
@@ -59,27 +60,15 @@ public class HomeFragment extends Fragment {
     User user;
     FirebaseApp app;
     ActivityResultLauncher<Intent> story;
-    RecyclerView storyRV, dashboardRv;
-    ArrayList<StoryModel> storyList;
     ArrayList<Post> postList;
-    ImageView addStory;
-    FirebaseDatabase database;
-    FirebaseAuth auth;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         database = FirebaseDatabase.getInstance()
-         auth = FirebaseDatabase.getInstance()
+         auth = FirebaseAuth.getInstance();
         binding = FragmentHomeBinding.inflate(inflater,container,false);
 
-
-
-        binding.chats.setOnClickListener(v -> {
-            Intent i = new Intent(getContext(), ChatFragment.class);
-            startActivity(i);
-        });
 
          app = FirebaseApp.initializeApp(requireContext());
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
@@ -115,27 +104,15 @@ public class HomeFragment extends Fragment {
         users = new ArrayList<>();
         userStatuses = new ArrayList<>();
 
-        database.getReference().child("posts").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                postList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Post post = dataSnapshot.getValue(Post.class);
-                    postList.add(post);
-                }
-                postAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         database.getReference().child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         user = snapshot.getValue(User.class);
+                        Picasso.get()
+                                .load(Objects.requireNonNull(user).getProfileImage())
+                                .placeholder(R.drawable.profile_user)
+                                .into(binding.profileImage);
                     }
 
                     @Override
@@ -147,13 +124,13 @@ public class HomeFragment extends Fragment {
 
         usersAdapter = new UsersAdapter(getContext(), users);
         statusAdapter = new TopStatusAdapter(getContext(), userStatuses);
-        UserStatus users = new UserStatus();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         binding.statusList.setLayoutManager(layoutManager);
         binding.statusList.setAdapter(statusAdapter);
 
         binding.statusList.showShimmerAdapter();
+
 
         database.getReference().child("stories").addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
@@ -238,17 +215,35 @@ public class HomeFragment extends Fragment {
 
 
         //Dashboard Recycler View
-      /*  posts = new ArrayList<>();
-        posts.add(new Posts(R.drawable.hipster,R.drawable.new_hope,"Shubham Wable","Bank Manager","150","10","33"));
-        posts.add(new Posts(R.drawable.dennis,R.drawable.dennis_kane,"Vaibhav Wable","Android Developer","250","50","50"));
-        posts.add(new Posts(R.drawable.nature1,R.drawable.nature,"Sanket Nachankar","Owner Of Nachankar","444","200","20"));
-        posts.add(new Posts(R.drawable.art,R.drawable.nature_dordogne,"Siddesh Bhosale","Bike Rider","1K","150","10")); */
-      //  PostsAdapter postsAdapter = new PostsAdapter(posts,getContext());
+        postList = new ArrayList<>();
+        PostsAdapter postsAdapter = new PostsAdapter(postList, getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.dashboardRV.setLayoutManager(linearLayoutManager);
-        binding.dashboardRV.addItemDecoration(new DividerItemDecoration(binding.dashboardRV.getContext(), DividerItemDecoration.VERTICAL));
         binding.dashboardRV.setNestedScrollingEnabled(false);
-       // binding.dashboardRV.setAdapter(postsAdapter);
+       binding.dashboardRV.setAdapter(postsAdapter);
+        binding.dashboardRV.showShimmerAdapter();
+
+
+       database.getReference().child("posts").addValueEventListener(new ValueEventListener() {
+           @SuppressLint("NotifyDataSetChanged")
+           @Override
+           public void onDataChange(@NonNull DataSnapshot snapshot) {
+               postList.clear();
+               for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                   Post post = dataSnapshot.getValue(Post.class);
+                   postList.add(post);
+                   Objects.requireNonNull(post).setPostId(dataSnapshot.getKey());
+               }
+               binding.dashboardRV.hideShimmerAdapter();
+               postsAdapter.notifyDataSetChanged();
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError error) {
+
+           }
+       });
 
         binding.addStoryImg.setOnClickListener(v -> {
             Intent intent = new Intent();

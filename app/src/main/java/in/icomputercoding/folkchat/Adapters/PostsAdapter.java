@@ -1,5 +1,6 @@
 package in.icomputercoding.folkchat.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,14 +9,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.User;
@@ -41,6 +43,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
         return new viewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
 
@@ -86,17 +89,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
             }
 
         });
-        FirebaseDatabase.getInstance().getReference().child("Users")
+        FirebaseDatabase.getInstance().getReference().child("users")
                 .child(model.getPostedBy()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                picasso.get()
-                        .load(user.getProfile())
-                        .placeholder(R.drawable.placeholder)
+                Picasso.get()
+                        .load(Objects.requireNonNull(user).getProfileImage())
+                        .placeholder(R.drawable.profile_user)
                         .into(holder.binding.profileImage);
                 holder.binding.userName.setText(user.getName());
-                holder.binding.bio.setText(user.getProfession());
 
             }
 
@@ -110,37 +112,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
                 .child("posts")
                 .child(model.getPostId())
                 .child("likes")
-                .child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart_red,0,0,0);
+                    holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red,0,0,0);
                 }else {
-                    holder.binding.like.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            FirebaseDatabase.getInstance().getReference()
+                    holder.binding.like.setOnClickListener(v -> FirebaseDatabase.getInstance().getReference()
+                            .child("posts")
+                            .child(model.getPostId())
+                            .child("likes")
+                            .child(FirebaseAuth.getInstance().getUid())
+                            .setValue(true).addOnSuccessListener(unused -> FirebaseDatabase.getInstance().getReference()
                                     .child("posts")
                                     .child(model.getPostId())
-                                    .child("likes")
-                                    .child(FirebaseAuth.getInstance().getUid())
-                                    .setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    FirebaseDatabase.getInstance().getReference()
-                                            .child("posts")
-                                            .child(model.getPostId())
-                                            .child("postLike")
-                                            .setValue(model.getPostLike() + 1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    };
+                                    .child("postLike")
+                                    .setValue(model.getPostLike() + 1).addOnSuccessListener(unused1 -> holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red,0,0,0))));
                 }
             }
 
