@@ -20,24 +20,21 @@
 
     </FrameLayout>
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
+        android:elevation="3dp"
+        app:itemIconTint="@drawable/item_selector"
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@id/container"
         app:layout_constraintStart_toStartOf="parent"
-        android:elevation="3dp"
-        app:itemRippleColor="@android:color/transparent"
-        app:itemIconTint="@drawable/item_selector"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/bottom_nav"/>
-
-
+        app:layout_constraintTop_toBottomOf="@id/container"
+        app:menu="@menu/bottom_nav" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
