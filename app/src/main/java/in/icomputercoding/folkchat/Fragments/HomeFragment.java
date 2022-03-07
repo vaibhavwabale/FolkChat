@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -39,6 +40,7 @@ import java.util.Objects;
 import in.icomputercoding.folkchat.Adapters.TopStatusAdapter;
 import in.icomputercoding.folkchat.Adapters.UsersAdapter;
 import in.icomputercoding.folkchat.Chats.ChatFragment;
+import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.Status;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.Model.UserStatus;
@@ -57,11 +59,19 @@ public class HomeFragment extends Fragment {
     User user;
     FirebaseApp app;
     ActivityResultLauncher<Intent> story;
+    RecyclerView storyRV, dashboardRv;
+    ArrayList<StoryModel> storyList;
+    ArrayList<Post> postList;
+    ImageView addStory;
+    FirebaseDatabase database;
+    FirebaseAuth auth;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+         database = FirebaseDatabase.getInstance()
+         auth = FirebaseDatabase.getInstance()
         binding = FragmentHomeBinding.inflate(inflater,container,false);
 
 
@@ -105,6 +115,22 @@ public class HomeFragment extends Fragment {
         users = new ArrayList<>();
         userStatuses = new ArrayList<>();
 
+        database.getReference().child("posts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                postList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Post post = dataSnapshot.getValue(Post.class);
+                    postList.add(post);
+                }
+                postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         database.getReference().child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                 .addValueEventListener(new ValueEventListener() {
                     @Override
