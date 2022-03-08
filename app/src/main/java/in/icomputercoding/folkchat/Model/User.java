@@ -3,8 +3,16 @@ package in.icomputercoding.folkchat.Model;
 public class User {
 
     private String uid, name, phoneNumber, profileImage, token;
-    private int followerCount;
+    private int followerCount, followingCount;
     private String profile;
+
+    public int getFollowingCount() {
+        return followingCount;
+    }
+
+    public void setFollowingCount(int followingCount) {
+        this.followingCount = followingCount;
+    }
 
     public User(String uid, String name, String phoneNumber, String imageUrl) {
         this.uid = uid;
@@ -17,13 +25,14 @@ public class User {
         return followerCount;
     }
 
-    public User(String uid, String name, String phoneNumber, String profileImage, String token, int followerCount, String profile) {
+    public User(String uid, String name, String phoneNumber, String profileImage, String token, int followerCount, int followingCount, String profile) {
         this.uid = uid;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
         this.token = token;
         this.followerCount = followerCount;
+        this.followingCount = followingCount;
         this.profile = profile;
     }
 

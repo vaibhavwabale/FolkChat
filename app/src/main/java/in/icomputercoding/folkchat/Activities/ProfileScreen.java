@@ -42,9 +42,11 @@ public class ProfileScreen extends AppCompatActivity {
         binding = ActivityProfileScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Updating profile...");
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setTitle("Profile Updating");
+        dialog.setMessage("Please Wait...");
         dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();

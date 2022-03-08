@@ -50,7 +50,7 @@
     <string name="view_comments_fragment">View Comments</string>
 
     <!-- dialog names -->
-    <string name="confirm_password_dialog">ConfirmPaswordDialog</string>
+    <string name="confirm_password_dialog">ConfirmPasswordDialog</string>
 
     <!-- Firebase messages -->
     <string name="auth_failed">Failed to Authenticate</string>

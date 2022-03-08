@@ -2,6 +2,7 @@ package in.icomputercoding.folkchat.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
+import in.icomputercoding.folkchat.CommentActivity;
+import in.icomputercoding.folkchat.Model.Notification;
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.R;
@@ -127,13 +131,41 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
                                     .child("posts")
                                     .child(model.getPostId())
                                     .child("postLike")
-                                    .setValue(model.getPostLike() + 1).addOnSuccessListener(unused1 -> holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red,0,0,0))));
+                                    .setValue(model.getPostLike() + 1).addOnSuccessListener(unused1 -> {
+
+                                        holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red,0,0,0);
+
+                                        Notification notification = new Notification();
+                                        notification.setNotificationBy(FirebaseAuth.getInstance().getUid());
+                                        notification.setNotificationAt(new Date().getTime());
+                                        notification.setPostID(model.getPostId());
+                                        notification.setPostedBy(model.getPostedBy());
+                                        notification.setType("like");
+
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("notification")
+                                                .child(model.getPostedBy())
+                                                .push()
+                                                .setValue(notification);
+
+                                            })));
+
+
+
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        holder.binding.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommentActivity.class);
+                context.startActivity(intent);
             }
         });
 
