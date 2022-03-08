@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FolkChat">
         <activity
+            android:name=".CommentActivity"
+            android:exported="false" />
+        <activity
             android:name=".Chats.GroupChat"
             android:exported="false"
             android:theme="@style/Theme.FolkChat.NoActionBar" />
@@ -64,6 +67,9 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
