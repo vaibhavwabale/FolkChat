@@ -43,7 +43,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.posts_rv_design,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.posts_rv_design, parent, false);
         return new viewHolder(view);
     }
 
@@ -56,25 +56,24 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
                 .load(model.getPostImage())
                 .placeholder(R.drawable.placeholder)
                 .into(holder.binding.postImg);
-        holder.binding.like.setText(model.getPostLike()+"");
+        holder.binding.like.setText(model.getPostLike() + "");
         String description = model.getPostDescription();
-        if (description.equals("")){
+        if (description.equals("")) {
             holder.binding.postDescription.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.binding.postDescription.setText(model.getPostDescription());
             holder.binding.postDescription.setVisibility(View.VISIBLE);
         }
 
         holder.binding.postImg.setOnClickListener(v -> {
-            if (!clicked){
+            if (!clicked) {
                 holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0);
-                likeCount = Integer.parseInt(holder.binding.like.getText()+"");
+                likeCount = Integer.parseInt(holder.binding.like.getText() + "");
                 //holder.like.setText(likeCount++);
                 clicked = true;
-            }
-            else {
+            } else {
                 holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red, 0, 0, 0);
-                likeCount = Integer.parseInt(holder.binding.like.getText()+"");
+                likeCount = Integer.parseInt(holder.binding.like.getText() + "");
                 // holder.like.setText(Integer.parseInt(model.getLike())-1);
                 clicked = false;
 
@@ -83,11 +82,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
 
         holder.binding.saveImg.setOnClickListener(v -> {
 
-            if (!clicked){
+            if (!clicked) {
                 holder.binding.saveImg.setImageResource(R.drawable.saved);
                 clicked = true;
-            }
-            else {
+            } else {
                 holder.binding.saveImg.setImageResource(R.drawable.ic_bookmark);
                 clicked = false;
             }
@@ -120,9 +118,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
                 .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red,0,0,0);
-                }else {
+                if (snapshot.exists()) {
+                    holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red, 0, 0, 0);
+                } else {
                     holder.binding.like.setOnClickListener(v -> FirebaseDatabase.getInstance().getReference()
                             .child("posts")
                             .child(model.getPostId())
@@ -134,7 +132,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
                                     .child("postLike")
                                     .setValue(model.getPostLike() + 1).addOnSuccessListener(unused1 -> {
 
-                                        holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red,0,0,0);
+                                        holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red, 0, 0, 0);
 
                                         Notification notification = new Notification();
                                         notification.setNotificationBy(FirebaseAuth.getInstance().getUid());
@@ -149,8 +147,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
                                                 .push()
                                                 .setValue(notification);
 
-                                            })));
-
+                                    })));
 
 
                 }
@@ -167,7 +164,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
             context.startActivity(intent);
         });
 
-
+        holder.binding.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Intent = new Intent(context, CommentActivity.class);
+                Intent.putExtra("postId", model.getPostId());
+                Intent.putExtra("postedBy", model.getPostedBy());
+                Intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(Intent);
+            }
+        });
     }
 
     @Override
