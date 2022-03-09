@@ -1,6 +1,7 @@
 package in.icomputercoding.folkchat.Activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,7 @@ public class OTPVerifyScreen extends AppCompatActivity {
     FirebaseAuth auth;
     private String code;
     String phoneNumber, CodeOTP;
+    ProgressDialog dialog;
 
 
     @SuppressLint("SetTextI18n")
@@ -40,7 +42,13 @@ public class OTPVerifyScreen extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         auth = FirebaseAuth.getInstance();
+        dialog = new ProgressDialog(OTPVerifyScreen.this);
 
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setTitle("OTP Sending");
+        dialog.setMessage("Please Wait...");
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
 
         phoneNumber = getIntent().getStringExtra("phoneNumber");
@@ -49,7 +57,7 @@ public class OTPVerifyScreen extends AppCompatActivity {
         sendVerificationCode(phoneNumber);
 
         binding.VerifyBtn.setOnClickListener(v -> {
-
+            dialog.show();
             code = Objects.requireNonNull(binding.PinOTP.getText()).toString();
 
             if (!code.isEmpty()) {
@@ -74,11 +82,12 @@ public class OTPVerifyScreen extends AppCompatActivity {
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
+                                dialog.dismiss();
                             }
 
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
+                                dialog.dismiss();
                                 Toast.makeText(OTPVerifyScreen.this, "Verification Not Completed! Try again.", Toast.LENGTH_LONG).show();
 
                             }

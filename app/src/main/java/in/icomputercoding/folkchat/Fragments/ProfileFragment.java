@@ -69,6 +69,7 @@ public class ProfileFragment extends Fragment {
                             .placeholder(R.drawable.profile_user)
                             .into(binding.profileImage);
                     binding.displayName.setText(user.getName());
+                    binding.bio.setText(user.getBio());
                 }
             }
 

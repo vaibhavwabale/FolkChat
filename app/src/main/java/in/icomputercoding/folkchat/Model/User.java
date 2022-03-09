@@ -5,6 +5,15 @@ public class User {
     private String uid, name, phoneNumber, profileImage, token;
     private int followerCount, followingCount;
     private String profile;
+    private String bio;
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
     public int getFollowingCount() {
         return followingCount;
@@ -14,18 +23,19 @@ public class User {
         this.followingCount = followingCount;
     }
 
-    public User(String uid, String name, String phoneNumber, String imageUrl) {
+    public User(String uid, String name, String phoneNumber, String imageUrl, String bio) {
         this.uid = uid;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.profileImage = imageUrl;
+        this.bio = bio;
     }
 
     public int getFollowerCount() {
         return followerCount;
     }
 
-    public User(String uid, String name, String phoneNumber, String profileImage, String token, int followerCount, int followingCount, String profile) {
+    public User(String uid, String name, String phoneNumber, String profileImage, String token, int followerCount, int followingCount, String profile, String bio) {
         this.uid = uid;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -34,6 +44,7 @@ public class User {
         this.followerCount = followerCount;
         this.followingCount = followingCount;
         this.profile = profile;
+        this.bio = bio;
     }
 
     public void setFollowerCount(int followerCount) {

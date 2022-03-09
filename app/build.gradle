@@ -86,6 +86,9 @@ dependencies {
     //Universal Image Loader
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 

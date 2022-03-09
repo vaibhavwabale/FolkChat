@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -41,6 +42,8 @@ public class ProfileScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityProfileScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        dialog = new ProgressDialog(ProfileScreen.this);
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setTitle("Profile Updating");
@@ -101,9 +104,10 @@ public class ProfileScreen extends AppCompatActivity {
 
         binding.SubmitBtn.setOnClickListener(v -> {
             String name = Objects.requireNonNull(binding.name.getEditText()).getText().toString();
+            String bio = binding.bio.getEditText().getText().toString();
 
-            if (name.isEmpty()) {
-                binding.name.setError("Please type a name");
+            if (name.isEmpty() || imageUri == null || bio.isEmpty()) {
+                Toast.makeText(ProfileScreen.this, "Please insert your all data", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -115,7 +119,7 @@ public class ProfileScreen extends AppCompatActivity {
                         reference.getDownloadUrl().addOnSuccessListener(uri -> {
                             String imageUrl = uri.toString();
                             String phone = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber();
-                            User user = new User(uid, name, phone, imageUrl);
+                            User user = new User(uid, name, phone, imageUrl, bio);
 
                             database.getReference()
                                     .child("users")
@@ -132,7 +136,7 @@ public class ProfileScreen extends AppCompatActivity {
                 });
             } else {
                 String phone = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber();
-                User user = new User(uid, name, phone, "No Image");
+                User user = new User(uid, name, phone, "No Image",bio);
                 database.getReference()
                         .child("users")
                         .child(Objects.requireNonNull(uid))
@@ -144,6 +148,7 @@ public class ProfileScreen extends AppCompatActivity {
                             finish();
                         });
             }
+
 
         });
     }

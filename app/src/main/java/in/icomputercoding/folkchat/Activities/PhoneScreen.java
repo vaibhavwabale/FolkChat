@@ -1,5 +1,6 @@
 package in.icomputercoding.folkchat.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class PhoneScreen extends AppCompatActivity {
     FirebaseAuth auth;
     String phone;
     String MobilePattern = "[0-9]{10}";
+    ProgressDialog dialog;
 
     @Override
     public void onBackPressed() {
@@ -44,11 +46,16 @@ public class PhoneScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         auth = FirebaseAuth.getInstance();
+        dialog = new ProgressDialog(PhoneScreen.this);
 
-
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setTitle("OTP Sending");
+        dialog.setMessage("Please Wait...");
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
         binding.NextBtn.setOnClickListener(v -> {
-
+            dialog.show();
             phone = Objects.requireNonNull(binding.phoneNumber.getEditText()).getText().toString();
             String phoneNo = "+" + binding.countryCode.getSelectedCountryCode() + phone;
             if (phone.isEmpty()  || !phone.matches(MobilePattern)) {
@@ -61,11 +68,12 @@ public class PhoneScreen extends AppCompatActivity {
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
+                                dialog.dismiss();
                             }
 
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
+                                dialog.dismiss();
                                 Toast.makeText(PhoneScreen.this,e.getMessage(), Toast.LENGTH_LONG).show();
 
                             }

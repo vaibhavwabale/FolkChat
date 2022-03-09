@@ -43,7 +43,7 @@
         <activity
             android:name=".Activities.SplashScreen"
             android:exported="true"
-            android:theme="@style/Theme.FolkChat.NoActionBar">
+            android:theme="@style/Theme.FolkChat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +52,7 @@
         </activity>
         <activity
             android:name=".Activities.ProfileScreen"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.FolkChat.NoActionBar" />
         <activity
             android:name=".Activities.OTPVerifyScreen"

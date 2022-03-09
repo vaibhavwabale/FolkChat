@@ -103,6 +103,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
                         .placeholder(R.drawable.profile_user)
                         .into(holder.binding.profileImage);
                 holder.binding.userName.setText(user.getName());
+                holder.binding.bio.setText(user.getBio());
 
             }
 
@@ -161,12 +162,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
             }
         });
 
-        holder.binding.comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, CommentActivity.class);
-                context.startActivity(intent);
-            }
+        holder.binding.comment.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CommentActivity.class);
+            context.startActivity(intent);
         });
 
 
