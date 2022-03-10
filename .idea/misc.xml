@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FolkChat/app/src/main/res/layout/comment_sample.xml" value="0.25" />
+        <entry key="..\:/FolkChat/app/src/main/res/layout/fragment_add_post.xml" value="0.25" />
+        <entry key="..\:/FolkChat/app/src/main/res/layout/user_sample.xml" value="0.25" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/drawable/black_border.xml" value="0.13518518518518519" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/drawable/black_shade.xml" value="0.202" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/drawable/bottom_nav.xml" value="0.1287037037037037" />

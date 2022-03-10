@@ -57,6 +57,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.viewHolder> 
                 .placeholder(R.drawable.placeholder)
                 .into(holder.binding.postImg);
         holder.binding.like.setText(model.getPostLike() + "");
+        holder.binding.comment.setText(model.getCommentCount());
         String description = model.getPostDescription();
         if (description.equals("")) {
             holder.binding.postDescription.setVisibility(View.GONE);

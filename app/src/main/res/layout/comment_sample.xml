@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:diagonal="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    xmlns:diagonal="http://schemas.android.com/tools">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
@@ -15,7 +15,6 @@
         app:civ_border_color="@color/mediumPurple"
         app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         diagonal:civ_border_color="#9370db"
         diagonal:civ_border_width="2dp"
         diagonal:ignore="MissingConstraints"
@@ -25,32 +24,27 @@
         diagonal:layout_constraintTop_toTopOf="@+id/diagonalLayout" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:fontFamily="@font/poppins"
         android:text="TextView"
         android:textColor="@color/colorTextBlack"
-        android:textSize="@dimen/_14font_mdp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileImage"
-        app:layout_constraintStart_toEndOf="@+id/profileImage"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
-
-
-    <Button
-        android:id="@+id/followBtn"
+    <TextView
+        android:id="@+id/time"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/follow_btn_bg"
-        android:fontFamily="@font/poppins"
-        android:text="Follow"
-        android:textColor="@color/colorTextWhite"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/profileImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profileImage" />
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,13 +7,40 @@ import java.util.List;
  */
 
 public class Comment {
-
+    private String CommentBody;
+    private long commentAt;
+    private String commentedBy;
     private String comment;
     private String user_id;
     private List<Like> likes;
     private String date_created;
 
-    public Comment() {
+    public String getCommentBody() {
+        return CommentBody;
+    }
+
+    public void setCommentBody(String commentBody) {
+        CommentBody = commentBody;
+    }
+
+    public long getCommentAt() {
+        return commentAt;
+    }
+
+    public void setCommentAt(long commentAt) {
+        this.commentAt = commentAt;
+    }
+
+    public String getCommentedBy() {
+        return commentedBy;
+    }
+
+    public void setCommentedBy(String commentedBy) {
+        this.commentedBy = commentedBy;
+    }
+
+    public Comment()
+    {
 
     }
 

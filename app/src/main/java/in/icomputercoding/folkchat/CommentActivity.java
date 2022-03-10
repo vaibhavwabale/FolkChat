@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,10 +19,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
+
+import java.util.Date;
 
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.User;
+import in.icomputercoding.folkchat.Model.Comment;
 import in.icomputercoding.folkchat.databinding.ActivityCommentBinding;
 
 public class CommentActivity extends AppCompatActivity {
@@ -59,6 +62,7 @@ public class CommentActivity extends AppCompatActivity {
                         .into(binding.postImg);
                 binding.postDescription.setText(post.getPostDescription());
                 binding.like.setText(post.getPostLike()+"");
+                binding.comment.setText(post.getCommentCount());
 
             }
 
@@ -97,6 +101,58 @@ public class CommentActivity extends AppCompatActivity {
             finish();
         });
 
-    }
+    binding.commentBtn.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
 
-};
+            Comment comment = new Comment();
+            comment.setCommentBody(binding.commentBox.getText().toString());
+            comment.setCommentAt(new Date().getTime());
+            comment.setCommentedBy(FirebaseAuth.getInstance().getUid());
+
+            database.getReference()
+                    .child("posts")
+                    .child(postId)
+                    .child("commnets")
+                    .setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    database.getReference()
+                            .child("posts")
+                            .child(postId)
+                            .child("commentCount").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int commentCount = 0;
+                            if(snapshot.exists()){
+                                commentCount = snapshot.getValue(Integer.class);
+                            }
+                            database.getReference()
+                                    .child("posts")
+                                    .child(postId)
+                                    .child("commentCount")
+                                    .setValue(commentCount + 1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    binding.commentBox.setText("");
+                                    Toast.makeText(CommentActivity.this, "Commented", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
+                });
+            }
+
+
+    });
+    }
+}
+
