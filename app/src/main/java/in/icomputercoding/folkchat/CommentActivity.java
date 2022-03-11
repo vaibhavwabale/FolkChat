@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,8 +21,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import in.icomputercoding.folkchat.Adapters.CommentAdapter;
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.Model.Comment;
@@ -36,6 +39,7 @@ public class CommentActivity extends AppCompatActivity {
     String postedBy;
     FirebaseDatabase database;
     FirebaseAuth auth;
+    ArrayList<Comment> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +157,11 @@ public class CommentActivity extends AppCompatActivity {
 
 
     });
+        CommentAdapter adapter = new CommentAdapter(context.this, list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context.this);
+        binding.commentBox.setLayoutManager(layoutManager);
+        binding.commentBox.setAdapter(adapter);
+
     }
 }
 
