@@ -26,12 +26,12 @@ import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.RowConversationBinding;
 
-public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.UsersViewHolder> {
 
     Context context;
     ArrayList<User> users;
 
-    public UsersAdapter(Context context, ArrayList<User> users) {
+    public ChatAdapter(Context context, ArrayList<User> users) {
         this.context = context;
         this.users = users;
     }

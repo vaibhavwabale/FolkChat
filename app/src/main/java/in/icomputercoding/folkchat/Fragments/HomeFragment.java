@@ -36,9 +36,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
-import in.icomputercoding.folkchat.Adapters.PostsAdapter;
+import in.icomputercoding.folkchat.Adapters.PostAdapter;
 import in.icomputercoding.folkchat.Adapters.TopStatusAdapter;
-import in.icomputercoding.folkchat.Adapters.UsersAdapter;
+import in.icomputercoding.folkchat.Adapters.ChatAdapter;
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.Status;
 import in.icomputercoding.folkchat.Model.User;
@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
     FirebaseDatabase database;
     FirebaseAuth auth;
     ArrayList<User> users;
-    UsersAdapter usersAdapter;
+    ChatAdapter chatAdapter;
     TopStatusAdapter statusAdapter;
     ArrayList<UserStatus> userStatuses;
     ProgressDialog dialog;
@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
                 });
 
 
-        usersAdapter = new UsersAdapter(getContext(), users);
+        chatAdapter = new ChatAdapter(getContext(), users);
         statusAdapter = new TopStatusAdapter(getContext(), userStatuses);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -216,12 +216,12 @@ public class HomeFragment extends Fragment {
 
         //Dashboard Recycler View
         postList = new ArrayList<>();
-        PostsAdapter postsAdapter = new PostsAdapter(postList, getContext());
+        PostAdapter postAdapter = new PostAdapter(getContext(),postList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.dashboardRV.setLayoutManager(linearLayoutManager);
         binding.dashboardRV.setNestedScrollingEnabled(false);
-       binding.dashboardRV.setAdapter(postsAdapter);
+       binding.dashboardRV.setAdapter(postAdapter);
         binding.dashboardRV.showShimmerAdapter();
 
 
@@ -236,7 +236,7 @@ public class HomeFragment extends Fragment {
                    Objects.requireNonNull(post).setPostId(dataSnapshot.getKey());
                }
                binding.dashboardRV.hideShimmerAdapter();
-               postsAdapter.notifyDataSetChanged();
+               postAdapter.notifyDataSetChanged();
            }
 
            @Override

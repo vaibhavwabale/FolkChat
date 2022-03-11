@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-import in.icomputercoding.folkchat.Adapters.UsersAdapter;
+import in.icomputercoding.folkchat.Adapters.ChatAdapter;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.FragmentChatBinding;
@@ -33,7 +33,7 @@ public class ChatFragment extends Fragment {
     FirebaseDatabase database;
     FirebaseAuth auth;
     ArrayList<User> users;
-    UsersAdapter usersAdapter;
+    ChatAdapter chatAdapter;
 
 
     @Override
@@ -78,8 +78,8 @@ public class ChatFragment extends Fragment {
                     }
                 });
 
-        usersAdapter = new UsersAdapter(getContext(), users);
-        binding.recyclerView.setAdapter(usersAdapter);
+        chatAdapter = new ChatAdapter(getContext(), users);
+        binding.recyclerView.setAdapter(chatAdapter);
         binding.recyclerView.showShimmerAdapter();
 
         database.getReference().child("users").addValueEventListener(new ValueEventListener() {
@@ -94,7 +94,7 @@ public class ChatFragment extends Fragment {
                         users.add(user);
                 }
                 binding.recyclerView.hideShimmerAdapter();
-                usersAdapter.notifyDataSetChanged();
+                chatAdapter.notifyDataSetChanged();
             }
 
             @Override

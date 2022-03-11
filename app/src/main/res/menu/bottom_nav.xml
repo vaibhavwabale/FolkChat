@@ -16,9 +16,9 @@
         android:icon="@drawable/ic_add"/>
 
     <item
-        android:id="@+id/chats"
-        android:title="Chats"
-        android:icon="@drawable/ic_chats"/>
+        android:id="@+id/notifications"
+        android:title="Notifications"
+        android:icon="@drawable/ic_like"/>
 
 
     <item android:id="@+id/profile"

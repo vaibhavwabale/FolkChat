@@ -4,30 +4,17 @@ package in.icomputercoding.folkchat.Model;
 public class Post {
     private String postId;
     private String postImage;
-    private String postedBy;
+    private String postProfile;
     private String postDescription;
-    private long postedAt;
-    private int postLike;
-    private int commentCount;
 
     public Post() {
     }
 
-    public Post(String postId, String postImage, String postedBy, String postDescription, long postedAt, int postLike) {
+    public Post(String postId, String postImage, String postProfile, String postDescription) {
         this.postId = postId;
         this.postImage = postImage;
-        this.postedBy = postedBy;
+        this.postProfile = postProfile;
         this.postDescription = postDescription;
-        this.postedAt = postedAt;
-        this.postLike = postLike;
-    }
-
-    public int getPostLike() {
-        return postLike;
-    }
-
-    public void setPostLike(int postLike) {
-        this.postLike = postLike;
     }
 
     public String getPostId() {
@@ -46,12 +33,12 @@ public class Post {
         this.postImage = postImage;
     }
 
-    public String getPostedBy() {
-        return postedBy;
+    public String getPostProfile() {
+        return postProfile;
     }
 
-    public void setPostedBy(String postedBy) {
-        this.postedBy = postedBy;
+    public void setPostProfile(String postProfile) {
+        this.postProfile = postProfile;
     }
 
     public String getPostDescription() {
@@ -60,22 +47,6 @@ public class Post {
 
     public void setPostDescription(String postDescription) {
         this.postDescription = postDescription;
-    }
-
-    public long getPostedAt() {
-        return postedAt;
-    }
-
-    public void setPostedAt(long postedAt) {
-        this.postedAt = postedAt;
-    }
-
-    public int getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
     }
 }
 

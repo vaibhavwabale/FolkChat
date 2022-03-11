@@ -2,59 +2,51 @@ package in.icomputercoding.folkchat.Model;
 
 public class Notification {
 
-    private String notificationBy;
-    private long notificationAt;
-    private String type;
-    private String postID;
-    private String postedBy;
-    private boolean checkOpen;
+    private String userId;
+    private String text;
+    private String postId;
+    private boolean isPost;
 
-    public String getNotificationBy() {
-        return notificationBy;
+    public Notification() {
     }
 
-    public void setNotificationBy(String notificationBy) {
-        this.notificationBy = notificationBy;
+    public Notification(String userId, String text, String postId, boolean isPost) {
+        this.userId = userId;
+        this.text = text;
+        this.postId = postId;
+        this.isPost = isPost;
     }
 
-    public long getNotificationAt() {
-        return notificationAt;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setNotificationAt(long notificationAt) {
-        this.notificationAt = notificationAt;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getType() {
-        return type;
+    public String getText() {
+        return text;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public String getPostID() {
-        return postID;
+    public String getPostId() {
+        return postId;
     }
 
-    public void setPostID(String postID) {
-        this.postID = postID;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
-    public String getPostedBy() {
-        return postedBy;
+    public boolean isPost() {
+        return isPost;
     }
 
-    public void setPostedBy(String postedBy) {
-        this.postedBy = postedBy;
-    }
-
-    public boolean isCheckOpen() {
-        return checkOpen;
-    }
-
-    public void setCheckOpen(boolean checkOpen) {
-        this.checkOpen = checkOpen;
+    public void setPost(boolean post) {
+        isPost = post;
     }
 }
 
