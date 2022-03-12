@@ -15,8 +15,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import in.icomputercoding.folkchat.Activities.FollowersActivity;
 import in.icomputercoding.folkchat.CommentActivity;
@@ -60,7 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
     @Override
     public PostAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.posts_rv_design, parent, false);
-        return new ImageViewHolder(view);
+        return new PostAdapter.ImageViewHolder(view);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -70,8 +69,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Post post = mPosts.get(position);
 
-        Glide.with(mContext).load(post.getPostImage())
-                .apply(new RequestOptions().placeholder(R.drawable.placeholder))
+        Picasso.get()
+                .load(post.getPostImage())
+                .placeholder(R.drawable.background)
                 .into(holder.binding.postImage);
 
         if (post.getPostDescription().equals("")){
@@ -286,7 +286,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                Glide.with(mContext).load(Objects.requireNonNull(user).getProfileImage()).into(image_profile);
+                assert user != null;
+                Picasso.get()
+                        .load(user.getProfileImage())
+                        .placeholder(R.drawable.profile_user)
+                        .into(image_profile);
                 username.setText(user.getName());
                 publisher.setText(user.getName());
             }
@@ -367,7 +371,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("description", editText.getText().toString());
 
-                    FirebaseDatabase.getInstance().getReference("Posts")
+                    FirebaseDatabase.getInstance().getReference("posts")
                             .child(postId).updateChildren(hashMap);
                 });
         alertDialog.setNegativeButton("Cancel",
@@ -376,7 +380,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
     }
 
     private void getText(String postId, final EditText editText){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts")
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("posts")
                 .child(postId);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -25,9 +25,9 @@
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
                     android:maxLines="1"
                     android:text="@string/name"
-                    android:fontFamily="@font/poppins"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -65,12 +65,12 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_profile"
                     android:layout_width="80dp"
-                    android:src="@drawable/profile_user"
-                    android:layout_height="80dp" />
+                    android:layout_height="80dp"
+                    android:src="@drawable/profile_user" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="100dp"
                     android:orientation="vertical"
                     android:paddingLeft="20dp"
                     android:paddingRight="4dp">
@@ -91,13 +91,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/mediumPurple"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
                                 android:text="posts" />
 
                         </LinearLayout>
@@ -113,13 +115,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/mediumPurple"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
                                 android:text="followers" />
 
                         </LinearLayout>
@@ -135,13 +139,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/mediumPurple"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
                                 android:text="following" />
 
                         </LinearLayout>
@@ -151,11 +157,14 @@
                     <Button
                         android:id="@+id/edit_profile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/corners"
+                        android:fontFamily="@font/poppins"
                         android:text="Edit Profile"
                         android:textColor="@color/colorTextWhite"
-                        android:background="@drawable/black_shade" />
+                        android:textSize="@dimen/_12font_mdp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -173,9 +182,9 @@
                     android:id="@+id/profileName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
                     android:maxLines="1"
                     android:text="@string/name"
-                    android:fontFamily="@font/poppins"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -185,8 +194,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Android Developer"
+                    android:fontFamily="@font/poppins"
                     android:maxLines="5"
+                    android:text="Android Developer"
                     android:textColor="@color/mediumPurple" />
 
             </LinearLayout>
@@ -205,8 +215,8 @@
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_home"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_home" />
 
                 <ImageButton
                     android:id="@+id/saved_fotos"

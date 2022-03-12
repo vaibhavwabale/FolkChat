@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:paddingBottom="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/notificationProfile"
+        android:id="@+id/imageProfile"
         android:layout_width="@dimen/_50mdp"
         android:layout_height="@dimen/_50mdp"
         android:padding="4dp"
@@ -16,11 +17,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:orientation="vertical"
-        android:layout_toEndOf="@id/notificationProfile"
-        android:layout_toStartOf="@id/postImg">
+        android:layout_toEndOf="@id/imageProfile"
+        android:layout_toStartOf="@id/postImageNotify">
 
         <TextView
-            android:id="@+id/notificationName"
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -32,7 +33,6 @@
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comment"
             android:maxLines="5"
             android:fontFamily="@font/poppins"
             android:textColor="@color/colorTextBlack"/>
@@ -40,9 +40,9 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/postImg"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/postImageNotify"
+        android:layout_width="@dimen/_50mdp"
+        android:layout_height="@dimen/_50mdp"
         android:layout_alignParentEnd="true"
         android:src="@drawable/dennis" />
 

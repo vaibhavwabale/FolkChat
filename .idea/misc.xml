@@ -54,7 +54,7 @@
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/activity_accountsettings.xml" value="0.1" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/activity_chat.xml" value="0.25" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/activity_comment.xml" value="0.33" />
-        <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/activity_edit_profile.xml" value="0.19322916666666667" />
+        <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/activity_edit_profile.xml" value="0.33" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/activity_followers.xml" value="0.19427083333333334" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/activity_group_chat.xml" value="0.25" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/activity_home_screen.xml" value="0.1" />
@@ -89,9 +89,9 @@
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_photo.xml" value="0.12013888888888889" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_post_details.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_posts.xml" value="0.22" />
-        <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_request.xml" value="0.18" />
-        <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_search.xml" value="0.5" />
+        <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_sign_out.xml" value="0.22" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_tabbed.xml" value="0.18125" />
         <entry key="..\:/Users/Raja/AndroidStudioProjects/FolkChat/app/src/main/res/layout/fragment_view_comments.xml" value="0.18" />

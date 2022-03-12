@@ -5,9 +5,7 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -20,11 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import in.icomputercoding.folkchat.Fragments.PostDetailsFragment;
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.R;
+import in.icomputercoding.folkchat.databinding.FotosItemBinding;
 
 public class MyFotosAdapter extends RecyclerView.Adapter<MyFotosAdapter.ImageViewHolder> {
 
-    private Context mContext;
-    private List<Post> mPosts;
+    private final Context mContext;
+    private final List<Post> mPosts;
 
     public MyFotosAdapter(Context context, List<Post> posts){
         mContext = context;
@@ -43,9 +42,12 @@ public class MyFotosAdapter extends RecyclerView.Adapter<MyFotosAdapter.ImageVie
 
         final Post post = mPosts.get(position);
 
-        Glide.with(mContext).load(post.getPostImage()).into(holder.post_image);
+        Picasso.get()
+                .load(post.getPostImage())
+                .placeholder(R.drawable.background)
+                .into(holder.binding.postImage);
 
-        holder.post_image.setOnClickListener(view -> {
+        holder.binding.postImage.setOnClickListener(view -> {
             SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
             editor.putString("postId", post.getPostId());
             editor.apply();
@@ -61,15 +63,14 @@ public class MyFotosAdapter extends RecyclerView.Adapter<MyFotosAdapter.ImageVie
         return mPosts.size();
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder {
+    public static class ImageViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView post_image;
+        FotosItemBinding binding;
 
 
         public ImageViewHolder(View itemView) {
             super(itemView);
-
-            post_image = itemView.findViewById(R.id.post_image);
+            binding = FotosItemBinding.bind(itemView);
 
         }
     }

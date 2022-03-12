@@ -80,7 +80,7 @@ public class CommentActivity extends AppCompatActivity {
 
     private void readComments() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Comments")
-                .child(postId);
+                .child(postId).child(postId);
         reference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override

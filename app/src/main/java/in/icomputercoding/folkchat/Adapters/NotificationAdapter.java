@@ -12,15 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.icomputercoding.folkchat.Fragments.PostDetailsFragment;
@@ -53,13 +52,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         final Notification notification = mNotification.get(position);
 
-        getUserInfo(holder.binding.notificationProfile,holder.binding.notificationName,notification.getUserId());
+        holder.binding.comment.setText(notification.getText());
+
+        getUserInfo(holder.binding.imageProfile,holder.binding.username,notification.getUserId());
 
         if (notification.isPost()) {
-            holder.binding.postImg.setVisibility(View.VISIBLE);
-            getPostImage(holder.binding.postImg,notification.getPostId());
+            holder.binding.postImageNotify.setVisibility(View.VISIBLE);
+            getPostImage(holder.binding.postImageNotify,notification.getPostId());
         } else {
-            holder.binding.postImg.setVisibility(View.GONE);
+            holder.binding.postImageNotify.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -71,7 +72,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
                         new PostDetailsFragment()).commit();
             } else {
-                editor.putString("postId", notification.getUserId());
+                editor.putString("profileId", notification.getUserId());
                 editor.apply();
 
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
@@ -99,12 +100,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     private void getPostImage(ImageView postImg, String postId) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
-                .child("Posts").child(postId);
+                .child("posts").child(postId);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Post post = snapshot.getValue(Post.class);
-                Glide.with(mContext).load(Objects.requireNonNull(post).getPostImage()).into(postImg);
+                assert post != null;
+                Picasso.get().load(post.getPostImage()).placeholder(R.drawable.placeholder).into(postImg);
             }
 
             @Override
@@ -114,15 +116,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         });
     }
 
-    private void getUserInfo(CircleImageView notificationProfile, TextView notificationName, String userId) {
+    private void getUserInfo(CircleImageView imageProfile, TextView username, String userId) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("users").child(userId);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                Glide.with(mContext).load(Objects.requireNonNull(user).getProfileImage()).into(notificationProfile);
-                notificationName.setText(user.getName());
+                assert user != null;
+                Picasso.get().load(user.getProfileImage()).placeholder(R.drawable.profile_user).into(imageProfile);
+                username.setText(user.getName());
             }
 
             @Override

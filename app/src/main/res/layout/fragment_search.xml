@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:background="@android:color/transparent"
+                android:maxLines="1"
                 android:hint="Search..." />
 
         </androidx.appcompat.widget.Toolbar>

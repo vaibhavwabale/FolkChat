@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -183,7 +182,7 @@ public class ProfileFragment extends Fragment {
 
     private void getPosts(){
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("Posts");
+                .getReference("posts");
         reference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -207,7 +206,7 @@ public class ProfileFragment extends Fragment {
 
     private void myFotos(){
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("Posts");
+                .getReference("posts");
         reference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -251,7 +250,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void readSaves(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("posts");
         reference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -261,7 +260,8 @@ public class ProfileFragment extends Fragment {
                     Post post = snapshot.getValue(Post.class);
 
                     for (String id : mySaves) {
-                        if (Objects.requireNonNull(post).getPostId().equals(id)) {
+                        assert post != null;
+                        if (post.getPostId().equals(id)) {
                             postList_saves.add(post);
                         }
                     }

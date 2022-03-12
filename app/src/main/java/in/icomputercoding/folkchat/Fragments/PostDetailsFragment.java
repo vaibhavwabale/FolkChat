@@ -19,6 +19,7 @@ import in.icomputercoding.folkchat.databinding.FragmentPostDetailsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
 import static java.security.AccessController.getContext;
@@ -40,7 +41,7 @@ public class PostDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentPostDetailsBinding.inflate(getLayoutInflater(),container,false);
 
-        SharedPreferences prefs = getContext().getSharedPreferences("PREFS", MODE_PRIVATE);
+        SharedPreferences prefs = requireContext().getSharedPreferences("PREFS", MODE_PRIVATE);
         postId = prefs.getString("postId", "none");
 
         binding.recyclerView.setHasFixedSize(true);

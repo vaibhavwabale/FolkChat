@@ -1,5 +1,6 @@
 package in.icomputercoding.folkchat.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,9 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import in.icomputercoding.folkchat.Activities.HomeScreen;
 import in.icomputercoding.folkchat.Fragments.ProfileFragment;
@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import in.icomputercoding.folkchat.databinding.UserSampleBinding;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -38,9 +37,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewHolder> {
 
-    private Context mContext;
-    private List<User> mUsers;
-    private boolean isFragment;
+    private final Context mContext;
+    private final List<User> mUsers;
+    private final boolean isFragment;
 
     private FirebaseUser firebaseUser;
 
@@ -54,7 +53,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewH
     @Override
     public SearchAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.user_sample, parent, false);
-        return new ImageViewHolder(view);
+        return new SearchAdapter.ImageViewHolder(view);
     }
 
     @Override
@@ -68,9 +67,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewH
         isFollowing(user.getUid(), holder.binding.followBtn);
 
         holder.binding.name.setText(user.getName());
-        Glide.with(mContext).load(user.getProfileImage()).into(holder.binding.profileImage);
+        Picasso.get()
+                .load(user.getProfileImage())
+                .placeholder(R.drawable.profile_user)
+                .into(holder.binding.profileImage);
 
-        if (user.getUid().equals(firebaseUser.getUid())){
+
+
+       if (user.getUid().equals(firebaseUser.getUid())) {
             holder.binding.followBtn.setVisibility(View.GONE);
         }
 
@@ -84,7 +88,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewH
                         new ProfileFragment()).commit();
             } else {
                 Intent intent = new Intent(mContext, HomeScreen.class);
-                intent.putExtra("publisherId", user.getUid());
+                intent.putExtra("profileId", user.getUid());
                 mContext.startActivity(intent);
             }
         });
@@ -133,16 +137,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewH
         }
     }
 
-    private void isFollowing(final String userid, final Button button){
+    private void isFollowing(final String userId, final Button button){
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Follow").child(Objects.requireNonNull(firebaseUser).getUid()).child("following");
         reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(userid).exists()){
+                if (dataSnapshot.child(userId).exists()){
                     button.setText("following");
                 } else{
                     button.setText("follow");

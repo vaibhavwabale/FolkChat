@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -235,6 +236,7 @@ public class HomeFragment extends Fragment {
                    postList.add(post);
                    Objects.requireNonNull(post).setPostId(dataSnapshot.getKey());
                }
+               Collections.reverse(postList);
                binding.dashboardRV.hideShimmerAdapter();
                postAdapter.notifyDataSetChanged();
            }
