@@ -7,7 +7,7 @@
     android:background="@color/mediumPurple"
     android:orientation="vertical"
     android:weightSum="4"
-    tools:context=".Activities.WelcomeScreen">
+    tools:context=".Activities.WelcomeActivity">
 
     <TextView
         android:id="@+id/textView2"

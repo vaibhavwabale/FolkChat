@@ -26,7 +26,7 @@ import java.util.Objects;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.databinding.ActivityProfileScreenBinding;
 
-public class ProfileScreen extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     ActivityProfileScreenBinding binding;
     FirebaseAuth auth;
@@ -43,7 +43,7 @@ public class ProfileScreen extends AppCompatActivity {
         binding = ActivityProfileScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dialog = new ProgressDialog(ProfileScreen.this);
+        dialog = new ProgressDialog(ProfileActivity.this);
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setTitle("Profile Updating");
@@ -107,7 +107,7 @@ public class ProfileScreen extends AppCompatActivity {
             String bio = binding.bio.getEditText().getText().toString();
 
             if (name.isEmpty() || imageUri == null || bio.isEmpty()) {
-                Toast.makeText(ProfileScreen.this, "Please insert your all data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Please insert your all data", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -127,7 +127,7 @@ public class ProfileScreen extends AppCompatActivity {
                                     .setValue(user)
                                     .addOnSuccessListener(aVoid -> {
                                         dialog.dismiss();
-                                        Intent intent = new Intent(ProfileScreen.this, HomeScreen.class);
+                                        Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
                                         startActivity(intent);
                                         finish();
                                     });
@@ -143,7 +143,7 @@ public class ProfileScreen extends AppCompatActivity {
                         .setValue(user)
                         .addOnSuccessListener(aVoid -> {
                             dialog.dismiss();
-                            Intent intent = new Intent(ProfileScreen.this, HomeScreen.class);
+                            Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
                         });

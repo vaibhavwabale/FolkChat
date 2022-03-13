@@ -1,4 +1,4 @@
-package in.icomputercoding.folkchat;
+package in.icomputercoding.folkchat.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

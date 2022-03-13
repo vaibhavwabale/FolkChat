@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import in.icomputercoding.folkchat.databinding.ActivityPhoneScreenBinding;
 
-public class PhoneScreen extends AppCompatActivity {
+public class PhoneActivity extends AppCompatActivity {
 
     ActivityPhoneScreenBinding binding;
     private long pressedTime;
@@ -46,7 +46,7 @@ public class PhoneScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         auth = FirebaseAuth.getInstance();
-        dialog = new ProgressDialog(PhoneScreen.this);
+        dialog = new ProgressDialog(PhoneActivity.this);
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setTitle("OTP Sending");
@@ -64,7 +64,7 @@ public class PhoneScreen extends AppCompatActivity {
                 PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                         .setPhoneNumber(phoneNo)
                         .setTimeout(60L, TimeUnit.SECONDS)
-                        .setActivity(PhoneScreen.this)
+                        .setActivity(PhoneActivity.this)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
@@ -74,14 +74,14 @@ public class PhoneScreen extends AppCompatActivity {
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
                                 dialog.dismiss();
-                                Toast.makeText(PhoneScreen.this,e.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(PhoneActivity.this,e.getMessage(), Toast.LENGTH_LONG).show();
 
                             }
 
                             @Override
                             public void onCodeSent(@NonNull String CodeOTP, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                 super.onCodeSent(CodeOTP, forceResendingToken);
-                                Intent intent = new Intent(PhoneScreen.this, OTPVerifyScreen.class);
+                                Intent intent = new Intent(PhoneActivity.this, OTPVerifyActivity.class);
                                 intent.putExtra("phoneNumber", phoneNo);
                                 intent.putExtra("CodeOTP",CodeOTP);
                                 startActivity(intent);

@@ -18,7 +18,7 @@ import in.icomputercoding.folkchat.Fragments.SearchFragment;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.ActivityHomeScreenBinding;
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeScreenBinding binding;
 

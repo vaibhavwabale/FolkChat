@@ -7,7 +7,7 @@
     android:background="@color/LightGray"
     android:padding="30dp"
     android:transitionName="transition_OTP_screen"
-    tools:context=".Activities.PhoneScreen">
+    tools:context=".Activities.PhoneActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

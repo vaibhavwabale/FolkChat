@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import in.icomputercoding.folkchat.Activities.HomeScreen;
+import in.icomputercoding.folkchat.Activities.HomeActivity;
 import in.icomputercoding.folkchat.Model.Status;
 import in.icomputercoding.folkchat.Model.UserStatus;
 import in.icomputercoding.folkchat.R;
@@ -57,7 +57,7 @@ public class TopStatusAdapter extends RecyclerView.Adapter<TopStatusAdapter.TopS
 
 
 
-            new StoryView.Builder(((HomeScreen)context).getSupportFragmentManager())
+            new StoryView.Builder(((HomeActivity)context).getSupportFragmentManager())
                     .setStoriesList(myStories) // Required
                     .setStoryDuration(5000) // Default is 2000 Millis (2 Seconds)
                     .setTitleText(userStatus.getName()) // Default is Hidden

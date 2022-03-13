@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import in.icomputercoding.folkchat.Activities.HomeScreen;
+import in.icomputercoding.folkchat.Activities.HomeActivity;
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 public class MyFirstbaseService extends FirebaseMessagingService {
@@ -35,7 +35,7 @@ public class MyFirstbaseService extends FirebaseMessagingService {
     }
 
     private void sendNotification(String title, String messageBody) {
-        Intent intent = new Intent(this, HomeScreen.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

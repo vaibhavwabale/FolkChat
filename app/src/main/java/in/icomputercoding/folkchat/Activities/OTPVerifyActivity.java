@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import in.icomputercoding.folkchat.databinding.ActivityOtpverifyScreenBinding;
 
-public class OTPVerifyScreen extends AppCompatActivity {
+public class OTPVerifyActivity extends AppCompatActivity {
 
     ActivityOtpverifyScreenBinding binding;
     FirebaseAuth auth;
@@ -42,7 +42,7 @@ public class OTPVerifyScreen extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         auth = FirebaseAuth.getInstance();
-        dialog = new ProgressDialog(OTPVerifyScreen.this);
+        dialog = new ProgressDialog(OTPVerifyActivity.this);
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setTitle("OTP Sending");
@@ -64,11 +64,11 @@ public class OTPVerifyScreen extends AppCompatActivity {
                 if (CodeOTP != null) {
                     verifyCode(code);
                 } else {
-                    Toast.makeText(OTPVerifyScreen.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OTPVerifyActivity.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
                 }
 
             } else {
-                Toast.makeText(OTPVerifyScreen.this, "Enter Enter All Number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OTPVerifyActivity.this, "Enter Enter All Number", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -78,7 +78,7 @@ public class OTPVerifyScreen extends AppCompatActivity {
                 PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                         .setPhoneNumber(phoneNumber)
                         .setTimeout(60L, TimeUnit.SECONDS)
-                        .setActivity(OTPVerifyScreen.this)
+                        .setActivity(OTPVerifyActivity.this)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
@@ -88,7 +88,7 @@ public class OTPVerifyScreen extends AppCompatActivity {
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
                                 dialog.dismiss();
-                                Toast.makeText(OTPVerifyScreen.this, "Verification Not Completed! Try again.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(OTPVerifyActivity.this, "Verification Not Completed! Try again.", Toast.LENGTH_LONG).show();
 
                             }
 
@@ -96,7 +96,7 @@ public class OTPVerifyScreen extends AppCompatActivity {
                             public void onCodeSent(@NonNull String newCodeOTP, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                 super.onCodeSent(CodeOTP, forceResendingToken);
                                 CodeOTP = newCodeOTP;
-                                Toast.makeText(OTPVerifyScreen.this, "OTP Sent Successfully", Toast.LENGTH_LONG).show();
+                                Toast.makeText(OTPVerifyActivity.this, "OTP Sent Successfully", Toast.LENGTH_LONG).show();
                             }
 
                         }).build();
@@ -111,13 +111,13 @@ public class OTPVerifyScreen extends AppCompatActivity {
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(OTPVerifyScreen.this, "Verification Completed", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(OTPVerifyScreen.this, ProfileScreen.class);
+                        Toast.makeText(OTPVerifyActivity.this, "Verification Completed", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(OTPVerifyActivity.this, ProfileActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     } else {
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            Toast.makeText(OTPVerifyScreen.this, "Verification Not Completed! Try again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(OTPVerifyActivity.this, "Verification Not Completed! Try again.", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -133,7 +133,7 @@ public class OTPVerifyScreen extends AppCompatActivity {
         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                 .setPhoneNumber(number)
                 .setTimeout(60L, TimeUnit.SECONDS)
-                .setActivity(OTPVerifyScreen.this)
+                .setActivity(OTPVerifyActivity.this)
                 .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
@@ -148,7 +148,7 @@ public class OTPVerifyScreen extends AppCompatActivity {
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
-                        Toast.makeText(OTPVerifyScreen.this, "Verification Not Completed! Try again.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(OTPVerifyActivity.this, "Verification Not Completed! Try again.", Toast.LENGTH_LONG).show();
 
                     }
 

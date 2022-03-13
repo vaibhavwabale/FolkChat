@@ -7,7 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import in.icomputercoding.folkchat.databinding.ActivityWelcomeScreenBinding;
 
-public class WelcomeScreen extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     ActivityWelcomeScreenBinding binding;
     private long pressedTime;
@@ -30,7 +30,7 @@ public class WelcomeScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.agree.setOnClickListener(v -> {
-            Intent intent = new Intent(WelcomeScreen.this, PhoneScreen.class);
+            Intent intent = new Intent(WelcomeActivity.this, PhoneActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });

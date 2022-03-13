@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import in.icomputercoding.folkchat.Activities.HomeScreen;
+import in.icomputercoding.folkchat.Activities.HomeActivity;
 import in.icomputercoding.folkchat.Fragments.ProfileFragment;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.R;
@@ -87,7 +87,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewH
                 ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
                         new ProfileFragment()).commit();
             } else {
-                Intent intent = new Intent(mContext, HomeScreen.class);
+                Intent intent = new Intent(mContext, HomeActivity.class);
                 intent.putExtra("profileId", user.getUid());
                 mContext.startActivity(intent);
             }

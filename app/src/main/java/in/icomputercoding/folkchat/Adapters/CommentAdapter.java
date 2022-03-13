@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import in.icomputercoding.folkchat.Activities.HomeScreen;
+import in.icomputercoding.folkchat.Activities.HomeActivity;
 import in.icomputercoding.folkchat.Model.Comment;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.R;
@@ -61,13 +61,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ImageVie
         getUserInfo(holder.binding.imageProfile, holder.binding.name, comment.getProfile());
 
         holder.binding.name.setOnClickListener(v -> {
-            Intent i = new Intent(mContext, HomeScreen.class);
+            Intent i = new Intent(mContext, HomeActivity.class);
             i.putExtra("profileId", comment.getProfile());
             mContext.startActivity(i);
         });
 
         holder.binding.imageProfile.setOnClickListener(v -> {
-            Intent i = new Intent(mContext, HomeScreen.class);
+            Intent i = new Intent(mContext, HomeActivity.class);
             i.putExtra("profileId", comment.getProfile());
             mContext.startActivity(i);
         });

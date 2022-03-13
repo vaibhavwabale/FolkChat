@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import in.icomputercoding.folkchat.Activities.FollowersActivity;
-import in.icomputercoding.folkchat.CommentActivity;
+import in.icomputercoding.folkchat.Activities.CommentActivity;
 import in.icomputercoding.folkchat.Fragments.PostDetailsFragment;
 import in.icomputercoding.folkchat.Fragments.ProfileFragment;
 import in.icomputercoding.folkchat.Model.Post;
