@@ -22,14 +22,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/_24sdp"
                     android:text="Photo"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorTextBlack"
                     android:textStyle="bold"/>
 
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/hintTextColor"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

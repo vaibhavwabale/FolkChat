@@ -16,7 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +23,6 @@ import java.util.Objects;
 
 import in.icomputercoding.folkchat.Adapters.ChatAdapter;
 import in.icomputercoding.folkchat.Model.User;
-import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.FragmentChatBinding;
 
 public class ChatFragment extends Fragment {
@@ -56,26 +54,6 @@ public class ChatFragment extends Fragment {
                             .child("users")
                             .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                             .updateChildren(map);
-                });
-
-
-        users = new ArrayList<>();
-
-        database.getReference().child("users").child(Objects.requireNonNull(auth.getUid()))
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
-                        Picasso.get()
-                                .load(Objects.requireNonNull(user).getProfileImage())
-                                .placeholder(R.drawable.profile_user)
-                                .into(binding.profileImage);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
                 });
 
         chatAdapter = new ChatAdapter(getContext(), users);

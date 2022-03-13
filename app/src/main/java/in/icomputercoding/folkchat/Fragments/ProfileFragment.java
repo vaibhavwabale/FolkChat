@@ -190,7 +190,7 @@ public class ProfileFragment extends Fragment {
                 int i = 0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-                    if (Objects.requireNonNull(post).getPostProfile().equals(profileId)){
+                    if (Objects.requireNonNull(post).getProfile().equals(profileId)){
                         i++;
                     }
                 }
@@ -214,7 +214,7 @@ public class ProfileFragment extends Fragment {
                 postList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-                    if (Objects.requireNonNull(post).getPostProfile().equals(profileId)){
+                    if (Objects.requireNonNull(post).getProfile().equals(profileId)){
                         postList.add(post);
                     }
                 }

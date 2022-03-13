@@ -104,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         binding.SubmitBtn.setOnClickListener(v -> {
             String name = Objects.requireNonNull(binding.name.getEditText()).getText().toString();
-            String bio = binding.bio.getEditText().getText().toString();
+            String bio = Objects.requireNonNull(binding.bio.getEditText()).getText().toString();
 
             if (name.isEmpty() || imageUri == null || bio.isEmpty()) {
                 Toast.makeText(ProfileActivity.this, "Please insert your all data", Toast.LENGTH_SHORT).show();

@@ -43,7 +43,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
     private final Context mContext;
     private final List<Post> mPosts;
@@ -57,22 +57,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
 
     @NonNull
     @Override
-    public PostAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.posts_rv_design, parent, false);
-        return new PostAdapter.ImageViewHolder(view);
+        return new PostViewHolder(view);
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    public void onBindViewHolder(@NonNull final ImageViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final PostViewHolder holder, final int position) {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Post post = mPosts.get(position);
 
-        Picasso.get()
-                .load(post.getPostImage())
-                .placeholder(R.drawable.background)
-                .into(holder.binding.postImage);
+                Picasso.get()
+                        .load(post.getPostImage())
+                        .placeholder(R.drawable.placeholder)
+                        .into(holder.binding.postImage);
+
+
 
         if (post.getPostDescription().equals("")){
             holder.binding.description.setVisibility(View.GONE);
@@ -81,7 +83,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             holder.binding.description.setText(post.getPostDescription());
         }
 
-        profileInfo(holder.binding.imageProfile, holder.binding.username, holder.binding.profileName, post.getPostProfile());
+        profileInfo(holder.binding.imageProfile, holder.binding.username, holder.binding.profileName, post.getProfile());
         isLiked(post.getPostId(), holder.binding.like);
         isSaved(post.getPostId(), holder.binding.save);
         isLikes(holder.binding.likes, post.getPostId());
@@ -91,7 +93,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             if (holder.binding.like.getTag().equals("like")) {
                 FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId())
                         .child(firebaseUser.getUid()).setValue(true);
-                addNotification(post.getPostProfile(), post.getPostId());
+                addNotification(post.getProfile(), post.getPostId());
             } else {
                 FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId())
                         .child(firebaseUser.getUid()).removeValue();
@@ -110,7 +112,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
 
         holder.binding.imageProfile.setOnClickListener(view -> {
             SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
-            editor.putString("profileId", post.getPostProfile());
+            editor.putString("profileId", post.getProfile());
             editor.apply();
 
             ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
@@ -119,7 +121,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
 
         holder.binding.username.setOnClickListener(view -> {
             SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
-            editor.putString("profileId", post.getPostProfile());
+            editor.putString("profileId", post.getProfile());
             editor.apply();
 
             ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
@@ -128,7 +130,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
 
         holder.binding.profileName.setOnClickListener(view -> {
             SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
-            editor.putString("profileId", post.getPostProfile());
+            editor.putString("profileId", post.getProfile());
             editor.apply();
 
             ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
@@ -138,14 +140,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         holder.binding.comment.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, CommentActivity.class);
             intent.putExtra("postId", post.getPostId());
-            intent.putExtra("profileId", post.getPostProfile());
+            intent.putExtra("profileId", post.getProfile());
             mContext.startActivity(intent);
         });
 
         holder.binding.comments.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, CommentActivity.class);
             intent.putExtra("postId", post.getPostId());
-            intent.putExtra("profileId", post.getPostProfile());
+            intent.putExtra("profileId", post.getProfile());
             mContext.startActivity(intent);
         });
 
@@ -174,7 +176,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
                         return true;
                     case R.id.delete:
                         final String id = post.getPostId();
-                        FirebaseDatabase.getInstance().getReference("Posts")
+                        FirebaseDatabase.getInstance().getReference("posts")
                                 .child(post.getPostId()).removeValue()
                                 .addOnCompleteListener(task -> {
                                     if (task.isSuccessful()){
@@ -190,7 +192,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
                 }
             });
             popupMenu.inflate(R.menu.post_menu);
-            if (!post.getPostProfile().equals(firebaseUser.getUid())){
+            if (!post.getProfile().equals(firebaseUser.getUid())){
                 popupMenu.getMenu().findItem(R.id.edit).setVisible(false);
                 popupMenu.getMenu().findItem(R.id.delete).setVisible(false);
             }
@@ -203,11 +205,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         return mPosts.size();
     }
 
-    public static class ImageViewHolder extends RecyclerView.ViewHolder {
+    public static class PostViewHolder extends RecyclerView.ViewHolder {
 
         PostsRvDesignBinding binding;
 
-        public ImageViewHolder(View itemView) {
+        public PostViewHolder(View itemView) {
             super(itemView);
             binding = PostsRvDesignBinding.bind(itemView);
         }

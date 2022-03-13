@@ -1,5 +1,6 @@
 package in.icomputercoding.folkchat.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.ActivitySplashScreenBinding;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
     ActivitySplashScreenBinding binding;

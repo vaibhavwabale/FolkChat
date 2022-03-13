@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +31,7 @@ import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.CommentSampleBinding;
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ImageViewHolder> {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
     private final Context mContext;
     private final List<Comment> mComment;
@@ -46,18 +46,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ImageVie
 
     @NonNull
     @Override
-    public CommentAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.comment_sample, parent, false);
-        return new CommentAdapter.ImageViewHolder(view);
+        return new CommentViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommentAdapter.ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final Comment comment = mComment.get(position);
 
-        holder.binding.comment.setText(comment.getComment());
+        holder.binding.commentTxt.setText(comment.getComment());
         getUserInfo(holder.binding.imageProfile, holder.binding.name, comment.getProfile());
 
         holder.binding.name.setOnClickListener(v -> {
@@ -104,11 +104,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ImageVie
         return mComment.size();
     }
 
-    public static class ImageViewHolder extends RecyclerView.ViewHolder {
+    public static class CommentViewHolder extends RecyclerView.ViewHolder {
 
         CommentSampleBinding binding;
 
-        public ImageViewHolder(View view) {
+        public CommentViewHolder(View view) {
             super(view);
             binding = CommentSampleBinding.bind(view);
         }
@@ -122,7 +122,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ImageVie
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                Glide.with(mContext).load(Objects.requireNonNull(user).getProfileImage()).into(imageProfile);
+                assert user != null;
+                Picasso.get()
+                        .load(user.getProfileImage())
+                        .placeholder(R.drawable.profile_user)
+                        .into(imageProfile);
                 name.setText(user.getName());
             }
 

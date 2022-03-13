@@ -19,10 +19,8 @@ import in.icomputercoding.folkchat.databinding.FragmentPostDetailsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
-import static java.security.AccessController.getContext;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -37,7 +35,7 @@ public class PostDetailsFragment extends Fragment {
     FragmentPostDetailsBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPostDetailsBinding.inflate(getLayoutInflater(),container,false);
 
@@ -58,7 +56,7 @@ public class PostDetailsFragment extends Fragment {
     }
 
     private void readPost(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts").child(postId);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("posts").child(postId);
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")

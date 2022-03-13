@@ -150,7 +150,7 @@ public class AddPostFragment extends Fragment {
 
                 Post post = new Post();
                 post.setPostImage(uri.toString());
-                post.setPostProfile(FirebaseAuth.getInstance().getUid());
+                post.setProfile(FirebaseAuth.getInstance().getUid());
                 post.setPostDescription(binding.postDescription.getText().toString());
 
                 database.getReference().child("posts")

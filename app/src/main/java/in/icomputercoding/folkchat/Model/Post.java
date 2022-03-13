@@ -4,16 +4,16 @@ package in.icomputercoding.folkchat.Model;
 public class Post {
     private String postId;
     private String postImage;
-    private String postProfile;
+    private String profile;
     private String postDescription;
 
     public Post() {
     }
 
-    public Post(String postId, String postImage, String postProfile, String postDescription) {
+    public Post(String postId, String postImage, String profile, String postDescription) {
         this.postId = postId;
         this.postImage = postImage;
-        this.postProfile = postProfile;
+        this.profile = profile;
         this.postDescription = postDescription;
     }
 
@@ -33,12 +33,12 @@ public class Post {
         this.postImage = postImage;
     }
 
-    public String getPostProfile() {
-        return postProfile;
+    public String getProfile() {
+        return profile;
     }
 
-    public void setPostProfile(String postProfile) {
-        this.postProfile = postProfile;
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public String getPostDescription() {

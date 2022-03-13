@@ -43,6 +43,12 @@
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/hintTextColor" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
