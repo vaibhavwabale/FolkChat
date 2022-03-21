@@ -29,4 +29,5 @@
     <color name="colorTextPrimary">#0E68FF</color>
     <color name="itemBackground">#65EAEAEA</color>
     <color name="link_blue">#0281f7</color>
+    <color name="colorTextDisable">#66FFFFFF</color>
 </resources>

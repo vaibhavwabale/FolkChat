@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.FirebaseApp;
@@ -31,15 +32,14 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
-import in.icomputercoding.folkchat.Adapters.PostAdapter;
+import in.icomputercoding.folkchat.Adapters.TabAdapter;
 import in.icomputercoding.folkchat.Adapters.TopStatusAdapter;
 import in.icomputercoding.folkchat.Adapters.ChatAdapter;
-import in.icomputercoding.folkchat.Model.Post;
+import in.icomputercoding.folkchat.Chats.ChatFragment;
 import in.icomputercoding.folkchat.Model.Status;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.Model.UserStatus;
@@ -60,7 +60,6 @@ public class HomeFragment extends Fragment {
     User user;
     FirebaseApp app;
     ActivityResultLauncher<Intent> story;
-    ArrayList<Post> postList;
 
 
     @Override
@@ -83,6 +82,13 @@ public class HomeFragment extends Fragment {
 
 
         database = FirebaseDatabase.getInstance(app);
+
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
+        TabAdapter tabAdapter = new TabAdapter(requireFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        tabAdapter.addFragment(new ChatFragment(), "Chats");
+        tabAdapter.addFragment(new PostsFragment(),"Posts");
+        binding.viewPager.setAdapter(tabAdapter);
+
 
         FirebaseMessaging.getInstance()
                 .getToken()
@@ -214,37 +220,10 @@ public class HomeFragment extends Fragment {
 
 
 
-        //Dashboard Recycler View
-        postList = new ArrayList<>();
-        PostAdapter postAdapter = new PostAdapter(getContext(),postList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        binding.dashboardRV.setLayoutManager(linearLayoutManager);
-        binding.dashboardRV.setNestedScrollingEnabled(false);
-       binding.dashboardRV.setAdapter(postAdapter);
-        binding.dashboardRV.showShimmerAdapter();
 
 
-       database.getReference().child("posts").addValueEventListener(new ValueEventListener() {
-           @SuppressLint("NotifyDataSetChanged")
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               postList.clear();
-               for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                   Post post = dataSnapshot.getValue(Post.class);
-                   postList.add(post);
-                   Objects.requireNonNull(post).setPostId(dataSnapshot.getKey());
-               }
-               Collections.reverse(postList);
-               binding.dashboardRV.hideShimmerAdapter();
-               postAdapter.notifyDataSetChanged();
-           }
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
 
-           }
-       });
 
         binding.addStoryImg.setOnClickListener(v -> {
             Intent intent = new Intent();

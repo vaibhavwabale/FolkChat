@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -14,12 +15,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways">
 
                 <TextView
                     android:id="@+id/username"
@@ -27,20 +25,19 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
                     android:maxLines="1"
+                    android:layout_marginStart="16dp"
                     android:text="@string/name"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/_18font_mdp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/options"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_width="@dimen/_30font_mdp"
+                    android:layout_height="@dimen/_30font_mdp"
+                    android:layout_gravity="end"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_settings" />
-
-            </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
 

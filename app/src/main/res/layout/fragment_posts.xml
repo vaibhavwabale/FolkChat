@@ -4,24 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Chats.ChatFragment">
+    tools:context=".Fragments.PostsFragment">
 
     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:id="@+id/dashboardRV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:padding="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shimmer_demo_angle="20"
         app:shimmer_demo_child_count="10"
         app:shimmer_demo_grid_child_count="2"
-        app:shimmer_demo_layout="@layout/demo_layout"
-        app:shimmer_demo_layout_manager_type="linear_vertical"
-        tools:listitem="@layout/row_conversation" />
+        app:shimmer_demo_layout="@layout/demo_post" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
