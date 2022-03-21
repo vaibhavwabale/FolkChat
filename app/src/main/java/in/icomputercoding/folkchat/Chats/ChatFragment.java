@@ -10,12 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.appcheck.FirebaseAppCheck;
+import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,8 +34,9 @@ public class ChatFragment extends Fragment {
     FragmentChatBinding binding;
     FirebaseDatabase database;
     FirebaseAuth auth;
-    ArrayList<User> users;
+    ArrayList<User> users = new ArrayList<>();
     ChatAdapter chatAdapter;
+    FirebaseApp app;
 
 
     @Override
@@ -42,6 +47,17 @@ public class ChatFragment extends Fragment {
 
 
         auth = FirebaseAuth.getInstance();
+
+        app = FirebaseApp.initializeApp(requireContext());
+        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
+        firebaseAppCheck.installAppCheckProviderFactory(
+                SafetyNetAppCheckProviderFactory.getInstance());
+
+        FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(0)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
 
         database = FirebaseDatabase.getInstance(Objects.requireNonNull(FirebaseApp.initializeApp(requireContext())));
 
@@ -60,6 +76,7 @@ public class ChatFragment extends Fragment {
         binding.recyclerView.setAdapter(chatAdapter);
         binding.recyclerView.showShimmerAdapter();
 
+
         database.getReference().child("users").addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -68,8 +85,8 @@ public class ChatFragment extends Fragment {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     User user = snapshot1.getValue(User.class);
                     assert user != null;
-                    if (!user.getUid().equals(auth.getUid()))
-                        users.add(user);
+                   if (!user.getUid().equals(auth.getUid()))
+                     users.add(user);
                 }
                 binding.recyclerView.hideShimmerAdapter();
                 chatAdapter.notifyDataSetChanged();
