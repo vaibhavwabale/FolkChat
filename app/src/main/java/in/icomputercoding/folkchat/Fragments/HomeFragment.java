@@ -13,7 +13,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.FirebaseApp;
@@ -84,7 +83,7 @@ public class HomeFragment extends Fragment {
         database = FirebaseDatabase.getInstance(app);
 
         binding.tabLayout.setupWithViewPager(binding.viewPager);
-        TabAdapter tabAdapter = new TabAdapter(requireFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(),binding.tabLayout.getTabCount());
         tabAdapter.addFragment(new ChatFragment(), "Chats");
         tabAdapter.addFragment(new PostsFragment(),"Posts");
         binding.viewPager.setAdapter(tabAdapter);

@@ -9,21 +9,29 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
 import in.icomputercoding.folkchat.Model.User;
+import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.ActivityProfileScreenBinding;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -34,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseStorage storage;
     Uri imageUri;
     ProgressDialog dialog;
+    FirebaseUser firebaseUser;
     ActivityResultLauncher<Intent> launcher;
     String uid;
 
@@ -51,6 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -62,6 +72,28 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseAppCheck.installAppCheckProviderFactory(
                 SafetyNetAppCheckProviderFactory.getInstance());
 
+
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                assert user != null;
+                Objects.requireNonNull(binding.name.getEditText()).setText(user.getName());
+                Objects.requireNonNull(binding.bio.getEditText()).setText(user.getBio());
+                Picasso.get()
+                        .load(user.getProfileImage())
+                        .placeholder(R.drawable.profile_user)
+                        .into(binding.ProfileImage);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK) {
                 Intent data = result.getData();
@@ -70,10 +102,10 @@ public class ProfileActivity extends AppCompatActivity {
                         Uri uri = data.getData(); // filepath
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         long time = new Date().getTime();
-                        StorageReference reference = storage.getReference().child("Profiles").child(time + "");
-                        reference.putFile(uri).addOnCompleteListener(task -> {
+                        StorageReference storageReference = storage.getReference().child("Profiles").child(time + "");
+                        storageReference.putFile(uri).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
+                                storageReference.getDownloadUrl().addOnSuccessListener(uri1 -> {
                                     String filePath = uri1.toString();
                                     HashMap<String, Object> obj = new HashMap<>();
                                     obj.put("image", filePath);
@@ -113,10 +145,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             dialog.show();
             if (imageUri != null) {
-                StorageReference reference = storage.getReference().child("Profiles").child(Objects.requireNonNull(auth.getUid()));
-                reference.putFile(imageUri).addOnCompleteListener(task -> {
+                StorageReference storageReference = storage.getReference().child("Profiles").child(Objects.requireNonNull(auth.getUid()));
+                storageReference.putFile(imageUri).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        reference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                             String imageUrl = uri.toString();
                             String phone = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber();
                             User user = new User(uid, name, phone, imageUrl, bio);

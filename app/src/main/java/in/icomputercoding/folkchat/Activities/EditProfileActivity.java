@@ -122,12 +122,12 @@ public class EditProfileActivity extends AppCompatActivity {
                     + "." + getFileExtension(uri));
 
             StorageTask<UploadTask.TaskSnapshot> upload = fileReference.putFile(uri);
-            upload.continueWithTask((Continuation<UploadTask.TaskSnapshot, Task<Uri>>) task -> {
+            upload.continueWithTask(task -> {
                 if (!task.isSuccessful()) {
                     throw Objects.requireNonNull(task.getException());
                 }
                 return fileReference.getDownloadUrl();
-            }).addOnCompleteListener((OnCompleteListener<Uri>) task -> {
+            }).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
                     String miUrlOk = downloadUri.toString();
