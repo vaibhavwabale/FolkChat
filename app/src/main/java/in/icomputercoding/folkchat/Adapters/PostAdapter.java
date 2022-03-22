@@ -68,136 +68,136 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Post post = mPosts.get(position);
+             if(post != null) {
+                 Picasso.get()
+                         .load(post.getPostImage())
+                         .placeholder(R.drawable.placeholder)
+                         .into(holder.binding.postImage);
+                 if (post.getPostDescription().equals("")){
+                     holder.binding.description.setVisibility(View.GONE);
+                 } else {
+                     holder.binding.description.setVisibility(View.VISIBLE);
+                     holder.binding.description.setText(post.getPostDescription());
+                 }
 
-                Picasso.get()
-                        .load(post.getPostImage())
-                        .placeholder(R.drawable.placeholder)
-                        .into(holder.binding.postImage);
 
+                 profileInfo(holder.binding.imageProfile, holder.binding.username, holder.binding.profileName, post.getProfile());
+                 isLiked(post.getPostId(), holder.binding.like);
+                 isSaved(post.getPostId(), holder.binding.save);
+                 isLikes(holder.binding.likes, post.getPostId());
+                 getComments(post.getPostId(), holder.binding.comments);
 
+                 holder.binding.like.setOnClickListener(view -> {
+                     if (holder.binding.like.getTag().equals("like")) {
+                         FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId())
+                                 .child(firebaseUser.getUid()).setValue(true);
+                         addNotification(post.getProfile(), post.getPostId());
+                     } else {
+                         FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId())
+                                 .child(firebaseUser.getUid()).removeValue();
+                     }
+                 });
 
-        if (post.getPostDescription().equals("")){
-            holder.binding.description.setVisibility(View.GONE);
-        } else {
-            holder.binding.description.setVisibility(View.VISIBLE);
-            holder.binding.description.setText(post.getPostDescription());
-        }
+                 holder.binding.save.setOnClickListener(view -> {
+                     if (holder.binding.save.getTag().equals("save")){
+                         FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
+                                 .child(post.getPostId()).setValue(true);
+                     } else {
+                         FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
+                                 .child(post.getPostId()).removeValue();
+                     }
+                 });
 
-        profileInfo(holder.binding.imageProfile, holder.binding.username, holder.binding.profileName, post.getProfile());
-        isLiked(post.getPostId(), holder.binding.like);
-        isSaved(post.getPostId(), holder.binding.save);
-        isLikes(holder.binding.likes, post.getPostId());
-        getComments(post.getPostId(), holder.binding.comments);
+                 holder.binding.imageProfile.setOnClickListener(view -> {
+                     SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+                     editor.putString("profileId", post.getProfile());
+                     editor.apply();
 
-        holder.binding.like.setOnClickListener(view -> {
-            if (holder.binding.like.getTag().equals("like")) {
-                FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId())
-                        .child(firebaseUser.getUid()).setValue(true);
-                addNotification(post.getProfile(), post.getPostId());
-            } else {
-                FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId())
-                        .child(firebaseUser.getUid()).removeValue();
-            }
-        });
+                     ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                             new ProfileFragment()).commit();
+                 });
 
-        holder.binding.save.setOnClickListener(view -> {
-            if (holder.binding.save.getTag().equals("save")){
-                FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
-                        .child(post.getPostId()).setValue(true);
-            } else {
-                FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
-                        .child(post.getPostId()).removeValue();
-            }
-        });
+                 holder.binding.username.setOnClickListener(view -> {
+                     SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+                     editor.putString("profileId", post.getProfile());
+                     editor.apply();
 
-        holder.binding.imageProfile.setOnClickListener(view -> {
-            SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
-            editor.putString("profileId", post.getProfile());
-            editor.apply();
+                     ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                             new ProfileFragment()).commit();
+                 });
 
-            ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                    new ProfileFragment()).commit();
-        });
+                 holder.binding.profileName.setOnClickListener(view -> {
+                     SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+                     editor.putString("profileId", post.getProfile());
+                     editor.apply();
 
-        holder.binding.username.setOnClickListener(view -> {
-            SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
-            editor.putString("profileId", post.getProfile());
-            editor.apply();
+                     ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                             new ProfileFragment()).commit();
+                 });
 
-            ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                    new ProfileFragment()).commit();
-        });
+                 holder.binding.comment.setOnClickListener(view -> {
+                     Intent intent = new Intent(mContext, CommentActivity.class);
+                     intent.putExtra("postId", post.getPostId());
+                     intent.putExtra("profileId", post.getProfile());
+                     mContext.startActivity(intent);
+                 });
 
-        holder.binding.profileName.setOnClickListener(view -> {
-            SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
-            editor.putString("profileId", post.getProfile());
-            editor.apply();
+                 holder.binding.comments.setOnClickListener(view -> {
+                     Intent intent = new Intent(mContext, CommentActivity.class);
+                     intent.putExtra("postId", post.getPostId());
+                     intent.putExtra("profileId", post.getProfile());
+                     mContext.startActivity(intent);
+                 });
 
-            ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                    new ProfileFragment()).commit();
-        });
+                 holder.binding.postImage.setOnClickListener(view -> {
+                     SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+                     editor.putString("postId", post.getPostId());
+                     editor.apply();
 
-        holder.binding.comment.setOnClickListener(view -> {
-            Intent intent = new Intent(mContext, CommentActivity.class);
-            intent.putExtra("postId", post.getPostId());
-            intent.putExtra("profileId", post.getProfile());
-            mContext.startActivity(intent);
-        });
+                     ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                             new PostDetailsFragment()).commit();
+                 });
 
-        holder.binding.comments.setOnClickListener(view -> {
-            Intent intent = new Intent(mContext, CommentActivity.class);
-            intent.putExtra("postId", post.getPostId());
-            intent.putExtra("profileId", post.getProfile());
-            mContext.startActivity(intent);
-        });
+                 holder.binding.likes.setOnClickListener(view -> {
+                     Intent intent = new Intent(mContext, FollowersActivity.class);
+                     intent.putExtra("Id", post.getPostId());
+                     intent.putExtra("Title", "likes");
+                     mContext.startActivity(intent);
+                 });
 
-        holder.binding.postImage.setOnClickListener(view -> {
-            SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit();
-            editor.putString("postId", post.getPostId());
-            editor.apply();
+                 holder.binding.more.setOnClickListener(view -> {
+                     PopupMenu popupMenu = new PopupMenu(mContext, view);
+                     popupMenu.setOnMenuItemClickListener(menuItem -> {
+                         switch (menuItem.getItemId()){
+                             case R.id.edit:
+                                 editPost(post.getPostId());
+                                 return true;
+                             case R.id.delete:
+                                 final String id = post.getPostId();
+                                 FirebaseDatabase.getInstance().getReference("posts")
+                                         .child(post.getPostId()).removeValue()
+                                         .addOnCompleteListener(task -> {
+                                             if (task.isSuccessful()){
+                                                 deleteNotifications(id, firebaseUser.getUid());
+                                             }
+                                         });
+                                 return true;
+                             case R.id.report:
+                                 Toast.makeText(mContext, "Reported clicked!", Toast.LENGTH_SHORT).show();
+                                 return true;
+                             default:
+                                 return false;
+                         }
+                     });
+                     popupMenu.inflate(R.menu.post_menu);
+                     if (!post.getProfile().equals(firebaseUser.getUid())){
+                         popupMenu.getMenu().findItem(R.id.edit).setVisible(false);
+                         popupMenu.getMenu().findItem(R.id.delete).setVisible(false);
+                     }
+                     popupMenu.show();
+                 });
+             }
 
-            ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                    new PostDetailsFragment()).commit();
-        });
-
-        holder.binding.likes.setOnClickListener(view -> {
-            Intent intent = new Intent(mContext, FollowersActivity.class);
-            intent.putExtra("Id", post.getPostId());
-            intent.putExtra("Title", "likes");
-            mContext.startActivity(intent);
-        });
-
-        holder.binding.more.setOnClickListener(view -> {
-            PopupMenu popupMenu = new PopupMenu(mContext, view);
-            popupMenu.setOnMenuItemClickListener(menuItem -> {
-                switch (menuItem.getItemId()){
-                    case R.id.edit:
-                        editPost(post.getPostId());
-                        return true;
-                    case R.id.delete:
-                        final String id = post.getPostId();
-                        FirebaseDatabase.getInstance().getReference("posts")
-                                .child(post.getPostId()).removeValue()
-                                .addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()){
-                                        deleteNotifications(id, firebaseUser.getUid());
-                                    }
-                                });
-                        return true;
-                    case R.id.report:
-                        Toast.makeText(mContext, "Reported clicked!", Toast.LENGTH_SHORT).show();
-                        return true;
-                    default:
-                        return false;
-                }
-            });
-            popupMenu.inflate(R.menu.post_menu);
-            if (!post.getProfile().equals(firebaseUser.getUid())){
-                popupMenu.getMenu().findItem(R.id.edit).setVisible(false);
-                popupMenu.getMenu().findItem(R.id.delete).setVisible(false);
-            }
-            popupMenu.show();
-        });
     }
 
     @Override

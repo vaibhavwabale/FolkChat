@@ -17,20 +17,13 @@
             android:layout_height="wrap_content"
             android:background="?android:attr/windowBackground">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:src="@drawable/ic_search" />
-
-            <EditText
-                android:id="@+id/search_bar"
+            <SearchView
+                android:id="@+id/searchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@android:color/transparent"
-                android:maxLines="1"
-                android:hint="Search..." />
+                android:iconifiedByDefault="false"
+                android:queryBackground="@color/colorWhite"
+                android:queryHint="Search..." />
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>

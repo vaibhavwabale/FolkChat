@@ -2,15 +2,16 @@ package in.icomputercoding.folkchat.Fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +33,7 @@ public class SearchFragment extends Fragment {
     FragmentSearchBinding binding;
     private SearchAdapter searchAdapter;
     private List<User> userList;
+    FirebaseAuth auth;
 
 
     @Override
@@ -39,31 +41,37 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(getLayoutInflater(),container,false);
 
+        auth = FirebaseAuth.getInstance();
+
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         userList = new ArrayList<>();
         searchAdapter = new SearchAdapter(getContext(), userList, true);
         binding.recyclerView.setAdapter(searchAdapter);
 
+        binding.searchBar.setActivated(true);
+        binding.searchBar.setQueryHint("Search...");
+        binding.searchBar.onActionViewExpanded();
+        binding.searchBar.setIconified(false);
+        binding.searchBar.clearFocus();
+
         readUsers();
-        binding.searchBar.addTextChangedListener(new TextWatcher() {
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchUsers(charSequence.toString().toLowerCase());
-            }
+            public boolean onQueryTextChange(String newText) {
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-
+                searchUsers(newText);
+                return false;
             }
         });
+
+
 
         return binding.getRoot();
     }
@@ -80,7 +88,9 @@ public class SearchFragment extends Fragment {
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-                    userList.add(user);
+                    assert user != null;
+                    if (!user.getUid().equals(auth.getUid()))
+                        userList.add(user);
                 }
                 Collections.reverse(userList);
                 searchAdapter.notifyDataSetChanged();
@@ -101,7 +111,7 @@ public class SearchFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (binding.searchBar.getText().toString().equals("")) {
+                if (binding.searchBar.getQuery().toString().equals("")) {
                     userList.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);
