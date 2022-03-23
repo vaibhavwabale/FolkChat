@@ -161,7 +161,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                  holder.binding.likes.setOnClickListener(view -> {
                      Intent intent = new Intent(mContext, FollowersActivity.class);
                      intent.putExtra("Id", post.getPostId());
-                     intent.putExtra("Title", "likes");
+                     intent.putExtra("Title", "Likes");
                      mContext.startActivity(intent);
                  });
 
@@ -253,7 +253,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                likes.setText(dataSnapshot.getChildrenCount()+" likes");
+                likes.setText(dataSnapshot.getChildrenCount()+" Likes");
             }
 
             @Override
@@ -315,10 +315,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(Objects.requireNonNull(firebaseUser).getUid()).exists()){
                     imageView.setImageResource(R.drawable.ic_liked);
-                    imageView.setTag("liked");
+                    imageView.setTag("Liked");
                 } else{
                     imageView.setImageResource(R.drawable.ic_like);
-                    imageView.setTag("like");
+                    imageView.setTag("Like");
                 }
             }
 

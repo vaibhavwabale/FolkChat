@@ -258,7 +258,6 @@ public class ProfileFragment extends Fragment {
                 postList_saves.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-
                     for (String id : mySaves) {
                         assert post != null;
                         if (post.getPostId().equals(id)) {
