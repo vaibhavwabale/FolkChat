@@ -37,6 +37,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private final List<Comment> mComment;
     private final String postId;
 
+    private FirebaseUser firebaseUser;
 
     public CommentAdapter(Context mContext, List<Comment> mComment, String postId) {
         this.mContext = mContext;
@@ -54,7 +55,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Comment comment = mComment.get(position);
 
         holder.binding.commentTxt.setText(comment.getComment());
@@ -73,7 +74,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         });
 
         holder.itemView.setOnLongClickListener(view -> {
-            if (comment.getProfile().equals(Objects.requireNonNull(user).getUid())) {
+            if (comment.getProfile().equals(Objects.requireNonNull(firebaseUser).getUid())) {
 
                 AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
                 alertDialog.setTitle("Do you want to delete?");

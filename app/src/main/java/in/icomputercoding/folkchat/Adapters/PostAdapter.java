@@ -43,7 +43,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolder> {
 
     private final Context mContext;
     private final List<Post> mPosts;
@@ -57,14 +57,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     @NonNull
     @Override
-    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.posts_rv_design, parent, false);
-        return new PostViewHolder(view);
+        return new ImageViewHolder(view);
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    public void onBindViewHolder(@NonNull final PostViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ImageViewHolder holder, final int position) {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Post post = mPosts.get(position);
@@ -205,11 +205,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return mPosts.size();
     }
 
-    public static class PostViewHolder extends RecyclerView.ViewHolder {
+    public static class ImageViewHolder extends RecyclerView.ViewHolder {
 
         PostsRvDesignBinding binding;
 
-        public PostViewHolder(View itemView) {
+        public ImageViewHolder(View itemView) {
             super(itemView);
             binding = PostsRvDesignBinding.bind(itemView);
         }
