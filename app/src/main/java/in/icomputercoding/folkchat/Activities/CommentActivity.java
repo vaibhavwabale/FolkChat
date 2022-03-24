@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
@@ -107,7 +107,10 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                Glide.with(getApplicationContext()).load(Objects.requireNonNull(user).getProfileImage()).into(binding.imageProfile);
+                assert user != null;
+                Picasso.get()
+                        .load(user.getProfileImage())
+                        .into(binding.imageProfile);
             }
 
             @Override
@@ -120,6 +123,7 @@ public class CommentActivity extends AppCompatActivity {
     private void addComment() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Comments")
                 .child(postId);
+
         String commentId = reference.push().getKey();
 
         HashMap<String, Object> hashMap = new HashMap<>();

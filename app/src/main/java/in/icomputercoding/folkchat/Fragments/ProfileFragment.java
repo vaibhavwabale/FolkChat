@@ -285,7 +285,8 @@ public class ProfileFragment extends Fragment {
                     return;
                 }
                 User user = snapshot.getValue(User.class);
-                Picasso.get().load(Objects.requireNonNull(user).getProfileImage()).into(binding.imageProfile);
+                assert user != null;
+                Picasso.get().load(user.getProfileImage()).into(binding.imageProfile);
                 binding.username.setText(user.getName());
                 binding.profileName.setText(user.getName());
                 binding.bio.setText(user.getBio());

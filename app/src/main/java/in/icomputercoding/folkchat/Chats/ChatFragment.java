@@ -22,6 +22,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -85,9 +86,10 @@ public class ChatFragment extends Fragment {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     User user = snapshot1.getValue(User.class);
                     assert user != null;
-                   if (!user.getUid().equals(auth.getUid()))
-                     users.add(user);
+                    if (!user.getUid().equals(auth.getUid()))
+                        users.add(user);
                 }
+                Collections.reverse(users);
                 binding.recyclerView.hideShimmerAdapter();
                 chatAdapter.notifyDataSetChanged();
             }

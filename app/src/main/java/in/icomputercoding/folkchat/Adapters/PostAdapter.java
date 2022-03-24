@@ -161,7 +161,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                  holder.binding.likes.setOnClickListener(view -> {
                      Intent intent = new Intent(mContext, FollowersActivity.class);
                      intent.putExtra("Id", post.getPostId());
-                     intent.putExtra("Title", "Likes");
+                     intent.putExtra("Title", "likes");
                      mContext.startActivity(intent);
                  });
 
@@ -253,7 +253,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                likes.setText(dataSnapshot.getChildrenCount()+" Likes");
+                likes.setText(dataSnapshot.getChildrenCount()+" likes");
             }
 
             @Override

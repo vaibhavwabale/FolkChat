@@ -1,9 +1,5 @@
 package in.icomputercoding.folkchat.Model;
 
-/**
- * Created by User on 8/21/2017.
- */
-
 public class Like {
 
     private String user_id;

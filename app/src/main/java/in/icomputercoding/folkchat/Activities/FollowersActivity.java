@@ -60,7 +60,7 @@ public class FollowersActivity extends AppCompatActivity {
 
 
         switch (title) {
-            case "Likes":
+            case "likes":
                 getLikes();
                 break;
             case "following":

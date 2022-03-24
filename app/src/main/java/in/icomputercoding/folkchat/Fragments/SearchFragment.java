@@ -88,8 +88,6 @@ public class SearchFragment extends Fragment {
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-                    assert user != null;
-                    if (!user.getUid().equals(auth.getUid()))
                         userList.add(user);
                 }
                 Collections.reverse(userList);
