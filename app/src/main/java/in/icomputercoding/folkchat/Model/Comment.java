@@ -4,13 +4,13 @@ package in.icomputercoding.folkchat.Model;
 
 public class Comment {
     private String profile;
-    private long commentId;
+    private String commentId;
     private String comment;
 
     public Comment() {
     }
 
-    public Comment(String profile, long commentId, String comment) {
+    public Comment(String profile, String commentId, String comment) {
         this.profile = profile;
         this.commentId = commentId;
         this.comment = comment;
@@ -24,11 +24,11 @@ public class Comment {
         this.profile = profile;
     }
 
-    public long getCommentId() {
+    public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(long commentId) {
+    public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 
