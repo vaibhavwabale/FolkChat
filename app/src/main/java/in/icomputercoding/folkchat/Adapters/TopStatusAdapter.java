@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,9 @@ public class TopStatusAdapter extends RecyclerView.Adapter<TopStatusAdapter.TopS
 
         Status lastStatus = userStatus.getStatuses().get(userStatus.getStatuses().size() - 1);
 
-        Glide.with(context).load(lastStatus.getImageUrl()).into(holder.binding.profileImage);
+        Picasso.get()
+                .load(lastStatus.getImageUrl())
+                .into(holder.binding.profileImage);
 
        holder.binding.circularStatusView.setPortionsCount(userStatus.getStatuses().size());
 
@@ -79,7 +81,8 @@ public class TopStatusAdapter extends RecyclerView.Adapter<TopStatusAdapter.TopS
         });
 
         holder.binding.name.setText(userStatus.getName());
-        Glide.with(context).load(userStatus.getProfileImage())
+        Picasso.get()
+                .load(userStatus.getProfileImage())
                 .placeholder(R.drawable.background)
                 .into(holder.binding.addStoryImg);
 

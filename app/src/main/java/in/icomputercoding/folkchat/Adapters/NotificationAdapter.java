@@ -106,7 +106,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Post post = snapshot.getValue(Post.class);
                 assert post != null;
-                Picasso.get().load(post.getPostImage()).placeholder(R.drawable.placeholder).into(postImg);
+                Picasso.get()
+                        .load(post.getPostImage())
+                        .placeholder(R.drawable.placeholder)
+                        .into(postImg);
             }
 
             @Override
@@ -124,7 +127,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 assert user != null;
-                Picasso.get().load(user.getProfileImage()).placeholder(R.drawable.profile_user).into(imageProfile);
+                Picasso.get()
+                        .load(user.getProfileImage())
+                        .placeholder(R.drawable.profile_user)
+                        .into(imageProfile);
                 username.setText(user.getName());
             }
 

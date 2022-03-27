@@ -56,7 +56,7 @@ public class NotificationFragment extends Fragment {
     private void readNotification() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications")
-                .child(user.getUid());
+                .child(Objects.requireNonNull(user).getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
