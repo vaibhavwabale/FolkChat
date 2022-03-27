@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
@@ -17,21 +16,15 @@ import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
 import in.icomputercoding.folkchat.Model.User;
-import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.ActivityProfileScreenBinding;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -71,28 +64,6 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
         firebaseAppCheck.installAppCheckProviderFactory(
                 SafetyNetAppCheckProviderFactory.getInstance());
-
-
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                assert user != null;
-                Objects.requireNonNull(binding.name.getEditText()).setText(user.getName());
-                Objects.requireNonNull(binding.bio.getEditText()).setText(user.getBio());
-                Picasso.get()
-                        .load(user.getProfileImage())
-                        .placeholder(R.drawable.profile_user)
-                        .into(binding.ProfileImage);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK) {
@@ -139,7 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
             String bio = Objects.requireNonNull(binding.bio.getEditText()).getText().toString();
 
             if (name.isEmpty() || imageUri == null || bio.isEmpty()) {
-                Toast.makeText(ProfileActivity.this, "Please insert your all data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "All fields are required!", Toast.LENGTH_SHORT).show();
                 return;
             }
 

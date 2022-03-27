@@ -2,7 +2,7 @@ package in.icomputercoding.folkchat.Model;
 
 public class User {
 
-    private String uid, name, phoneNumber, profileImage, token;
+    private String uid, name, phoneNumber, profileImage;
     private String profile;
     private String bio;
 
@@ -23,12 +23,11 @@ public class User {
         this.bio = bio;
     }
 
-    public User(String uid, String name, String phoneNumber, String profileImage, String token, String profile, String bio) {
+    public User(String uid, String name, String phoneNumber, String profileImage, String profile, String bio) {
         this.uid = uid;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
-        this.token = token;
         this.profile = profile;
         this.bio = bio;
     }
@@ -80,14 +79,6 @@ public class User {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
 }

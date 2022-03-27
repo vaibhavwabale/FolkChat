@@ -23,7 +23,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.firebase.storage.FirebaseStorage;
@@ -87,18 +86,6 @@ public class HomeFragment extends Fragment {
         tabAdapter.addFragment(new ChatFragment(), "Chats");
         tabAdapter.addFragment(new PostsFragment(),"Posts");
         binding.viewPager.setAdapter(tabAdapter);
-
-
-        FirebaseMessaging.getInstance()
-                .getToken()
-                .addOnSuccessListener(token -> {
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("token", token);
-                    database.getReference()
-                            .child("users")
-                            .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
-                            .updateChildren(map);
-                });
 
 
         dialog = new ProgressDialog(getContext());

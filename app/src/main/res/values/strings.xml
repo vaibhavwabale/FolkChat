@@ -35,8 +35,7 @@
     <string name="cancel">Cancel</string>
     <string name="delete_for_everyone">Delete for Everyone</string>
     <string name="username">Username</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 
     <!-- fragment names -->

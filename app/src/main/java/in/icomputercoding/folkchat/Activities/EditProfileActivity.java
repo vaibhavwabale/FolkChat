@@ -75,7 +75,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         binding.close.setOnClickListener(v -> finish());
 
-        binding.save.setOnClickListener(v -> updateProfile(binding.username.getText().toString(),binding.bio.getText().toString()));
+        binding.save.setOnClickListener(v ->
+                updateProfile(binding.username.getText().toString(),binding.bio.getText().toString()));
 
         binding.tvChange.setOnClickListener(v -> CropImage.activity()
                 .setAspectRatio(1,1)
