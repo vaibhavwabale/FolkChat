@@ -22,7 +22,7 @@
             android:fontFamily="@font/poppins"
             android:text="@string/enter_phone"
             android:textColor="@color/colorTextBlack"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="@dimen/_20font_mdp"
             android:transitionName="transition_title_text" />
 
 
