@@ -11,7 +11,7 @@
     <string name="code">CODE</string>
     <string name="verification">Verification</string>
     <string name="verify_code">verify code</string>
-    <string name="profileDesc">Please provide your name and an optional profile photo</string>
+    <string name="profileDesc">Please provide your name, bio and profile photo</string>
     <string name="type_your_name">Type your name here</string>
     <string name="profileInfo">Profile Info</string>
     <string name="submit">Submit</string>

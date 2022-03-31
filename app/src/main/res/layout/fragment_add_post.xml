@@ -34,7 +34,7 @@
                 android:text="Create Post"
                 android:textAlignment="gravity"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="@dimen/_20font_mdp"
+                android:textSize="@dimen/_20sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/postBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/postBtn" />
@@ -79,7 +79,7 @@
         android:fontFamily="@font/poppins"
         android:text=""
         android:textColor="@color/colorTextBlack"
-        android:textSize="@dimen/_14font_mdp"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintBottom_toBottomOf="@+id/profileImage"
         app:layout_constraintStart_toEndOf="@+id/profileImage"
         app:layout_constraintTop_toTopOf="@+id/profileImage"
@@ -97,7 +97,7 @@
         android:gravity="top"
         android:hint="What's on your mind?"
         android:inputType="textPersonName"
-        android:textSize="24sp"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintBottom_toTopOf="@+id/postImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -123,7 +123,6 @@
         android:id="@+id/bar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +131,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/LightGray"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <ImageView
@@ -153,7 +152,7 @@
                 android:layout_marginStart="16dp"
                 android:text="Add to your post"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="@dimen/_15font_mdp"
+                android:textSize="@dimen/_15sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/addImg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/addImg" />

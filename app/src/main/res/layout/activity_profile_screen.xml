@@ -7,118 +7,124 @@
     android:background="@color/LightGray"
     android:padding="30dp">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/profileInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="@string/profileInfo"
+        android:textColor="@color/colorTextBlack"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/profileDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:text="@string/profileDesc"
+        android:textColor="@color/colorTextBlack"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="@+id/profileInfo"
+        app:layout_constraintStart_toStartOf="@+id/profileInfo"
+        app:layout_constraintTop_toBottomOf="@+id/profileInfo" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="@string/profileInfo"
-            android:textColor="@color/colorTextBlack"
-            android:textSize="@dimen/_18sdp"
-            android:textStyle="bold" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ProfileImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="116dp"
+        android:src="@drawable/profile_user"
+        app:layout_constraintEnd_toEndOf="@+id/profileDesc"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/profileDesc"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Name"
+        android:textColorHint="@color/colorTextBlack"
+        app:boxStrokeColor="@color/colorBlack"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/colorBlack"
+        app:hintTextColor="@color/colorTextBlack"
+        app:layout_constraintEnd_toEndOf="@+id/ProfileImage"
+        app:layout_constraintStart_toStartOf="@+id/ProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/ProfileImage"
+        app:startIconTint="@color/colorBlack">
+
+
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:fontFamily="@font/poppins"
-            android:gravity="center"
-            android:text="@string/profileDesc"
+            android:inputType="textPersonName"
             android:textColor="@color/colorTextBlack"
-            android:textSize="@dimen/_9sdp" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ProfileImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/profile_user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textCursorDrawable="@null" />
 
 
-        <RelativeLayout
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/bio"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Add Bio"
+        android:textColorHint="@color/colorTextBlack"
+        app:boxStrokeColor="@color/colorBlack"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/colorBlack"
+        app:hintTextColor="@color/colorTextBlack"
+        app:layout_constraintBottom_toTopOf="@+id/SubmitBtn"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:startIconTint="@color/colorBlack">
+
+
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Name"
-                android:textColorHint="@color/colorTextBlack"
-                app:boxStrokeColor="@color/colorBlack"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/colorBlack"
-                app:hintTextColor="@color/colorTextBlack"
-                app:startIconTint="@color/colorBlack">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/poppins"
+            android:inputType="textShortMessage"
+            android:textColor="@color/colorTextBlack"
+            android:textCursorDrawable="@null" />
 
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/poppins"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/colorTextBlack"
-                    android:textCursorDrawable="@null" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/bio"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Add Bio"
-                android:layout_marginTop="70dp"
-                android:textColorHint="@color/colorTextBlack"
-                app:boxStrokeColor="@color/colorBlack"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/colorBlack"
-                app:hintTextColor="@color/colorTextBlack"
-                app:startIconTint="@color/colorBlack">
-
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/poppins"
-                    android:inputType="textShortMessage"
-                    android:textColor="@color/colorTextBlack"
-                    android:textCursorDrawable="@null" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <Button
-                android:id="@+id/SubmitBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/name"
-                android:layout_marginTop="80dp"
-                android:background="@color/colorBlack"
-                android:elevation="5dp"
-                android:text="@string/submit"
-                android:textColor="@color/colorTextWhite"
-                android:transitionName="transition_next_btn" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/SubmitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorBlack"
+        android:elevation="5dp"
+        android:text="@string/submit"
+        android:textColor="@color/colorTextWhite"
+        android:transitionName="transition_next_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

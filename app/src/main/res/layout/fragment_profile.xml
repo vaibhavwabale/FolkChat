@@ -28,13 +28,13 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/name"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="@dimen/_18font_mdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/options"
-                    android:layout_width="@dimen/_30font_mdp"
-                    android:layout_height="@dimen/_30font_mdp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="end"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_settings" />
@@ -103,7 +103,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins"
-                                android:textSize="@dimen/_12font_mdp"
+                                android:textSize="@dimen/_10sdp"
                                 android:text="posts" />
 
                         </LinearLayout>
@@ -128,7 +128,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins"
-                                android:textSize="@dimen/_12font_mdp"
+                                android:textSize="@dimen/_10sdp"
                                 android:text="followers" />
 
                         </LinearLayout>
@@ -153,7 +153,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins"
-                                android:textSize="@dimen/_12font_mdp"
+                                android:textSize="@dimen/_10sdp"
                                 android:text="following" />
 
                         </LinearLayout>
@@ -164,12 +164,12 @@
                         android:id="@+id/edit_profile"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:background="@drawable/corners"
                         android:fontFamily="@font/poppins"
                         android:text="Edit Profile"
                         android:textColor="@color/colorTextWhite"
-                        android:textSize="@dimen/_12font_mdp"
+                        android:textSize="@dimen/_9sdp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -192,7 +192,7 @@
                     android:maxLines="1"
                     android:text="@string/name"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_12sdp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -200,6 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins"
                     android:maxLines="5"
                     android:text="Android Developer"
