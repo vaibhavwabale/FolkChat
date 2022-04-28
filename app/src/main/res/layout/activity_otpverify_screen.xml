@@ -23,6 +23,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/poppins"
+            android:includeFontPadding="false"
+            android:text="@string/verification"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_24sdp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:includeFontPadding="false"
             android:text="@string/code"
             android:fontFamily="@font/poppins"
@@ -31,17 +43,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_50sdp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/poppins"
-            android:includeFontPadding="false"
-            android:text="@string/verification"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_24sdp" />
+
 
 
         <TextView

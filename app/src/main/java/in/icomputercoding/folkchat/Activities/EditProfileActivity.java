@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -75,8 +76,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         binding.close.setOnClickListener(v -> finish());
 
-        binding.save.setOnClickListener(v ->
-                updateProfile(binding.username.getText().toString(),binding.bio.getText().toString()));
+        binding.save.setOnClickListener(v -> {
+            updateProfile(binding.username.getText().toString(),binding.bio.getText().toString());
+            finish();
+        });
 
         binding.tvChange.setOnClickListener(v -> CropImage.activity()
                 .setAspectRatio(1,1)
@@ -101,7 +104,6 @@ public class EditProfileActivity extends AppCompatActivity {
         HashMap<String, Object> map = new HashMap<>();
         map.put("name",name);
         map.put("bio",bio);
-
         reference.updateChildren(map);
 
         Toast.makeText(EditProfileActivity.this, "Successfully updated!", Toast.LENGTH_SHORT).show();
@@ -136,7 +138,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     DatabaseReference reference = FirebaseDatabase.getInstance()
                             .getReference("users").child(firebaseUser.getUid());
                     HashMap<String, Object> map1 = new HashMap<>();
-                    map1.put("imageUrl", ""+miUrlOk);
+                    map1.put("profileImage", ""+miUrlOk);
                     reference.updateChildren(map1);
 
                     pd.dismiss();

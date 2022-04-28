@@ -35,6 +35,7 @@ import in.icomputercoding.folkchat.Activities.OptionsActivity;
 import in.icomputercoding.folkchat.Adapters.MyFotosAdapter;
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.User;
+import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.FragmentProfileBinding;
 
 
@@ -286,7 +287,9 @@ public class ProfileFragment extends Fragment {
                 }
                 User user = snapshot.getValue(User.class);
                 assert user != null;
-                Picasso.get().load(user.getProfileImage()).into(binding.imageProfile);
+                Picasso.get().load(user.getProfileImage())
+                        .placeholder(R.drawable.profile_user)
+                        .into(binding.imageProfile);
                 binding.username.setText(user.getName());
                 binding.profileName.setText(user.getName());
                 binding.bio.setText(user.getBio());

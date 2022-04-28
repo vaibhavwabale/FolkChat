@@ -74,7 +74,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewH
 
 
 
-       if (user.getUid().equals(firebaseUser.getUid())) {
+       if (Objects.equals(user.getUid(), firebaseUser.getUid())) {
             holder.binding.followBtn.setVisibility(View.GONE);
         }
 

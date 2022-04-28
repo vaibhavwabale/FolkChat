@@ -13,6 +13,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -38,6 +39,7 @@ public class ChatFragment extends Fragment {
     ArrayList<User> users = new ArrayList<>();
     ChatAdapter chatAdapter;
     FirebaseApp app;
+    private FirebaseUser firebaseUser;
 
 
     @Override
@@ -46,6 +48,7 @@ public class ChatFragment extends Fragment {
 
         binding = FragmentChatBinding.inflate(getLayoutInflater());
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         auth = FirebaseAuth.getInstance();
 
@@ -86,7 +89,7 @@ public class ChatFragment extends Fragment {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     User user = snapshot1.getValue(User.class);
                     assert user != null;
-                    if (!user.getUid().equals(auth.getUid()))
+                    if(!Objects.equals(user.getUid(), firebaseUser.getUid()))
                         users.add(user);
                 }
                 Collections.reverse(users);

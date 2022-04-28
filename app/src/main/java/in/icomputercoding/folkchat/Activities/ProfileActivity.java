@@ -109,8 +109,8 @@ public class ProfileActivity extends AppCompatActivity {
             String name = Objects.requireNonNull(binding.name.getEditText()).getText().toString();
             String bio = Objects.requireNonNull(binding.bio.getEditText()).getText().toString();
 
-            if (name.isEmpty() || imageUri == null || bio.isEmpty()) {
-                Toast.makeText(ProfileActivity.this, "All fields are required!", Toast.LENGTH_SHORT).show();
+            if (name.isEmpty()) {
+                Toast.makeText(ProfileActivity.this, "Please enter your name.", Toast.LENGTH_SHORT).show();
                 return;
             }
 

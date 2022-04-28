@@ -5,6 +5,16 @@ public class User {
     private String uid, name, phoneNumber, profileImage;
     private String profile;
     private String bio;
+    private String token;
+
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getBio() {
         return bio;
