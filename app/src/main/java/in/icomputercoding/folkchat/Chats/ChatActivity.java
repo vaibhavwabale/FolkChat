@@ -285,11 +285,13 @@ public class ChatActivity extends AppCompatActivity {
 
 
             JsonObjectRequest request = new JsonObjectRequest(url, notificationData,
-                    response -> Toast.makeText(ChatActivity.this, "Success", Toast.LENGTH_SHORT).show(), error -> Toast.makeText(ChatActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show()) {
+                    response -> Toast.makeText(ChatActivity.this, "Success", Toast.LENGTH_SHORT).show(),
+                    error -> Toast.makeText(ChatActivity.this, "Send message.", Toast.LENGTH_SHORT).show())
+            {
                 @Override
                 public Map<String, String> getHeaders() {
                     HashMap<String, String> map = new HashMap<>();
-                    String key = "Key=AAAASn2Fs4A:APA91bGdTVxFBP-V0NN_zLjQTUb7yr9Shy0sYcSN2MvHxTksz11FktDxUt44hKD3CyD2ghCX61RGJW25F0mBPpTBrSArmo9emaKP8HqRQGe5A8vrdygKbY-Kfph9YvaeQnPmif5a1Zr7";
+                    String key = "Key=AAAAtuOc1zg:APA91bFiTkR56FX7fRg2a3z-Cu1mtHFN9sdKcYevuRKjWA9XNaujY2XZ7hSAW3fdMB8bZgyPD7RnYETSRStRjNesn0gi8bp_oDqw9qxDZuLwRQKJ-ZD0IF9xGemEcn18a8jQyGL6o2WY";
                     map.put("Content-Type", "application/json");
                     map.put("Authorization", key);
 

@@ -92,7 +92,6 @@ public class ChatFragment extends Fragment {
                     if(!Objects.equals(user.getUid(), firebaseUser.getUid()))
                         users.add(user);
                 }
-                Collections.reverse(users);
                 binding.recyclerView.hideShimmerAdapter();
                 chatAdapter.notifyDataSetChanged();
             }
