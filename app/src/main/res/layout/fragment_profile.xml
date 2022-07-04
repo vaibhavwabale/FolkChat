@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -15,29 +15,28 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:layout_height="wrap_content"
+            android:background="@color/mediumPurple">
 
-                <TextView
-                    android:id="@+id/username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins"
-                    android:maxLines="1"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/name"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/poppins"
+                android:maxLines="1"
+                android:text="@string/name"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/options"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_settings" />
+            <ImageView
+                android:id="@+id/options"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_settings" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -103,8 +102,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="posts" />
+                                android:text="posts"
+                                android:textSize="@dimen/_10sdp" />
 
                         </LinearLayout>
 
@@ -128,8 +127,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="followers" />
+                                android:text="followers"
+                                android:textSize="@dimen/_10sdp" />
 
                         </LinearLayout>
 
@@ -153,8 +152,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="following" />
+                                android:text="following"
+                                android:textSize="@dimen/_10sdp" />
 
                         </LinearLayout>
 
@@ -200,51 +199,58 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins"
                     android:maxLines="5"
                     android:text="Android Developer"
-                    android:textColor="@color/mediumPurple" />
+                    android:textColor="@color/mediumPurple"
+                    android:textSize="@dimen/_12sdp" />
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:id="@+id/last_bar"
+                android:background="@drawable/corners"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/mid_bar"
                 android:layout_margin="10dp"
-                android:background="@drawable/black_shade"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <Button
                     android:id="@+id/my_fotos"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/colorTextWhite"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_home" />
+                    android:text="Home" />
 
-                <ImageButton
+                <Button
                     android:id="@+id/saved_fotos"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/colorTextWhite"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_bookmark" />
+                    android:text="Saved" />
 
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/last_bar" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_save"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_below="@id/last_bar"
                 android:visibility="gone" />
 

@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".OptionsActivity">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,7 +14,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/hintTextColor"/>
+        android:background="@color/LightGray"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -28,7 +27,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/hintTextColor"/>
+        android:background="@color/LightGray"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -42,6 +41,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/hintTextColor"/>
+        android:background="@color/LightGray"/>
 
 </LinearLayout>

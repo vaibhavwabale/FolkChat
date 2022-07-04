@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "785502754616-j3cm14ubughclc7mha3mlqb4a3up4jku.apps.googleusercontent.com",
+          "client_id": "785502754616-jo5j5q2lfg2sfuvvogc329oivvshm924.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "in.icomputercoding.folkchat",
-            "certificate_hash": "73695420bfccac737d76ff82a020a30a86b7bbaa"
+            "certificate_hash": "c93a4eddbed65590ba2d9223a44892fd68987d59"
           }
         },
         {

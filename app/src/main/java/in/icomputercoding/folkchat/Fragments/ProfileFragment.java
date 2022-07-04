@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,14 +64,14 @@ public class ProfileFragment extends Fragment {
         profileId = prefs.getString("profileId","none");
 
         binding.recyclerView.setHasFixedSize(true);
-        LinearLayoutManager manager = new GridLayoutManager(getContext(),3);
+        GridLayoutManager manager = new GridLayoutManager(getContext(),3);
         binding.recyclerView.setLayoutManager(manager);
         postList = new ArrayList<>();
         fotosAdapter = new MyFotosAdapter(getContext(),postList);
         binding.recyclerView.setAdapter(fotosAdapter);
 
         binding.recyclerViewSave.setHasFixedSize(true);
-        LinearLayoutManager manager1 = new GridLayoutManager(getContext(),3);
+        GridLayoutManager manager1 = new GridLayoutManager(getContext(),3);
         binding.recyclerViewSave.setLayoutManager(manager1);
         postList_saves = new ArrayList<>();
         fotosAdapter_saves = new MyFotosAdapter(getContext(),postList_saves);
@@ -161,6 +162,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -200,6 +202,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -225,6 +228,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -245,6 +249,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -260,8 +265,7 @@ public class ProfileFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
                     for (String id : mySaves) {
-                        assert post != null;
-                        if (post.getPostId().equals(id)) {
+                        if (Objects.requireNonNull(post).getPostId().equals(id)) {
                             postList_saves.add(post);
                         }
                     }
@@ -271,6 +275,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -286,8 +291,7 @@ public class ProfileFragment extends Fragment {
                     return;
                 }
                 User user = snapshot.getValue(User.class);
-                assert user != null;
-                Picasso.get().load(user.getProfileImage())
+                Picasso.get().load(Objects.requireNonNull(user).getProfileImage())
                         .placeholder(R.drawable.profile_user)
                         .into(binding.imageProfile);
                 binding.username.setText(user.getName());
@@ -297,6 +301,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -318,6 +323,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

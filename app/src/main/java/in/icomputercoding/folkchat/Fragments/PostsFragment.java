@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.FirebaseAppCheck;
@@ -28,8 +29,6 @@ import java.util.Objects;
 
 import in.icomputercoding.folkchat.Adapters.PostAdapter;
 import in.icomputercoding.folkchat.Model.Post;
-import in.icomputercoding.folkchat.R;
-import in.icomputercoding.folkchat.databinding.FragmentHomeBinding;
 import in.icomputercoding.folkchat.databinding.FragmentPostsBinding;
 
 
@@ -41,7 +40,7 @@ public class PostsFragment extends Fragment {
     FirebaseApp app;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentPostsBinding.inflate(inflater,container,false);
@@ -86,6 +85,7 @@ public class PostsFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

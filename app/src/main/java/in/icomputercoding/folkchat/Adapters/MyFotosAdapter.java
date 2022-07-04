@@ -44,7 +44,6 @@ public class MyFotosAdapter extends RecyclerView.Adapter<MyFotosAdapter.ImageVie
 
         Picasso.get()
                 .load(post.getPostImage())
-                .placeholder(R.drawable.background)
                 .into(holder.binding.postImage);
 
         holder.binding.postImage.setOnClickListener(view -> {

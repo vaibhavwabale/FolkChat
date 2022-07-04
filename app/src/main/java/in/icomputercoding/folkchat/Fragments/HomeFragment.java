@@ -205,12 +205,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
-
-
-
-
         binding.addStoryImg.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setType("image/*");

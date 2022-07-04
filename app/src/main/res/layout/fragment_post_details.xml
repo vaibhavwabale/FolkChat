@@ -7,13 +7,13 @@
         android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground">
+        android:background="@color/mediumPurple">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground">
+            android:background="@color/mediumPurple">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -22,10 +22,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_24sdp"
                     android:text="Photo"
+                    android:fontFamily="@font/poppins"
                     android:textColor="@color/colorTextBlack"
-                    android:textStyle="bold"/>
+                    android:textSize="@dimen/_20sdp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -34,13 +35,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/hintTextColor"/>
+            android:background="@color/LightGray" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_below="@id/bar"
         android:id="@+id/recycler_view"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bar" />
 
 </RelativeLayout>
