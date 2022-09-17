@@ -1,13 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.FolkChat" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/mediumPurple</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/mediumPurple</item>
         <item name="colorPrimary">@color/mediumPurple</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/ColorAccent</item>
         <item name="android:textColor">@color/colorTextBlack</item>
         <item name="fontFamily">@font/poppins</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="AppTheme.PurpleAccent">
+        <item name="colorAccent">@color/mediumPurple</item>
     </style>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">

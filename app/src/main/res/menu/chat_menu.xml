@@ -3,14 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:icon="@drawable/ic_video"
-        android:title="Video Call"
+        android:id="@+id/group_chat"
+        android:icon="@drawable/ic_group"
+        android:title="@string/group_messaging"
         app:showAsAction="always" />
-    <item
-        android:icon="@drawable/ic_call"
-        android:title="Audio Call"
-        app:showAsAction="always" />
-    <item android:title="Profile" />
-    <item android:title="Block" />
-    <item android:title="Settings" />
+
+    <item android:title="@string/profile" />
+
+    <item android:title="@string/block" />
+
+    <item android:title="@string/settings" />
 </menu>

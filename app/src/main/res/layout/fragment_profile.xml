@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".Fragments.ProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -27,7 +28,7 @@
                 android:maxLines="1"
                 android:text="@string/name"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_12font_mdp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -36,7 +37,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_settings" />
+                android:src="@drawable/ic_menu" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -49,12 +50,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/bar">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -94,6 +95,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:fontFamily="@font/poppins"
+                                android:text="5"
                                 android:textColor="@color/mediumPurple"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -119,6 +121,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:fontFamily="@font/poppins"
+                                android:text="10"
                                 android:textColor="@color/mediumPurple"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -144,6 +147,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:fontFamily="@font/poppins"
+                                android:text="12"
                                 android:textColor="@color/mediumPurple"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -201,61 +205,53 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/poppins"
                     android:maxLines="5"
-                    android:text="Android Developer"
+                    android:text="@string/name"
                     android:textColor="@color/mediumPurple"
                     android:textSize="@dimen/_12sdp" />
 
-            </LinearLayout>
 
+            </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/last_bar"
-                android:background="@drawable/corners"
+                android:id="@+id/lastBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/mid_bar"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_below="@id/top_bar"
+                android:padding="12dp"
+                android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/my_fotos"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/posts"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/colorTextWhite"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Home" />
+                    android:background="@drawable/corners" />
 
-                <Button
-                    android:id="@+id/saved_fotos"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="0dp"
-                    android:fontFamily="@font/poppins"
-                    android:textColor="@color/colorTextWhite"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Saved" />
+                <GridView
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:gravity="center"
+                    android:horizontalSpacing="1dp"
+                    android:numColumns="3"
+                    android:layout_marginTop="10dp"
+                    android:stretchMode="columnWidth"
+                    android:visibility="visible"
+                    android:verticalSpacing="1dp" />
+
+
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/last_bar" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/last_bar"
-                android:visibility="gone" />
 
         </LinearLayout>
 
+
+
+
     </ScrollView>
+
+
 
 </RelativeLayout>

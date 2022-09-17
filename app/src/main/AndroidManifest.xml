@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -34,8 +36,9 @@
             android:exported="false" />
         <activity
             android:name=".Chats.GroupChat"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.FolkChat.NoActionBar" />
+
         <activity
             android:name=".Chats.ChatActivity"
             android:exported="false"
@@ -44,21 +47,19 @@
             android:name=".Activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-        <activity
             android:name=".Activities.WelcomeActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.FolkChat.NoActionBar">
+            android:theme="@style/Theme.FolkChat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Activities.ProfileActivity"
             android:exported="true"
@@ -73,7 +74,7 @@
             android:theme="@style/Theme.FolkChat.NoActionBar" />
 
         <service
-            android:name=".MyFirstbaseService"
+            android:name=".Utils.MyFirstbaseService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

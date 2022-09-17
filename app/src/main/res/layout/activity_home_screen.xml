@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:background="@color/mediumPurple"
         android:elevation="3dp"
-        app:itemIconTint="@drawable/item_selector"
+        app:itemIconTint="@color/colorWhite"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"

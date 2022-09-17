@@ -36,7 +36,7 @@ import java.util.Objects;
 
 import in.icomputercoding.folkchat.Adapters.TabAdapter;
 import in.icomputercoding.folkchat.Adapters.TopStatusAdapter;
-import in.icomputercoding.folkchat.Adapters.ChatAdapter;
+import in.icomputercoding.folkchat.Chats.Adapter.ChatAdapter;
 import in.icomputercoding.folkchat.Chats.ChatFragment;
 import in.icomputercoding.folkchat.Model.Status;
 import in.icomputercoding.folkchat.Model.User;

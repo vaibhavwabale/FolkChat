@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".Fragments.NotificationFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -15,11 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:background="@color/mediumPurple">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -27,10 +24,16 @@
                     android:fontFamily="@font/poppins"
                     android:text="@string/notifications"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/_12font_mdp"
                     android:textStyle="bold" />
 
-            </RelativeLayout>
+                <ImageView
+                    android:id="@+id/options"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_notifications" />
 
         </androidx.appcompat.widget.Toolbar>
 

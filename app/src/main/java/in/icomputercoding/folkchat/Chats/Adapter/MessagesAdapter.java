@@ -1,4 +1,4 @@
-package in.icomputercoding.folkchat.Adapters;
+package in.icomputercoding.folkchat.Chats.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;

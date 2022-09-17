@@ -1,4 +1,4 @@
-package in.icomputercoding.folkchat.Adapters;
+package in.icomputercoding.folkchat.Chats.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,7 +65,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.UsersViewHolde
                             @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
                             holder.binding.msgTime.setText(dateFormat.format(new Date(time)));
                             holder.binding.lastMsg.setText(lastMsg);
+                            holder.binding.check.setVisibility(View.VISIBLE);
                         } else {
+                            holder.binding.check.setVisibility(View.GONE);
                             holder.binding.lastMsg.setText("Tap to chat");
                         }
                     }
@@ -79,7 +81,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.UsersViewHolde
 
         holder.binding.username.setText(user.getName());
 
-        Glide.with(context).load(user.getProfileImage())
+        Picasso.get()
+                .load(user.getProfileImage())
                 .placeholder(R.drawable.profile_user)
                 .into(holder.binding.profile);
 

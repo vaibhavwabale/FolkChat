@@ -7,6 +7,8 @@ public class Notification {
     private String postId;
     private boolean isPost;
 
+
+
     public Notification() {
     }
 
@@ -44,6 +46,8 @@ public class Notification {
     public boolean isPost() {
         return isPost;
     }
+
+
 
     public void setPost(boolean post) {
         isPost = post;

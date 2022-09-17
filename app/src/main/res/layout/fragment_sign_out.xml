@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/colorWhite"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -13,9 +14,9 @@
             android:id="@+id/tvConfirmSignout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Are you sure you want to sign out?"
+            android:text="@string/sure"
             android:textColor="@color/colorTextBlack"
-            android:textSize="20sp" />
+            android:textSize="@dimen/_15font_mdp" />
 
         <Button
             android:id="@+id/btnConfirmSignout"
@@ -24,9 +25,10 @@
             android:layout_below="@+id/tvConfirmSignout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="@drawable/white_rounded_button"
-            android:text="Sign Out"
-            android:textSize="20sp" />
+            android:textColor="@color/colorTextWhite"
+            android:background="@drawable/corners"
+            android:text="@string/sign_out"
+            android:textSize="@dimen/_15font_mdp" />
 
 
     </RelativeLayout>
@@ -35,22 +37,23 @@
         android:id="@+id/progressBar"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:theme="@style/AppTheme.PurpleAccent"
         android:layout_centerInParent="true" />
 
     <TextView
         android:id="@+id/tvSigningOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/progressBar"
-        android:layout_alignRight="@+id/progressBar"
+        android:layout_alignStart="@+id/progressBar"
+        android:layout_alignEnd="@+id/progressBar"
         android:layout_alignBottom="@+id/progressBar"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="-1dp"
-        android:layout_marginRight="1dp"
+        android:layout_marginStart="-1dp"
+        android:layout_marginEnd="1dp"
         android:layout_marginBottom="-26dp"
         android:textAlignment="center"
-        android:text="Signing Out..."
+        android:text="@string/signing_out"
         android:textColor="@color/colorTextBlack"
-        android:textSize="20sp" />
+        android:textSize="@dimen/_15font_mdp" />
 
 </RelativeLayout>

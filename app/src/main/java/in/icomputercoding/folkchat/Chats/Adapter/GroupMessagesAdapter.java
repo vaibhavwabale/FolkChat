@@ -1,4 +1,4 @@
-package in.icomputercoding.folkchat.Adapters;
+package in.icomputercoding.folkchat.Chats.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -129,7 +129,7 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists()) {
                                 User user = snapshot.getValue(User.class);
-                                viewHolder.binding.name.setText("@" + Objects.requireNonNull(user).getName());
+                                viewHolder.binding.name.setText(Objects.requireNonNull(user).getName());
                             }
                         }
 
@@ -166,7 +166,7 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
                         .setView(binding.getRoot())
                         .create();
 
-                binding.everyone.setOnClickListener((View.OnClickListener) v1 -> {
+                binding.everyone.setOnClickListener(v1 -> {
                     message.setMessage("This message is removed.");
                     message.setFeeling(-1);
                     FirebaseDatabase.getInstance().getReference()
@@ -176,14 +176,14 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
                     dialog.dismiss();
                 });
 
-                binding.delete.setOnClickListener((View.OnClickListener) v12 -> {
+                binding.delete.setOnClickListener(v12 -> {
                     FirebaseDatabase.getInstance().getReference()
                             .child("public")
                             .child(message.getMessageId()).setValue(null);
                     dialog.dismiss();
                 });
 
-                binding.cancel.setOnClickListener((View.OnClickListener) v15 -> dialog.dismiss());
+                binding.cancel.setOnClickListener(v15 -> dialog.dismiss());
 
                 dialog.show();
 
@@ -208,7 +208,7 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists()) {
                                 User user = snapshot.getValue(User.class);
-                                viewHolder.binding.name.setText("@" + Objects.requireNonNull(user).getName());
+                                viewHolder.binding.name.setText(Objects.requireNonNull(user).getName());
                             }
                         }
 
@@ -220,7 +220,6 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
             viewHolder.binding.message.setText(message.getMessage());
 
             if(message.getFeeling() >= 0) {
-                //message.setFeeling(reactions[message.getFeeling()]);
                 viewHolder.binding.feeling.setImageResource(reactions[message.getFeeling()]);
                 viewHolder.binding.feeling.setVisibility(View.VISIBLE);
             } else {
@@ -255,14 +254,14 @@ public class GroupMessagesAdapter extends RecyclerView.Adapter {
                     dialog.dismiss();
                 });
 
-                binding.delete.setOnClickListener((View.OnClickListener) v13 -> {
+                binding.delete.setOnClickListener(v13 -> {
                     FirebaseDatabase.getInstance().getReference()
                             .child("public")
                             .child(message.getMessageId()).setValue(null);
                     dialog.dismiss();
                 });
 
-                binding.cancel.setOnClickListener((View.OnClickListener) v14 -> dialog.dismiss());
+                binding.cancel.setOnClickListener(v14 -> dialog.dismiss());
 
                 dialog.show();
 

@@ -49,9 +49,9 @@ public class NotificationFragment extends Fragment {
 
         readNotification();
 
-
         return binding.getRoot();
     }
+
 
     private void readNotification() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

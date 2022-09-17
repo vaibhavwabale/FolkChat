@@ -1,6 +1,8 @@
 package in.icomputercoding.folkchat.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -44,6 +47,8 @@ public class PostsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentPostsBinding.inflate(inflater,container,false);
+
+
 
         app = FirebaseApp.initializeApp(requireContext());
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
@@ -93,4 +98,5 @@ public class PostsFragment extends Fragment {
 
         return binding.getRoot();
     }
+
 }

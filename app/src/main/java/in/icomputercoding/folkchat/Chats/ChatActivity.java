@@ -5,17 +5,20 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -33,6 +36,7 @@ import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +44,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import in.icomputercoding.folkchat.Adapters.MessagesAdapter;
+import in.icomputercoding.folkchat.Chats.Adapter.MessagesAdapter;
 import in.icomputercoding.folkchat.Model.Message;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.ActivityChatBinding;
@@ -58,7 +62,10 @@ public class ChatActivity extends AppCompatActivity {
     String receiverUid;
     ActivityResultLauncher<Intent> attach;
 
+    private static final long MILLIS_IN_A_DAY = 1000 * 60 * 60 * 24;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +88,6 @@ public class ChatActivity extends AppCompatActivity {
         String profile = getIntent().getStringExtra("image");
         String token = getIntent().getStringExtra("token");
 
-        //Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
 
         binding.name.setText(name);
         Glide.with(ChatActivity.this).load(profile)
@@ -163,6 +169,7 @@ public class ChatActivity extends AppCompatActivity {
                                     String messageTxt = binding.messageBox.getText().toString();
 
                                     Date date = new Date();
+
                                     Message message = new Message(messageTxt, senderUid, date.getTime());
                                     message.setMessage("photo");
                                     message.setImageUrl(filePath);
@@ -170,9 +177,10 @@ public class ChatActivity extends AppCompatActivity {
 
                                     String randomKey = database.getReference().push().getKey();
 
+                                    LocalDateTime today = LocalDateTime.now();
                                     HashMap<String, Object> lastMsgObj = new HashMap<>();
                                     lastMsgObj.put("lastMsg", message.getMessage());
-                                    lastMsgObj.put("lastMsgTime", date.getTime());
+                                    lastMsgObj.put("lastMsgTime", today.getDayOfMonth() );
 
                                     database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
                                     database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
@@ -188,8 +196,6 @@ public class ChatActivity extends AppCompatActivity {
                                             .setValue(message).addOnSuccessListener(aVoid1 -> {
 
                                             }));
-
-                                    //Toast.makeText(ChatActivity.this, filePath, Toast.LENGTH_SHORT).show();
                                 });
                             }
                         });
@@ -231,12 +237,6 @@ public class ChatActivity extends AppCompatActivity {
             intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             attach.launch(intent);
-        });
-
-        binding.camera.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_CAMERA_BUTTON);
-
         });
 
         final Handler handler = new Handler();
@@ -326,6 +326,16 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.chat_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.group_chat) {
+            Intent i = new Intent(ChatActivity.this,GroupChat.class);
+            startActivity(i);
+        }
+            return super.onOptionsItemSelected(item);
     }
 
     @Override

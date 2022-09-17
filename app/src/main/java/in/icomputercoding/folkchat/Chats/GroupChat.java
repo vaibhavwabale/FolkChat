@@ -1,11 +1,14 @@
 package in.icomputercoding.folkchat.Chats;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
-import in.icomputercoding.folkchat.Adapters.GroupMessagesAdapter;
+import in.icomputercoding.folkchat.Chats.Adapter.GroupMessagesAdapter;
 import in.icomputercoding.folkchat.Model.Message;
 import in.icomputercoding.folkchat.R;
 import in.icomputercoding.folkchat.databinding.ActivityGroupChatBinding;
@@ -137,7 +140,6 @@ public class GroupChat extends AppCompatActivity {
                                 database.getReference().child("public")
                                         .push()
                                         .setValue(message);
-                                //Toast.makeText(ChatActivity.this, filePath, Toast.LENGTH_SHORT).show();
                             });
                         }
                     });
@@ -148,7 +150,7 @@ public class GroupChat extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.chat_menu, menu);
+        getMenuInflater().inflate(R.menu.topmenu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -156,5 +158,15 @@ public class GroupChat extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to Chat individual?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, (arg0, arg1) ->
+                        GroupChat.super.onBackPressed()).create().show();
     }
 }

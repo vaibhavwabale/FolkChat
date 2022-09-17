@@ -23,11 +23,10 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
 
-import in.icomputercoding.folkchat.Adapters.ChatAdapter;
+import in.icomputercoding.folkchat.Chats.Adapter.ChatAdapter;
 import in.icomputercoding.folkchat.Model.User;
 import in.icomputercoding.folkchat.databinding.FragmentChatBinding;
 

@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
+import java.util.Objects;
 
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.User;
@@ -71,7 +73,8 @@ public class AddPostFragment extends Fragment {
         dialog.setCanceledOnTouchOutside(false);
 
         database.getReference().child("users")
-                .child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -100,12 +103,11 @@ public class AddPostFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String description = binding.postDescription.getText().toString();
                 if (!description.isEmpty()) {
-                    binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.follow_btn_bg));
-                    binding.postBtn.setTextColor(getContext().getResources().getColor(R.color.white));
-                    binding.postBtn.setEnabled(true);
-                } else {
                     binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.follow_active_btn));
-                    binding.postBtn.setTextColor(getContext().getResources().getColor(R.color.LightGray));
+                    binding.postBtn.setTextColor(getContext().getResources().getColor(R.color.colorTextBlack));
+                    binding.postBtn.setEnabled(true);
+                } else {binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.follow_btn_bg));
+                    binding.postBtn.setTextColor(getContext().getResources().getColor(R.color.colorTextWhite));
                     binding.postBtn.setEnabled(false);
                 }
             }
@@ -158,6 +160,9 @@ public class AddPostFragment extends Fragment {
                         .setValue(post).addOnSuccessListener(unused -> {
                             dialog.dismiss();
                             Toast.makeText(getContext(), "Posted Successfully", Toast.LENGTH_SHORT).show();
+
+                            ((FragmentActivity) requireContext()).getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                                    new HomeFragment()).commit();
                         });
 
             }));

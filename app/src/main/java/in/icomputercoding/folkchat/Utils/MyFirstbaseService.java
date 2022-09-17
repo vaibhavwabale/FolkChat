@@ -1,4 +1,4 @@
-package in.icomputercoding.folkchat;
+package in.icomputercoding.folkchat.Utils;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 import in.icomputercoding.folkchat.Activities.HomeActivity;
+import in.icomputercoding.folkchat.R;
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 public class MyFirstbaseService extends FirebaseMessagingService {

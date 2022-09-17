@@ -4,10 +4,8 @@
     <item android:state_checked="true"
         android:color="@color/colorWhite"/>
 
-    <item android:state_pressed="true"
-        android:color="@color/colorWhite"/>
-
-    <item android:color="@color/LightGray" />
+    <item android:color="@color/LightGray"
+        android:state_checked="false"/>
 
 
 

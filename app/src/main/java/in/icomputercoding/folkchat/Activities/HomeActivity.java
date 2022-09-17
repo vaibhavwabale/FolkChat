@@ -1,10 +1,16 @@
 package in.icomputercoding.folkchat.Activities;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -12,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
+import in.icomputercoding.folkchat.Chats.GroupChat;
 import in.icomputercoding.folkchat.Fragments.AddPostFragment;
 import in.icomputercoding.folkchat.Fragments.HomeFragment;
 import in.icomputercoding.folkchat.Fragments.NotificationFragment;
@@ -26,6 +33,8 @@ public class HomeActivity extends AppCompatActivity {
     Fragment fragment = null;
 
 
+    @SuppressLint("ResourceType")
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,22 +45,18 @@ public class HomeActivity extends AppCompatActivity {
         if (intent != null) {
             String profile = intent.getString("profileId");
 
-            SharedPreferences.Editor editor = getSharedPreferences("PREFS",MODE_PRIVATE).edit();
-            editor.putString("profileId",profile);
+            SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+            editor.putString("profileId", profile);
             editor.apply();
 
             getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                    new ProfileFragment()).commit();
+                    new ProfileFragment()).addToBackStack(null).commit();
         } else {
             getSupportFragmentManager().beginTransaction().replace(R.id.container,
                     new HomeFragment()).commit();
         }
 
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
-
-
-        binding.bottomNavigationView.setSelectedItemId(R.id.home);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -64,22 +69,20 @@ public class HomeActivity extends AppCompatActivity {
             } else if (itemId == R.id.notifications) {
                 fragment = new NotificationFragment();
             } else if (itemId == R.id.profile) {
-                SharedPreferences.Editor editor = getSharedPreferences("PREFS",MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
                 editor.putString("profileId", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
                 editor.apply();
                 fragment = new ProfileFragment();
             }
-
-            if (fragment != null) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, Objects.requireNonNull(fragment)).commit();
-            }
-
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, Objects.requireNonNull(fragment))
+                    .addToBackStack(null).commit();
             return true;
         });
 
 
     }
-
 
 
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {

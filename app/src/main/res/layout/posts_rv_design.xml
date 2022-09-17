@@ -37,9 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/poppins"
-                android:text="@string/name"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="16sp"
+                android:textSize="@dimen/_16font_mdp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -52,8 +51,7 @@
                 android:id="@+id/post_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/dennis"
+                android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="1:1"
                 tools:ignore="MissingConstraints" />
 

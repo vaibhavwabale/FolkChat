@@ -23,18 +23,30 @@
         android:layout_marginStart="8dp"
         android:text="Sample Name"
         android:textColor="@color/black"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/_14font_mdp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/profile"
         app:layout_constraintTop_toTopOf="@+id/profile" />
+
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="@dimen/_10mdp"
+        android:layout_height="@dimen/_10mdp"
+        android:src="@drawable/ic_check"
+        android:layout_marginTop="@dimen/_5mdp"
+        android:background="@color/mediumPurple"
+        app:layout_constraintStart_toStartOf="@id/username"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintEnd_toStartOf="@id/lastMsg" />
 
     <TextView
         android:id="@+id/lastMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5mdp"
         android:text="Tap to chat"
-        android:textSize="@dimen/_14sdp"
-        app:layout_constraintStart_toStartOf="@+id/username"
+        android:textSize="@dimen/_12font_mdp"
+        app:layout_constraintStart_toEndOf="@+id/check"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
@@ -43,8 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text=""
-        android:textSize="12sp"
+        android:text="8:12 AM"
+        android:textSize="@dimen/_9font_mdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

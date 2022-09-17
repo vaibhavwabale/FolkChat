@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".Fragments.AddPostFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -31,10 +32,12 @@
                 android:layout_weight="2"
                 android:fontFamily="@font/poppins"
                 android:gravity="center_vertical"
-                android:text="Create Post"
+                android:text="@string/create_post"
                 android:textAlignment="gravity"
+                android:textStyle="bold"
+                android:textAllCaps="true"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="@dimen/_20sdp"
+                android:textSize="@dimen/_15font_mdp"
                 app:layout_constraintBottom_toBottomOf="@+id/postBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/postBtn" />
@@ -49,7 +52,7 @@
                 android:background="@drawable/follow_active_btn"
                 android:enabled="false"
                 android:fontFamily="@font/poppins"
-                android:text="Post"
+                android:text="@string/post"
                 android:textColor="@color/colorTextBlack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -77,9 +80,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/poppins"
-        android:text=""
         android:textColor="@color/colorTextBlack"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_14font_mdp"
         app:layout_constraintBottom_toBottomOf="@+id/profileImage"
         app:layout_constraintStart_toEndOf="@+id/profileImage"
         app:layout_constraintTop_toTopOf="@+id/profileImage"
@@ -96,8 +98,8 @@
         android:fontFamily="@font/poppins"
         android:gravity="top"
         android:hint="What's on your mind?"
-        android:inputType="textPersonName"
-        android:textSize="@dimen/_14sdp"
+        android:inputType="text"
+        android:textSize="@dimen/_14font_mdp"
         app:layout_constraintBottom_toTopOf="@+id/postImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -107,15 +109,13 @@
 
     <ImageView
         android:id="@+id/postImage"
-        android:layout_width="wrap_content"
-        android:layout_height="220dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/background"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/bar2"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
@@ -123,15 +123,15 @@
         android:id="@+id/bar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/toolbar_bg"
+        app:elevation="0dp"
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/LightGray"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <ImageView
@@ -141,18 +141,20 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/gallery_24"
+                android:background="@drawable/gallery_24"
+                android:backgroundTint="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
-                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Add to your post"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="@dimen/_15sdp"
+                android:text="@string/add_post"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/_12font_mdp"
+                android:textAllCaps="true"
+                android:fontFamily="@font/poppins"
                 app:layout_constraintBottom_toBottomOf="@+id/addImg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/addImg" />

@@ -1,7 +1,6 @@
 package in.icomputercoding.folkchat.Model;
 
 
-
 public class Comment {
     private String profile;
     private String commentId;

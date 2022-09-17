@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,8 +21,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import in.icomputercoding.folkchat.Fragments.PostDetailsFragment;
-import in.icomputercoding.folkchat.Fragments.ProfileFragment;
 import in.icomputercoding.folkchat.Model.Notification;
 import in.icomputercoding.folkchat.Model.Post;
 import in.icomputercoding.folkchat.Model.User;
@@ -56,7 +53,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         getUserInfo(holder.binding.imageProfile,holder.binding.username,notification.getUserId());
 
-        if (notification.isPost()) {
+        if (!notification.isPost()) {
             holder.binding.postImageNotify.setVisibility(View.VISIBLE);
             getPostImage(holder.binding.postImageNotify,notification.getPostId());
         } else {
@@ -67,18 +64,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
             if (notification.isPost()) {
                 editor.putString("postId", notification.getPostId());
-                editor.apply();
 
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                        new PostDetailsFragment()).commit();
             } else {
                 editor.putString("profileId", notification.getUserId());
-                editor.apply();
-
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                        new ProfileFragment()).commit();
 
             }
+            editor.apply();
         });
 
     }
