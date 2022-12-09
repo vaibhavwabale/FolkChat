@@ -3,7 +3,7 @@
     <string name="phone_desc">FolkChat will need to verify your phone number. <b>What\'s my number?</b></string>
     <string name="next">Next</string>
     <string name="Description">Enter one time password send on +918698066529</string>
-    <string name="privacy_desc">Read our <b>Privacy Policy.</b> Tap Agree and continue to accept the <b>Term of Service.</b></string>
+    <string name="privacy_desc">Read our <b>Privacy Policy.</b> Tap Login or Register to accept the <b>Term of Service.</b></string>
     <string name="agree">AGREE AND CONTINUE</string>
     <string name="welcome">Welcome To FolkChat</string>
     <string name="enter_phone">Enter Your Phone Number</string>
@@ -25,7 +25,6 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="online">Online</string>
-    <string name="name">Vaibhav Wable</string>
     <string name="dashboard">Dashboard</string>
     <string name="type_a_message">Type a message…</string>
     <string name="title_activity_tabbed">Tabbed</string>
@@ -36,6 +35,19 @@
     <string name="delete_for_everyone">Delete for Everyone</string>
     <string name="username">Username</string>
 
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="dont"> Don\'t have an account?</string>
+    <string name="already"> Already have an account?</string>
+    <string name="miss_reg">We missed you! Register to get started</string>
+    <string name="miss_log">We missed you! Login to get started</string>
+    <string name="forget">Forget Password?</string>
+    <string name="email">Enter E-mail Address</string>
+    <string name="password">Enter Password</string>
+    <string name="name">Enter Name</string>
+    <string name="need">Need Help?</string>
+    <string name="send_email">Send Email</string>
+    <string name="reset_password">Reset Password</string>
 
 
     <!-- fragment names -->

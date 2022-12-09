@@ -2,9 +2,11 @@ package in.icomputercoding.folkchat.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import in.icomputercoding.folkchat.databinding.ActivityWelcomeScreenBinding;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -28,12 +30,11 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityWelcomeScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
-        binding.agree.setOnClickListener(v -> {
-            Intent intent = new Intent(WelcomeActivity.this, PhoneActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        });
+        binding.btnLogin.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
+
+        binding.btnRegister.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
 
     }
 

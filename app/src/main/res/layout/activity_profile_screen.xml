@@ -74,7 +74,8 @@
             android:fontFamily="@font/poppins"
             android:inputType="textPersonName"
             android:textColor="@color/colorTextBlack"
-            android:textCursorDrawable="@null" />
+            android:textCursorDrawable="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -107,7 +108,8 @@
             android:fontFamily="@font/poppins"
             android:inputType="textShortMessage"
             android:textColor="@color/colorTextBlack"
-            android:textCursorDrawable="@null" />
+            android:textCursorDrawable="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
     </com.google.android.material.textfield.TextInputLayout>

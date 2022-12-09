@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="in.icomputercoding.folkchat">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,7 +9,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -21,7 +19,28 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FolkChat">
+        android:theme="@style/Theme.FolkChat" >
+        <activity
+            android:name=".Activities.ResetPasswordActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activities.RegisterActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".Activities.FollowersActivity"
             android:exported="false" />
@@ -38,7 +57,6 @@
             android:name=".Chats.GroupChat"
             android:exported="true"
             android:theme="@style/Theme.FolkChat.NoActionBar" />
-
         <activity
             android:name=".Chats.ChatActivity"
             android:exported="false"
@@ -59,23 +77,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activities.ProfileActivity"
             android:exported="true"
             android:theme="@style/Theme.FolkChat.NoActionBar" />
-        <activity
-            android:name=".Activities.OTPVerifyActivity"
-            android:exported="false"
-            android:theme="@style/Theme.FolkChat.NoActionBar" />
-        <activity
-            android:name=".Activities.PhoneActivity"
-            android:exported="false"
-            android:theme="@style/Theme.FolkChat.NoActionBar" />
 
         <service
             android:name=".Utils.MyFirstbaseService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
